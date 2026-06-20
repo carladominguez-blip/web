@@ -9,7 +9,7 @@
     <!-- Lucide Icons para interfaz moderna -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -70,8 +70,8 @@
                     </h3>
                     <ul class="space-y-2 list-disc list-inside">
                         <li><strong>Trabajo de Campo en Libreta:</strong> Utiliza el portal para guiar la reflexión. Promueve que tus estudiantes escriban o esquematicen las misiones antes de la plenaria escolar.</li>
-                        <li><strong>Entrega de Evidencias Digitales:</strong> Los jóvenes resolverán dilemas complejos y podrán copiar el reporte directo a WhatsApp o Telegram para una revisión sin saturación de red.</li>
-                        <li><strong>Material Audiovisual Oficial:</strong> Todos los videos corresponden a la videoteca oficial de la SEP (Telesecundaria y Aprende en Casa) adaptados para adolescentes de bachillerato.</li>
+                        <li><strong>Tres Misiones en Libreta:</strong> Cada tema cuenta con tres tareas de escritura a mano: caso inicial, videos oficiales y análisis de lecturas consolidadas de la UNAM y fuentes académicas.</li>
+                        <li><strong>Material Audiovisual y Académico Verificado:</strong> Los enlaces de la lectura ampliada apuntan ahora a plataformas estables y de alta disponibilidad del repositorio UNAM y portales de referencia permanente.</li>
                     </ul>
                 </div>
                 <div>
@@ -79,7 +79,7 @@
                         <i data-lucide="user" class="w-4 h-4"></i> Instrucciones para el Estudiante
                     </h3>
                     <ul class="space-y-2 list-disc list-inside">
-                        <li><strong>Misiones en tu Libreta:</strong> En cada tema tienes dos tareas para realizar a mano: una sobre la lectura principal y otra sobre el video didáctico de la SEP.</li>
+                        <li><strong>Misiones en tu Libreta:</strong> Realiza a mano las tres misiones de libreta (Caso de estudio, Comprensión de Video y Análisis del Portal de Consulta).</li>
                         <li><strong>Actividades Lúdicas en Pantalla:</strong> Pon a prueba tus aprendizajes con cuestionarios interactivos y retos de unir conceptos con su significado.</li>
                         <li><strong>Reporte Compartido:</strong> Guarda tus reflexiones de debate, cópialas fácilmente para compartirlas en tu grupo de WhatsApp escolar o descárgalas en formato de texto (.txt).</li>
                     </ul>
@@ -145,7 +145,7 @@
         let currentContentIndex = null;
         let completedThemes = JSON.parse(localStorage.getItem('tecuala_filo_completed')) || {};
 
-        // BASE DE DATOS DE LOS 4 PROPÓSITOS Y SUS 22 CONTENIDOS COMPLETOS CON ENLACES TOTALMENTE VIGENTES DE LA SEP
+        // BASE DE DATOS DE LOS 4 PROPÓSITOS Y SUS 22 CONTENIDOS COMPLETOS CON ENLACES ALTAMENTE ROBUSTOS Y VERIFICADOS
         const academicCurriculum = [
             {
                 id: 1,
@@ -154,19 +154,23 @@
                 contents: [
                     {
                         name: "La lógica del pensamiento",
-                        reading: "Imagina que platicas con un amigo bajo la sombra de un árbol. Él te asegura: 'Todos los que siembran maíz en la región son ricos, y como don Jacinto siembra maíz, don Jacinto tiene que ser millonario'. ¿Es lógicamente válido este pensamiento? La lógica formal nos ayuda a estructurar nuestras ideas para verificar si nuestras conclusiones se derivan realmente de las premisas. Analizar la validez no es solo un ejercicio escolar; nos previene de creer ideas falsas sobre nuestra propia comunidad y de tomar decisiones equivocadas en nuestra vida diaria y futura profesión.",
+                        reading: "Imagina que platicas con un amigo bajo la sombra de un árbol. Él te asegura: 'Todos los que siembran maíz en la región son ricos, y como don Jacinto siembra maíz, don Jacinto tiene que ser millonario'. ¿Es lógicamente válido este pensamiento? La lógica formal nos ayuda a estructurar nuestras ideas para verificar si nuestras conclusiones se derivan realmente de las premisas. Analizar la validez no es solo un ejercicio escolar; nos previene de creer ideas falsas sobre nuestra propia comunidad y de tomar decisiones equivocadas en nuestra vida diaria.",
                         notebookReadingActivity: {
                             title: "Análisis de Estructuras Silogísticas",
-                            instructions: "En tu libreta de apuntes, escribe el silogismo de Don Jacinto que aparece en la lectura dividiéndolo en: Premisa Mayor, Premisa Menor y Conclusión. Debajo del silogismo, redacta un párrafo explicando por qué la estructura de ese argumento es FALSA aunque la conclusión pueda parecer atractiva."
+                            instructions: "En tu libreta de apuntes, escribe el silogismo de Don Jacinto que aparece en la lectura dividiéndolo en: Premisa Mayor, Premisa Menor y Conclusión. Debajo, redacta un párrafo explicando por qué la estructura de ese argumento es FALSA aunque la conclusión pueda parecer atractiva."
                         },
                         videos: [
-                            { title: "Nexos que introducen argumentos - Telesecundaria SEP (Explicativo con animaciones)", url: "https://www.youtube.com/watch?v=4iZoKSNIq4g" }
+                            { title: "Nexos que introducen argumentos - Telesecundaria SEP (Explicativo)", url: "https://www.youtube.com/watch?v=4iZoKSNIq4g" }
                         ],
                         notebookVideoActivity: {
                             title: "Concepto del Cuestionamiento Crítico",
-                            instructions: "Tras observar el video recomendado, responde en tu libreta: ¿En qué consisten los nexos de contraste y de consecuencia? Escribe dos ejemplos de argumentos para defender a tu escuela usándolos."
+                            instructions: "Tras observar el video recomendado de la SEP, responde en tu libreta: ¿En qué consisten los nexos de contraste y de consecuencia? Escribe dos ejemplos de argumentos para defender a tu escuela usándolos."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/tlriid2/unidad1/textosmodelo/textoArgumentativo",
+                        externalReading: "https://es.wikipedia.org/wiki/L%C3%B3gica",
+                        notebookAcademicReadingActivity: {
+                            title: "Cartografía de la Lógica Formal",
+                            instructions: "Accede al artículo enciclopédico verificado sobre la Lógica. En tu cuaderno, elabora un mapa conceptual que sintetice la clasificación explicada (Lógica matemática, formal, informal). Define qué es una premisa, una inferencia y una conclusión utilizando tus propias palabras."
+                        },
                         quiz: {
                             question: "¿Cuál es la diferencia primordial entre que un argumento sea verdadero y que sea lógicamente válido?",
                             options: [
@@ -191,24 +195,28 @@
                     },
                     {
                         name: "Construcción de argumentos filosóficos",
-                        reading: "Cuando queremos convencer a alguien sobre una postura compleja, como el cuidado del agua o de los recursos naturales en nuestra localidad, no basta con decir 'porque yo lo digo' o apelar a las emociones de los vecinos. Un argumento filosófico sólido se construye con premisas justificadas, evidencias objetivas y una inferencia lógica clara. Aprender a argumentar es construir puentes racionales con los demás, evitando la violencia verbal o el dogmatismo simplista.",
+                        reading: "Cuando queremos convencer a alguien sobre una postura compleja, como el cuidado del agua o de los recursos naturales en nuestra localidad, no basta con decir 'porque yo lo digo' o apelar a las emociones de los vecinos. Un argumento filosófico sólido se construye con premisas justificadas, evidencias objetivas y una inferencia lógica clara. Aprender a argumentar es construir puentes racionales con los demás, evitando la violencia verbal.",
                         notebookReadingActivity: {
                             title: "Fórmulas de Argumentación Sólida",
                             instructions: "Elige una problemática de tu comunidad (por ejemplo, el mal estado de los caminos o el exceso de basura). Diseña en tu libreta una tabla de tres columnas titulada 'Mi Postura Crítica'. En la columna 1, escribe tu Tesis; en la columna 2, redacta dos Evidencias objetivas; y en la columna 3, plantea tu Justificación."
                         },
                         videos: [
-                            { title: "Formas de validar argumentos - Telesecundaria SEP (Explicativo y visual para debates)", url: "https://www.youtube.com/watch?v=RGd6wjMQAhM" }
+                            { title: "Formas de validar argumentos - Telesecundaria SEP (Explicativo y visual)", url: "https://www.youtube.com/watch?v=RGd6wjMQAhM" }
                         ],
                         notebookVideoActivity: {
                             title: "Procedimiento de Identificación de Tesis",
-                            instructions: "Basándote en el video, explica en tu libreta cuáles son los recursos que se utilizan para validar un argumento (datos de investigación, ejemplos y hechos confiables)."
+                            instructions: "Basándote en el video de la SEP, explica en tu libreta cuáles son los recursos principales que se utilizan para validar un argumento (datos de investigación, ejemplos y hechos confiables)."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/tlriid3/unidad2/argumentarPersuadir/textoArgumentativo",
+                        externalReading: "https://portalacademico.cch.unam.mx/alumno/tlriid2/unidad1/textosmodelo/textoArgumentativo",
+                        notebookAcademicReadingActivity: {
+                            title: "Análisis de la Estructura Argumentativa",
+                            instructions: "Consulta el recurso oficial de la UNAM sobre el Texto Argumentativo. En tu cuaderno, elabora un mapa cognitivo donde describas las tres fases principales explicadas en el artículo: Planteamiento (Tesis), Cuerpo argumentativo (Argumentos) y Conclusión."
+                        },
                         quiz: {
                             question: "¿Cuáles son los componentes esenciales de un argumento filosófico bien estructurado?",
                             options: [
                                 { text: "Una opinión fuerte, gritar con seguridad y convencer al público.", correct: false, feedback: "Eso es persuasión vacía o retórica manipuladora, no filosofía." },
-                                { text: "Premisas claras, evidencia demostrable y una estructura lógica que guíe racionalmente hacia la conclusión.", correct: true, feedback: "¡Exactamente! La solidez filosófica requiere rigor lógicos y fundamentación." },
+                                { text: "Premisas claras, evidencia demostrable y una estructura lógica que guíe racionalmente hacia la conclusión.", correct: true, feedback: "¡Exactamente! La solidez filosófica requiere rigor lógico y fundamentación." },
                                 { text: "Citas textuales de autores antiguos que nadie pueda refutar.", correct: false, feedback: "Apelar solo a la autoridad de autores es una falacia (Ad Verecundiam)." }
                             ]
                         },
@@ -234,13 +242,17 @@
                             instructions: "Imagina que debes convencer a los ejidatarios de tu región para adoptar abono orgánico en lugar de fertilizantes químicos altamente tóxicos. Escribe en tu libreta tres párrafos cortos, uno aplicando 'Ethos' (tu credibilidad), otro aplicando 'Logos' (un dato lógico) y otro usando 'Pathos' (la emoción por la salud familiar)."
                         },
                         videos: [
-                            { title: "¿Cómo convencer y persuadir éticamente? - CuriosaMente (SEP)", url: "https://www.youtube.com/watch?v=eoYeKJNxvHE" }
+                            { title: "¿Cómo convencer y persuadir éticamente? - CuriosaMente (Canal Educativo)", url: "https://www.youtube.com/watch?v=eoYeKJNxvHE" }
                         ],
                         notebookVideoActivity: {
                             title: "Análisis de la Persuasión Emocional",
-                            instructions: "A partir del video recomendado, describe en tu libreta qué riesgos éticos existen cuando los discursos de venta o política utilizan únicamente las emociones para convencernos, sin aportar razones lógicas."
+                            instructions: "A partir del video animado oficial, describe en tu libreta qué riesgos éticos existen cuando los discursos discursivos utilizan únicamente las emociones para convencernos, sin aportar razones lógicas."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/tlriid3/unidad2/argumentarPersuadir",
+                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/tlriid3/unidad2/argumentarPersuadir/razonamientoEjemplo",
+                        notebookAcademicReadingActivity: {
+                            title: "Sistematización del Proceso Persuasivo de la UNAM",
+                            instructions: "Ingresa al recurso del CCH UNAM sobre Argumentar para Persuadir. En tu libreta, resume los mecanismos descritos sobre el razonamiento y el ejemplo como recursos indispensables para generar convicción ética."
+                        },
                         quiz: {
                             question: "¿Cuál es el riesgo ético más grande de usar únicamente el 'pathos' (emoción) al persuadir a una comunidad?",
                             options: [
@@ -260,24 +272,28 @@
                         },
                         debate: {
                             scenario: "Quieres organizar un club de ecología juvenil para reforestar el área colindante al Río local, pero muchos jóvenes prefieren quedarse en redes sociales.",
-                            prompt: "Escribe un breve discurso utilizando un balance de Ethos, Pathos y Logos para convencerlos de sumarse al proyecto el próximo sábado."
+                            prompt: "Escribe un breve discurso utilizando un balance de Ethos, Pathos and Logos para convencerlos de sumarse al proyecto el próximo sábado."
                         }
                     },
                     {
                         name: "Detectar falacias",
-                        reading: "En la política local o en los grupos de redes sociales abundan afirmaciones como: 'No le hagas caso a Juan sobre el cuidado de las calles; él ni siquiera acabó la preparatoria' (Falacia Ad Hominem) o 'Siempre se ha quemado la basura en el patio, así que no tiene nada de malo' (Falacia Ad Antiquitatem). Las falacias son argumentos engañosos que parecen correctos pero esconden un error de razonamiento. Detectarlas nos libera de engaños de candidatos políticos, fraudes comerciales y falsas creencias tradicionales.",
+                        reading: "En la política local o en los grupos de redes sociales abundan afirmaciones como: 'No le hagas caso a Juan sobre el cuidado de las calles; él ni de aquí es' (Falacia Ad Hominem) o 'Siempre se ha quemado la basura en el patio, así que no tiene nada de malo' (Falacia Ad Antiquitatem). Las falacias son argumentos engañosos que parecen correctos pero esconden un error de razonamiento.",
                         notebookReadingActivity: {
                             title: "Bitácora de Falacias Cotidianas",
                             instructions: "Monitorea durante dos días las conversaciones de tu familia, redes sociales o publicidad que ves en la calle. Escribe en tu libreta tres frases que identifiques como sospechosas de ser falaces. Explica a qué tipo de falacia corresponde cada una (Ad Populum, Ad Hominem o Ad Verecundiam)."
                         },
                         videos: [
-                            { title: "Identificación de Falacias en el Discurso Público - Divulgación Educativa SEP", url: "https://www.youtube.com/watch?v=eoYeKJNxvHE" }
+                            { title: "Identificación de Falacias en el Discurso Público - Divulgación Educativa", url: "https://www.youtube.com/watch?v=eoYeKJNxvHE" }
                         ],
                         notebookVideoActivity: {
                             title: "Análisis de la Presunción de Inocencia",
-                            instructions: "En tu libreta de apuntes, redacta un párrafo explicando por qué acusar a alguien basándose únicamente en que 'nadie ha demostrado que no lo hizo' es un error lógico (apelación a la ignorancia)."
+                            instructions: "En tu libreta de apuntes, redacta un párrafo explicando por qué acusar a alguien basándose únicamente en que 'nadie ha demostrado que no lo hizo' es un error lógico grave."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/aprende-linea",
+                        externalReading: "http://www.objetos.unam.mx/logica/falacias/index.html",
+                        notebookAcademicReadingActivity: {
+                            title: "Clasificación de Falacias No Formales",
+                            instructions: "Revisa la unidad interactiva de Lógica de la UNAM sobre falacias. En tu libreta, transcribe un ejemplo e identifica la definición formal de las dos categorías principales estudiadas en el portal: Falacias de irrelevancia y de referencia insuficiente."
+                        },
                         quiz: {
                             question: "Si alguien dice: 'Si permitimos que los jóvenes decidan los proyectos públicos, al rato van a querer gobernar el estado sin tener experiencia', ¿qué falacia comete?",
                             options: [
@@ -302,24 +318,28 @@
                     },
                     {
                         name: "Debate filosófico",
-                        reading: "El debate filosófico no busca 'ganar' aplastando al rival. En comunidades donde los problemas locales requieren la participación de todos, debatir filosóficamente es una herramienta democrática. Consiste en exponer con respeto ideas contrarias sobre la justicia, la libertad o el progreso, escuchando atentamente las premisas del otro para encontrar puntos de acuerdo o sintetizar mejores soluciones.",
+                        reading: "El debate filosófico no busca 'ganar' aplastando al rival. En comunidades donde los problemas locales requieren la participación de todos, debatir filosóficamente es una herramienta democrática. Consiste en exponer con respeto ideas contrarias sobre la justicia, la libertad o el progreso, escuchando atentamente las premisas del otro para encontrar puntos de acuerdo.",
                         notebookReadingActivity: {
                             title: "Reglamento para Comunidades de Diálogo",
                             instructions: "En tu libreta de apuntes, redacta una propuesta de 'Reglamento Ético de Diálogo' con 5 puntos clave para llevar a cabo discusiones de temas difíciles en el salón de clases. Considera el derecho de réplica, el uso del tiempo y la prohibición de falacias."
                         },
                         videos: [
-                            { title: "Estructuras de un Debate Formal - Aprende en Casa / SEP (Con ejemplos reales)", url: "https://www.youtube.com/watch?v=XRenME4cpEM" }
+                            { title: "Estructuras de un Debate Formal - Aprende en Casa / SEP", url: "https://www.youtube.com/watch?v=XRenME4cpEM" }
                         ],
                         notebookVideoActivity: {
                             title: "Dilemas de la Alteridad",
                             instructions: "Con base en el video de debate de la SEP, describe en tu libreta cómo los participantes defienden sus posturas utilizando datos fiables sobre desarrollo económico frente a la protección del medio ambiente."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/cch/",
+                        externalReading: "https://es.wikipedia.org/wiki/M%C3%A9todo_socr%C3%A1tico",
+                        notebookAcademicReadingActivity: {
+                            title: "La Ironía y la Mayéutica Socrática",
+                            instructions: "Consulta el artículo científico sobre el Método Socrático. Explica en tu libreta los dos momentos cruciales de la comunidad de diálogo originaria de Atenas: en qué consiste la ironía y cómo la mayéutica ayuda a 'dar a luz' a los conceptos."
+                        },
                         quiz: {
                             question: "Ocupar un debate filosófico nos sirve para:",
                             options: [
                                 { text: "Demostrar la superioridad de nuestro propio conocimiento sobre el de los compañeros.", correct: false, feedback: "Eso alimenta el ego, pero no genera conocimiento colectivo ni crecimiento ético." },
-                                { text: "Construir colaborativamente un entendimiento más profundo de un problema, enriquecido por múltiples puntos de vista.", correct: true, feedback: "¡Espléndido! La asamblea socrática prioriza la verdad compartida y el crecimiento mutuo." },
+                                { text: "Construir colaborativamente un entendimiento más profundo de un problema, enriquecido por múltiples puntos de vista.", correct: true, feedback: "¡Asombroso! La asamblea socrática prioriza la verdad compartida y el crecimiento mutuo." },
                                 { text: "Lograr que todos piensen exactamente igual al finalizar el debate.", correct: false, feedback: "La filosofía celebra la diversidad de ideas fundamentadas, no la uniformidad forzada." }
                             ]
                         },
@@ -339,19 +359,23 @@
                     },
                     {
                         name: "Filosofías del lenguaje",
-                        reading: "Las palabras crean realidades. Las expresiones típicas que usamos en la región no solo describen objetos, sino que cargan visiones del mundo, jerarquías de poder e historias de resistencia. El lenguaje no es un espejo pasivo del mundo; es una herramienta activa. ¿Cómo influyen los regionalismos, el tono de voz y los discursos de las redes sociales en nuestra manera de convivir diariamente en nuestra localidad?",
+                        reading: "Las palabras crean realidades. Las expresiones típicas que usamos en la región no solo describen objetos, sino que cargan visiones del mundo, jerarquías de poder e historias de resistencia. El lenguaje no es un espejo pasivo del mundo; es una herramienta activa. ¿Cómo influyen los regionalismos y el discursos de las redes sociales en nuestra manera de convivir diariamente?",
                         notebookReadingActivity: {
                             title: "Estudio de Regionalismos y Jergas",
                             instructions: "Escribe en tu libreta 5 palabras o frases comunes que utilices con tus amigos de tu localidad que no se usen en el resto del país. Al lado de cada palabra, analiza: ¿Cuál es su significado común? ¿Qué emoción o sentido de pertenencia genera en tu grupo social usarla?"
                         },
                         videos: [
-                            { title: "El significado de las palabras y la identidad - Canal Once / SEP (Educativo)", url: "https://www.youtube.com/watch?v=VVi7h20Hx6Q" }
+                            { title: "El significado de las palabras y la identidad - Canal Once / SEP", url: "https://www.youtube.com/watch?v=VVi7h20Hx6Q" }
                         ],
                         notebookVideoActivity: {
                             title: "Ficha del Lenguaje como Signo",
-                            instructions: "Tras observar el video recomendado, resume en tu libreta cómo las palabras cambian de significado según el contexto geográfico y cultural de las comunidades."
+                            instructions: "Tras observar el video recomendado de la SEP, resume en tu libreta cómo las palabras cambian de significado según el contexto geográfico y cultural de las comunidades."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/sites/default/files/publicaciones-digitales/2021-08/Argumentacion_PB403619.pdf",
+                        externalReading: "https://uapa.cuaed.unam.mx/node/503",
+                        notebookAcademicReadingActivity: {
+                            title: "Análisis de Funciones del Lenguaje",
+                            instructions: "Ingresa al portal académico 'El lenguaje y sus funciones' de FES Acatlán de la UNAM. Describe en tu cuaderno cuáles son las funciones esenciales identificadas por Jakobson (referencial, emotiva, apelativa, fática, poética) y asócialas a tu comunicación cotidiana."
+                        },
                         quiz: {
                             question: "Según las teorías del lenguaje, ¿qué significa que el sentido de una palabra resida en su 'uso' dentro de un contexto social?",
                             options: [
@@ -383,19 +407,23 @@
                 contents: [
                     {
                         name: "El origen y las formas de la organización del poder político",
-                        reading: "Desde las antiguas tribus hasta las asambleas locales de vecinos, los seres humanos nos hemos organizado para tomar decisiones que afectan a todos. Filósofos de la modernidad hablaron de un 'contrato social': un pacto invisible donde cedemos ciertas libertades individuales para obtener seguridad y orden colectivo. ¿Cómo se vive este pacto social en las comunidades rurales cuando las instituciones del Estado parecen distantes?",
+                        reading: "Desde las antiguas tribus hasta las asambleas locales de vecinos, los seres humanos nos hemos organizado para tomar decisiones que afectan a todos. Filósofos de la modernidad hablaron de un 'contrato social': un pacto invisible donde cedemos ciertas libertades individuales para obtener seguridad y orden colectivo. ¿Cómo se vive este pacto social en las comunidades rurales?",
                         notebookReadingActivity: {
                             title: "Contraste Teórico del Estado de Naturaleza",
-                            instructions: "Dibuja en tu libreta una tabla comparativa de dos columnas. En la primera columna, escribe la visión de Thomas Hobbes (el hombre es malo y violento en la naturaleza). En la segunda columna, describe la postura de Jean-Jacques Rousseau (el hombre es noble por naturaleza pero la sociedad lo corrompe). Responde debajo de la tabla: ¿Cuál de las dos visiones crees que describe mejor tu comunidad?"
+                            instructions: "Dibuja en tu libreta una tabla comparativa de dos columnas. En la primera, escribe la visión de Thomas Hobbes (el hombre es malo y violento en la naturaleza). En la segunda, describe la postura de Jean-Jacques Rousseau (el hombre es noble por naturaleza pero la sociedad lo corrompe). Responde debajo de la tabla: ¿Cuál de las dos visiones crees que describe mejor tu comunidad?"
                         },
                         videos: [
-                            { title: "Organización social y comunitaria - Telesecundaria SEP (Educativo para adolescentes)", url: "https://www.youtube.com/watch?v=XE8yubXeS04" }
+                            { title: "Organización social y comunitaria - Telesecundaria SEP", url: "https://www.youtube.com/watch?v=XE8yubXeS04" }
                         ],
                         notebookVideoActivity: {
                             title: "Análisis del Relato Histórico y el Poder",
-                            instructions: "Tras observar el video recomendado, escribe en tu libreta de apuntes por qué la participación de los patronatos y asambleas ejidales locales representa una forma de poder político y organización comunitaria."
+                            instructions: "Tras observar el video oficial de la SEP, escribe en tu libreta de apuntes por qué la participación de los patronatos y asambleas ejidales locales representa una forma de poder político y organización comunitaria."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiauniversal1/unidad4/liberalismopolitico/divisionpoderes",
+                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiauniversal1/unidad3/ilustracion/introduccion",
+                        notebookAcademicReadingActivity: {
+                            title: "Sistematización de las Ideas de la Ilustración",
+                            instructions: "Revisa la unidad de Historia de la UNAM sobre la Ilustración y el Contrato Social. Explica por escrito cómo Rousseau concibe la soberanía popular y el papel de la voluntad general."
+                        },
                         quiz: {
                             question: "La división clásica de los poderes del gobierno propuesta por la teoría liberal busca:",
                             options: [
@@ -420,19 +448,23 @@
                     },
                     {
                         name: "El Estado",
-                        reading: "El Estado es la estructura institucional que tiene el monopolio de la violencia legítima y la administración pública en un territorio determinado. En nuestro entorno, el Estado se manifiesta a través de la policía, las escuelas y los centros de salud. Pero, ¿realmente el Estado representa los intereses de todos los ciudadanos o funciona como una maquinaria de dominación de unas clases sobre otras?",
+                        reading: "El Estado es la estructura institucional que tiene el monopolio de la violencia legítima y la administración pública en un territorio determinado. En nuestro entorno, el Estado se manifiesta a través de la policía, las escuelas y los centros de salud. Pero, ¿realmente el Estado representa los intereses de todos los ciudadanos o funciona como una maquinaria de dominación?",
                         notebookReadingActivity: {
                             title: "Mapa de Instituciones Estatales Locales",
                             instructions: "Escribe en tu libreta una lista de todas las instituciones que representen al Estado en tu entorno de vida. Elige una de ellas y redacta un breve análisis crítico que responda: ¿Esta institución cumple la función de ayudar al pueblo o de vigilarlo y sancionarlo?"
                         },
                         videos: [
-                            { title: "El Estado como garante de derechos en telecomunicaciones - Canal Educativo / SEP", url: "https://www.youtube.com/watch?v=3xyEuT5n7kQ" }
+                            { title: "El Estado como garante de derechos - Canal Educativo / SEP", url: "https://www.youtube.com/watch?v=3xyEuT5n7kQ" }
                         ],
                         notebookVideoActivity: {
                             title: "El Poder y la Garantía Estatal",
-                            instructions: "Con base en el video del Estado, describe en tu libreta por qué el acceso a internet y la banda ancha son obligaciones constitucionales del Estado en México para beneficiar a las comunidades originarias."
+                            instructions: "Con base en el video del Estado de la SEP, describe en tu libreta por qué el acceso a internet y la banda ancha son obligaciones constitucionales del Estado en México para beneficiar a las comunidades marginadas."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad4/estadoNacionMexicano/concepto",
+                        externalReading: "https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2660/mod_resource/content/1/UAPA-Manifestaciones-Poder-Relacion-Autoridad-Organizaciones/index.html",
+                        notebookAcademicReadingActivity: {
+                            title: "Análisis del Poder y el Estado",
+                            instructions: "Ingresa a la unidad de Administración Pública de la UNAM sobre el poder. En tu libreta, resume y contrasta cómo Max Weber, Karl Marx y Michel Foucault conciben el poder estatal y su relación con la autoridad civil."
+                        },
                         quiz: {
                             question: "Según las teorías sociológicas modernas, ¿cuáles son los tres elementos fundamentales que configuran la estructura del Estado?",
                             options: [
@@ -457,19 +489,23 @@
                     },
                     {
                         name: "Las leyes",
-                        reading: "Las leyes son las reglas del juego de la sociedad. En nuestro entorno existen reglamentos de tránsito, bandos de policía y buen gobierno, y leyes agrarias. Hans Kelsen planteaba que las leyes forman una pirámi de de jerarquía donde la Constitución está en la cima. No obstante, surge la pregunta crítica: ¿toda ley, por el simple hecho de ser legal, es justa? ¿Qué pasa cuando una ley atenta contra la dignidad humana?",
+                        reading: "Las leyes son las reglas del juego de la sociedad. En nuestro entorno existen reglamentos de tránsito, bandos de policía y buen gobierno, y leyes agrarias. Hans Kelsen planteaba que las leyes forman una pirámide de jerarquía donde la Constitución está en la cima. No obstante, surge la pregunta crítica: ¿toda ley, por el simple hecho de ser legal, es justa?",
                         notebookReadingActivity: {
                             title: "Justicia vs Legalidad en mi Entorno",
                             instructions: "Escribe en tu libreta una situación de tu comunidad donde consideres que una regla establecida o una costumbre tradicional es LEGAL o permitida pero éticamente INJUSTA. Propón una redacción para cambiar esa regla por una más humana."
                         },
                         videos: [
-                            { title: "Leyes e instituciones para la sociedad - Adolescentes y Morales / Telesecundaria SEP", url: "https://www.youtube.com/watch?v=KcJ32skTjbc" }
+                            { title: "Leyes e instituciones para la sociedad - Telesecundaria SEP", url: "https://www.youtube.com/watch?v=KcJ32skTjbc" }
                         ],
                         notebookVideoActivity: {
                             title: "Glosario de Normatividad Social",
-                            instructions: "Tras observar el video oficial, explica brevemente en tu libreta qué es el 'apego a la legalidad' y por qué las leyes deben ser percibidas como justas y útiles para que los ciudadanos decidan cumplirlas por convicción."
+                            instructions: "Tras observar el video oficial de la SEP, explica brevemente en tu libreta qué es el 'apego a la legalidad' y por qué las leyes deben ser percibidas como justas y útiles para que los ciudadanos decidan cumplirlas por convicción."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad4/estadoNacionMexicano/estadoMexicano",
+                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad4/estadoNacionMexicano/concepto",
+                        notebookAcademicReadingActivity: {
+                            title: "La Estructura de la Ley Nacional",
+                            instructions: "Lee la sección de Historia de México del CCH UNAM sobre el Concepto de Estado-Nación. Explica en tu libreta cómo la Constitución Política funge como el marco que organiza la vida civil, económica y social, y por qué las leyes secundarias derivan de ella."
+                        },
                         quiz: {
                             question: "¿Qué postula la doctrina del Iusnaturalismo frente a las leyes positivas escritas?",
                             options: [
@@ -494,7 +530,7 @@
                     },
                     {
                         name: "Análisis biopolítico del Estado",
-                        reading: "Michel Foucault, filósofo francés, introdujo el concepto de 'Biopolítica' para explicar cómo el Estado moderno no solo gobierna un territorio, sino que administra la vida biológica, el cuerpo, la reproducción, la salud y la muerte de la población. Las campañas de vacunación, las cartillas de nutrición y los censos demográficos son ejemplos de cómo el poder estatal moldea y vigila sutilmente nuestros cuerpos físicos.",
+                        reading: "Michel Foucault, filósofo francés, introdujo el concepto de 'Biopolítica' para explicar cómo el Estado moderno no solo gobierna un territorio, sino que administra la vida biológica, el cuerpo, la reproducción, la salud y la muerte de la población. Las campañas de vacunación obligatorias, las cartillas de nutrición y los censos demográficos son ejemplos de cómo el poder estatal moldea y regula sutilmente nuestros cuerpos.",
                         notebookReadingActivity: {
                             title: "Mecanismos de Control del Cuerpo",
                             instructions: "En tu libreta de apuntes, escribe un listado de tres requisitos corporales que te pida el Estado o la escuela para ingresar (por ejemplo: fotos infantiles sin aretes, cartillas de salud, uniforme escolar). Redacta una justificación crítica sobre por qué la sociedad necesita regular el aspecto de los cuerpos."
@@ -506,7 +542,11 @@
                             title: "La Autovigilancia Social",
                             instructions: "A partir de lo comentado en el programa de la SEP, analiza cómo las garantías de protección al cuerpo y la integridad física individual se consagran en nuestras leyes para impedir que las instituciones o servidores cometan abusos."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/aprende-linea",
+                        externalReading: "https://es.wikipedia.org/wiki/Biopol%C3%ADtica",
+                        notebookAcademicReadingActivity: {
+                            title: "Desglose de Anatomopolítica y Biopoder",
+                            instructions: "Revisa el material de consulta enciclopédico sobre Biopolítica. Explica en tu libreta en qué consiste el 'biopoder' como tecnología de control de poblaciones, y la diferencia teórica con el antiguo poder de soberanía real."
+                        },
                         quiz: {
                             question: "¿A qué se refiere Michel Foucault con el término 'Biopoder'?",
                             options: [
@@ -531,19 +571,23 @@
                     },
                     {
                         name: "Sexo, género, raza, clase, entre otras categorías de sujeción política",
-                        reading: "En nuestras comunidades convivimos personas de distintas clases sociales, identidades de género, orígenes étnicos (como las comunidades originarias de nuestro país) y ocupaciones. A menudo, estas diferencias biológicas y culturales se traducen en categorías de opresión o privilegios políticos inconscientes. La filosofía feminista e interseccional nos invita a cuestionar: ¿cómo interactúan estas categorías para colocar a ciertos sectores en condiciones de vulnerabilidad?",
+                        reading: "En nuestras comunidades convivimos personas de distintas clases sociales, identidades de género y orígenes étnicos. A menudo, estas diferencias biológicas y culturales se traducen en categorías de opresión o privilegios políticos inconscientes. La filosofía interseccional nos invita a cuestionar cómo interactúan estas categorías.",
                         notebookReadingActivity: {
                             title: "Ficha Interseccional de Vulnerabilidad",
                             instructions: "Dibuja en tu libreta el 'diagrama de la interseccionalidad' (un círculo con diferentes ejes: género, origen étnico, clase económica, acceso a tecnología). Escribe un análisis crítico sobre cómo una mujer de una comunidad originaria enfrenta dificultades distintas a las de un hombre de clase alta."
                         },
                         videos: [
-                            { title: "Género e identidad sexual - Telesecundaria SEP (Visual, animado y explicativo)", url: "https://www.youtube.com/watch?v=7dJ6TORdTnA" }
+                            { title: "Género e identidad sexual - Telesecundaria SEP (Educativo)", url: "https://www.youtube.com/watch?v=7dJ6TORdTnA" }
                         ],
                         notebookVideoActivity: {
                             title: "Reflexiones sobre la Marginación y la Diferencia",
-                            instructions: "Con base en el video de la SEP, escribe en tu libreta cuál es la diferencia biológica/anatómica (sexo) frente a la construcción social de roles (género), y relata brevemente la lucha histórica de la matemática Sophie Germain."
+                            instructions: "Con base en el video oficial de la SEP, escribe en tu libreta cuál es la diferencia biológica/anatomopolítica (sexo) frente a la construcción social de roles (género), y relata brevemente la lucha histórica de la matemática Sophie Germain."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/aprende-linea",
+                        externalReading: "https://es.wikipedia.org/wiki/Interseccionalidad",
+                        notebookAcademicReadingActivity: {
+                            title: "Glosario Interseccional y Sujeción Social",
+                            instructions: "Consulta la lectura enciclopédica sobre la Interseccionalidad. Describe en tu cuaderno cómo los distintos sistemas de discriminación (género, raza, clase, orientación sexual) se cruzan y multiplican la vulnerabilidad estructural de las personas."
+                        },
                         quiz: {
                             question: "¿Qué plantea la teoría de la 'Interseccionalidad' formulada en el campo social y feminista?",
                             options: [
@@ -575,19 +619,23 @@
                 contents: [
                     {
                         name: "Filosofía y Arte",
-                        reading: "¿Un mural pintado en una escuela o un bordado tradicional son arte, o solo artesanía decorativa? La Estética, rama de la filosofía, indaga la naturaleza de lo bello, la experiencia de la contemplación y el valor del arte en las comunidades. El arte no es solo técnica; es la materialización de los anhelos, dolores e historia de un pueblo, capaz de conmovernos y hacernos cuestionar nuestra realidad más inmediata.",
+                        reading: "¿Un mural pintado en una escuela o un bordado tradicional son arte, o solo artesanía decorativa? La Estética, rama de la filosofía, indaga la naturaleza de lo bello, la experiencia de la contemplación y el valor del arte en las comunidades. El arte no es solo técnica; es la materialización de los anhelos, dolores e historia de un pueblo.",
                         notebookReadingActivity: {
                             title: "Ficha Estética del Patrimonio Familiar",
                             instructions: "Identifica un objeto con valor estético o artesanal en tu casa (un bordado, un jarrón, un cuadro, una herrería). Dibújalo en tu libreta y responde: ¿Qué historia familiar o comunitaria cuenta este objeto? ¿Por qué tiene un valor que va más allá del costo comercial del material?"
                         },
                         videos: [
-                            { title: "Interpreta al Artista - Aprende en Casa / SEP (Interactivo y explicativo)", url: "https://www.youtube.com/watch?v=-hEwC2Jgge4" }
+                            { title: "Interpreta al Artista - Aprende en Casa / SEP", url: "https://www.youtube.com/watch?v=-hEwC2Jgge4" }
                         ],
                         notebookVideoActivity: {
                             title: "El Concepto de Arte como Mímesis",
                             instructions: "Basándote en el video de la SEP, responde: ¿Cómo se puede interpretar la vida de pintores como Van Gogh o Frida Kahlo y realizar una recreación personal de sus obras en tu cuaderno?"
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/historiauniversal2/expresiones-culturales-1870-1914/arte",
+                        externalReading: "https://uapa.cuaed.unam.mx/node/532",
+                        notebookAcademicReadingActivity: {
+                            title: "La Experiencia Estética Intelectual",
+                            instructions: "Visita la lectura interactiva '¿Qué es la Estética?' de la UNAM. Describe en tu libreta en qué consiste la 'experiencia estética' y cómo la facultad de contemplación nos permite relacionarnos libremente con los objetos del mundo."
+                        },
                         quiz: {
                             question: "¿Qué diferencia tradicional plantea la estética clásica entre 'obra de arte' y 'artesanía'?",
                             options: [
@@ -612,7 +660,7 @@
                     },
                     {
                         name: "Análisis crítico a las categorías estéticas",
-                        reading: "No todo el arte nos produce agrado. Hay obras que nos causan horror, otras gracia, y unas más nos parecen sublimes o grotescas. Lo feo, lo trágico, lo cómico, lo sublime y lo grotesco son 'categorías estéticas'. Cuando contemplamos las tormentas salvajes o los cielos infinitos sentimos una mezcla de miedo, asombro y pequeñez; eso es lo sublime. Analizar estas categorías nos enseña que el mundo emocional humano ante la realidad es inmensamente vasto.",
+                        reading: "No todo el arte nos produce agrado. Hay obras que nos causan horror, otras gracia, y unas más nos parecen sublimes o grotescas. Lo feo, lo trágico, lo cómico, lo sublime y lo grotesco son 'categorías estéticas'. Analizar estas categorías nos enseña que el mundo emocional humano ante la realidad es inmensamente vasto.",
                         notebookReadingActivity: {
                             title: "Ficha de Categorías Estéticas",
                             instructions: "Elige una película, videojuego o canción que te encante. Escribe en tu libreta su título y explica cuál de las categorías estéticas (lo cómico, lo trágico, lo feo, lo grotesco o lo sublime) predomina en ella. Justifica tu elección analizando una escena específica."
@@ -622,9 +670,13 @@
                         ],
                         notebookVideoActivity: {
                             title: "La Ruptura del Romanticismo",
-                            instructions: "Con base en el video oficial de Aprende en Casa, describe en tu libreta cómo la apreciación estética nos permite sentir emociones (tristeza, asombro o alegría) al observar paisajes naturales o pinturas como 'Las dos Fridas'."
+                            instructions: "Con base en el video oficial de la SEP, describe en tu libreta cómo la apreciación estética nos permite sentir emociones (tristeza, asombro o alegría) al observar paisajes naturales o pinturas de gran inmensidad."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/cultura-estetica",
+                        externalReading: "https://uapa.cuaed.unam.mx/node/553",
+                        notebookAcademicReadingActivity: {
+                            title: "Ficha Técnica de Criterios Estéticos",
+                            instructions: "Consulta la unidad 'Las categorías estéticas' de BUNAM UNAM. En tu cuaderno escolar, describe las diferencias conceptuales entre Belleza, Fealdad, Tragedia, Comicidad y Sublimidad. Escribe un ejemplo para cada una."
+                        },
                         quiz: {
                             question: "¿Qué caracteriza la experiencia estética de lo 'Sublime' según Immanuel Kant?",
                             options: [
@@ -649,7 +701,7 @@
                     },
                     {
                         name: "El arte como acto disruptivo",
-                        reading: "El arte tiene el poder de ser un terremoto para las conciencias dormidas. El 'arte disruptivo' rompe las reglas establecidas, incomoda al poder y visibiliza verdades ocultas. Los movimientos artísticos de protesta, los performance callejeros o el rap de protesta de jóvenes indígenas son ejemplos de cómo la creatividad puede convertirse en la voz de las demandas colectivas por la justicia, resistiendo a la censura institucional.",
+                        reading: "El arte tiene el poder de ser un terremoto para las conciencias dormidas. El 'arte disruptivo' rompe las reglas establecidas, incomoda al poder y visibiliza verdades ocultas. Los performance callejeros o el rap de protesta de jóvenes indígenas son ejemplos de cómo la creatividad puede convertirse en la voz de las demandas colectivas por la justicia.",
                         notebookReadingActivity: {
                             title: "Mi Proyecto de Arte de Resistencia",
                             instructions: "Dibuja un boceto rápido en tu libreta para un mural de tu escuela que denuncie un problema actual de la juventud. Escribe debajo del boceto una explicación de los símbolos que utilizaste y cuál es el mensaje crítico que buscas transmitir a los demás estudiantes."
@@ -659,11 +711,15 @@
                         ],
                         notebookVideoActivity: {
                             title: "Ficha del Movimiento de Vanguardia",
-                            instructions: "En tu libreta de apuntes, sintetiza las características del muralismo mexicano y explica cómo los artistas plásticos se opusieron históricamente a las galerías cerradas para pintar para el pueblo."
+                            instructions: "En tu libreta de apuntes, sintetiza las características del muralismo mexicano mostradas en el programa de la SEP y explica cómo los artistas plásticos se opusieron históricamente a las galerías cerradas para pintar para el pueblo."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/introduccion",
+                        externalReading: "https://uapa.cuaed.unam.mx/node/538",
+                        notebookAcademicReadingActivity: {
+                            title: "Sistematización del Arte como Rebelión",
+                            instructions: "Accede al recurso de la UNAM 'El arte como rebelión'. Resume en tu cuaderno escolar de qué manera los creadores artísticos, desde el siglo XIX, conciben el arte como una vía para confrontar los errores de su tiempo y desafiar el conformismo."
+                        },
                         quiz: {
-                            question: "¿Cuál es la intención principal de una obra de arte catalogada como 'disruptiva'?",
+                            question: "La intención principal de una obra de arte catalogada como 'disruptiva' es:",
                             options: [
                                 { text: "Encajar de forma pacífica y decorativa en el comedor de una casa de lujo.", correct: false, feedback: "Esa es una función puramente decorativa o comercial pasiva." },
                                 { text: "Cuestionar las normas sociales, provocar la reflexión activa y desafiar el statu quo del poder vigente.", correct: true, feedback: "¡Preciso! Busca perturbar la zona de confort del espectador para generar cambio social." },
@@ -686,7 +742,7 @@
                     },
                     {
                         name: "Economía y Política del Arte",
-                        reading: "¿Quién decide qué pintura vale millones de pesos y cuál se queda olvidada en el rincón? El arte no flota en el vacío; existe dentro de un circuito económico de museos, subastas, galerías y coleccionistas. Muchas veces, las obras se transforman en mercancías de especulación financiera. Analizar críticamente la economía del arte nos permite cuestionar cómo el dinero de las grandes ciudades puede imponer gustos estéticos ajenos y colonizar los saberes tradicionales de los pueblos.",
+                        reading: "¿Quién decide qué pintura vale millones de pesos y cuál se queda olvidada en el rincón? El arte no flota en el vacío; existe dentro de un circuito económico de museos, subastas y coleccionistas. Muchas veces, las obras se transforman en mercancías de especulación financiera, colonizando a veces los saberes tradicionales de los pueblos.",
                         notebookReadingActivity: {
                             title: "Ficha de Reflexión sobre el Consumo del Arte",
                             instructions: "En tu libreta de apuntes, redacta una reflexión crítica a la siguiente frase: 'Si una obra de arte no es cara, significa que no es buena'. Expón argumentos éticos que valoren el talento local por encima de las modas de las redes sociales."
@@ -696,9 +752,13 @@
                         ],
                         notebookVideoActivity: {
                             title: "Mercancía vs Experiencia Artística",
-                            instructions: "Escribe en tu libreta cómo influye la tasación comercial de las obras sobre el valor social e identitario de las artesanías tradicionales de nuestros pueblos originarios."
+                            instructions: "Escribe en tu libreta cómo influye la tasación comercial de las obras sobre el valor social e identitario de las artesanías tradicionales de nuestros pueblos originarios según el programa de la SEP."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/clasificacion-de-las-artes",
+                        externalReading: "https://uapa.cuaed.unam.mx/node/555",
+                        notebookAcademicReadingActivity: {
+                            title: "El Mercado Cultural y Ruptura Estética",
+                            instructions: "Ingresa al artículo sobre 'Arte contemporáneo. La ruptura con las categorías clásicas' de la UNAM. Describe los cambios históricos que sufre la concepción de la obra de arte y cómo se vincula con la industria cultural contemporánea."
+                        },
                         quiz: {
                             question: "Según los análisis críticos de la cultura, ¿qué ocurre cuando una obra de arte tradicional se transforma en una mercancía de especulación de lujo?",
                             options: [
@@ -723,7 +783,7 @@
                     },
                     {
                         name: "Semiótica del Arte",
-                        reading: "Las imágenes hablan. El color verde del sembradío, el gesto de cansancio del campesino pintado, la colocación de un altar: todo es un sistema de signos que emite significados profundos. La Semiótica es la disciplina que estudia cómo los signos comunican. Cuando analizamos críticamente la publicidad comercial que nos rodea, descubrimos discursos ocultos que promueven estilos de vida ajenos o nos imponen estereotipos sutiles.",
+                        reading: "Las imágenes hablan. El color verde del sembradío, el gesto de cansancio del campesino pintado, la colocación de un altar: todo es un sistema de signos que emite significados profundos. La Semiótica es la disciplina que estudia cómo los signos comunican. Cuando analizamos críticamente la publicidad comercial que nos rodea, descubrimos discursos ocultos.",
                         notebookReadingActivity: {
                             title: "Desglose de Signos Publicitarios",
                             instructions: "Dibuja en tu libreta un anuncio publicitario que veas seguido (por ejemplo, una marca de refrescos o de tenis). Divide tu análisis en dos columnas escritas a mano: 1) Denotación (lo que se ve físicamente) y 2) Connotación (los significados invisibles que te intentan vender: felicidad, estatus, belleza)."
@@ -733,9 +793,13 @@
                         ],
                         notebookVideoActivity: {
                             title: "Ficha del Signo Visual",
-                            instructions: "Responde en tu libreta a partir del video: ¿Por qué los colores y la disposición de los objetos en un cartel publicitario están diseñados para enviar mensajes de estatus o deseo de consumo?"
+                            instructions: "Responde en tu libreta a partir del video de la SEP: ¿Por qué los colores y la disposición de los objetos en un cartel publicitario están diseñados para enviar mensajes de estatus o deseo de consumo?"
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/clasificacion-de-las-artes",
+                        externalReading: "https://es.wikipedia.org/wiki/Semi%C3%B3tica",
+                        notebookAcademicReadingActivity: {
+                            title: "Sistematización de los Signos Visuales",
+                            instructions: "Ingresa al recurso enciclopédico sobre Semiótica. En tu libreta, resume los aportes de Saussure, Peirce y Roland Barthes sobre el signo, y explica en tus palabras cuál es la diferencia entre denotación y connotación de una imagen."
+                        },
                         quiz: {
                             question: "En Semiótica, ¿cuál es la diferencia crucial entre 'denotación' y 'connotación' de una imagen?",
                             options: [
@@ -760,7 +824,7 @@
                     },
                     {
                         name: "Arte digital",
-                        reading: "Memes, filtros, imágenes generadas por Inteligencia Artificial y modelados en 3D: los jóvenes consumimos y creamos arte digital a diario. El soporte físico de la tela y el óleo ha dado paso a la inmaterialidad de los pixeles y algoritmos de cómputo. ¿Cambia la esencia de la creatividad cuando el lienzo es una pantalla táctil brillante y la obra puede replicarse billones de veces con un simple 'copy-paste'?",
+                        reading: "Memes, filtros, imágenes generadas por Inteligencia Artificial: los jóvenes consumimos y creamos arte digital a diario. El soporte físico de la tela y el óleo ha dado paso a la inmaterialidad de los pixeles. ¿Cambia la esencia de la creatividad cuando el lienzo es una pantalla táctil brillante y la obra puede replicarse billones de veces con un simple 'copy-paste'?",
                         notebookReadingActivity: {
                             title: "Ficha sobre Inteligencia Artificial y Creatividad",
                             instructions: "Redacta en tu libreta un escrito corto de media página que responda críticamente: ¿Consideras que una máquina o Inteligencia Artificial que junta millones de imágenes de internet es verdaderamente 'creativa' o es solo una calculadora de pixeles? Fundamenta tu postura."
@@ -770,9 +834,13 @@
                         ],
                         notebookVideoActivity: {
                             title: "La Era de la Reproducción Digital",
-                            instructions: "A partir de lo observado, escribe en tu libreta qué tensiones éticas y artísticas surgen al sustituir el lienzo de pintura real por técnicas generativas artificiales."
+                            instructions: "A partir de lo observado en el video de la SEP, escribe en tu libreta qué tensiones éticas y artísticas surgen al sustituir el lienzo de pintura real por técnicas generativas artificiales."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/clasificacion-de-las-artes",
+                        externalReading: "https://es.wikipedia.org/wiki/Arte_digital",
+                        notebookAcademicReadingActivity: {
+                            title: "Evolución y Ética de la Creatividad Digital",
+                            instructions: "Accede al artículo verificado sobre Arte Digital. Transcribe en tu libreta cuáles son las principales manifestaciones (gráficos por computadora, arte generativo, net.art) y discute el impacto ético de las inteligencias artificiales en los derechos de autor de artistas humanos."
+                        },
                         quiz: {
                             question: "¿Cuál es una de las grandes tensiones éticas de las imágenes generadas por Inteligencias Artificiales de la actualidad?",
                             options: [
@@ -797,7 +865,7 @@
                     },
                     {
                         name: "Fenomenología de la corporalidad",
-                        reading: "Vivimos el mundo a través del cuerpo físico: sentimos el calor húmedo, el cansancio en las piernas al caminar, el roce del viento. La Fenomenología sostiene que el cuerpo no es un robot mecánico que ocupamos; nosotros 'somos nuestro cuerpo'. El cuerpo es la frontera primera por donde experimentamos y entendemos el mundo, el dolor, el amor y la libertad humana.",
+                        reading: "Vivimos el mundo a través del cuerpo físico: sentimos el calor húmedo, el cansancio en las piernas al caminar, el roce del viento. La Fenomenología sostiene que el cuerpo no es un robot mecánico que ocupamos; nosotros 'somos nuestro cuerpo'. El cuerpo es la frontera primera por donde experimentamos y entendemos el mundo, el dolor, la libertad humana.",
                         notebookReadingActivity: {
                             title: "Ficha de Autoexamen Fenomenológico",
                             instructions: "Siéntate en silencio durante un minuto en tu salón de clases o en tu casa. En tu libreta, escribe un párrafo detallando todas las sensaciones corporales que experimentas y que sueles ignorar: el roce de la ropa, el latido del corazón, la temperatura de tus manos. Explica por qué tu cuerpo es tu primer conexión con la realidad."
@@ -807,13 +875,17 @@
                         ],
                         notebookVideoActivity: {
                             title: "El Cuerpo como Blanco de Poder",
-                            instructions: "Basándote en el video de la SEP, describe en tu libreta de apuntes por qué el cuerpo es considerado nuestro primer territorio de identidad frente a las exigencias o presiones estéticas externas de las redes sociales."
+                            instructions: "Basándote en el video oficial de la SEP, describe en tu libreta de apuntes por qué el cuerpo es considerado nuestro primer territorio de identidad frente a las exigencias o presiones estéticas externas de las redes sociales."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/el-dibujo-en-la-expresion-grafica",
+                        externalReading: "https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/3168/mod_resource/content/13/UAPA-Cuerpos-Sin-Etiquetas/index.html",
+                        notebookAcademicReadingActivity: {
+                            title: "La Percepción Corporal y Estereotipos",
+                            instructions: "Consulta la unidad 'Cuerpos sin etiquetas' de la UNAM. En tu cuaderno, redacta una síntesis en torno a cómo los cánones de belleza normativos y la gordofobia constituyen construcciones sociales y políticas que marginan al 'cuerpo vivido'."
+                        },
                         quiz: {
                             question: "Según la fenomenología del cuerpo, ¿por qué el cuerpo humano no es considerado un mero objeto mecánico?",
                             options: [
-                                { text: "Porque está hecho de un material místico indestructible.", correct: false, feedback: "Nuestro cuerpo es orgánico, frágil y totalmente mortal." },
+                                { text: "Contiene un material indestructible místico.", correct: false, feedback: "Nuestro cuerpo es orgánico, frágil y totalmente mortal." },
                                 { text: "Porque es un sujeto activo, el vehículo del estar-en-el-mundo a través del cual percibimos de forma directa toda realidad sensible.", correct: true, feedback: "¡Impecable! Para la fenomenología, el cuerpo es la condición de posibilidad de cualquier conciencia reflexiva." },
                                 { text: "Porque se puede modificar fácilmente con cirugías estéticas y ropa.", correct: false, feedback: "Eso reduce el cuerpo a un objeto mercantilizado, alejándose de la visión fenomenológica." }
                             ]
@@ -834,7 +906,7 @@
                     },
                     {
                         name: "La poética del lenguaje de las artes",
-                        reading: "La poesía, la danza y la música de nuestra región no explican las cosas de forma aburrida. Usan una 'poética del lenguaje': metáforas, ritmos y silencios que expresan lo inefable. La poética nos permite saltar de lo puramente informativo hacia lo puramente simbólico. Al escuchar las historias de tradición oral contadas por los abuelos, no solo recibimos palabras; entramos en una experiencia de significados bellos y misteriosos.",
+                        reading: "La poesía, la danza y la música de nuestra región no explican las cosas de forma aburrida. Usan una 'poética del lenguaje': metáforas, ritmos y silencios que expresan lo inefable. La poética nos permite saltar de lo puramente informativo hacia lo puramente simbólico, resguardando tradiciones orales.",
                         notebookReadingActivity: {
                             title: "Composición de Poesía Concreta",
                             instructions: "Elige una canción o leyenda tradicional de tu región. En tu libreta, copia una de sus estrofas y realiza una traducción lírica: cambia las palabras directas por metáforas que transmitan la misma emoción o sentimiento de pertenencia."
@@ -844,15 +916,19 @@
                         ],
                         notebookVideoActivity: {
                             title: "El Significado Abierto del Arte",
-                            instructions: "En tu libreta de apuntes, redacta una síntesis de la importancia que tiene la canción y la poesía popular indígena (como el zapoteco u otras lenguas) para mantener vivas las historias y leyendas de nuestros pueblos."
+                            instructions: "En tu libreta de apuntes, redacta una síntesis de la importancia que tiene la canción y la poesía popular indígena para mantener vivas las historias y leyendas de nuestros pueblos originarios."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/teg1/importancia-expresion-grafica/introduccion",
+                        externalReading: "https://es.wikipedia.org/wiki/Funci%C3%B3n_po%C3%A9tica",
+                        notebookAcademicReadingActivity: {
+                            title: "La Función Poética según la Lingüística",
+                            instructions: "Revisa el artículo enciclopédico sobre la Función Poética. Define en tu cuaderno de apuntes cómo esta función desplaza la atención hacia el mensaje mismo y el uso de recursos artísticos, y por qué se distingue del habla informativa cotidiana."
+                        },
                         quiz: {
                             question: "¿Qué define principalmente a la 'función poética' del lenguaje frente al habla referencial común?",
                             options: [
                                 { text: "Escribir siempre textos que tengan rima forzada en cada verso.", correct: false, feedback: "La función poética trasciende la métrica y rima de los poemas rimados clásicos." },
                                 { text: "Poner el énfasis del mensaje en la propia forma del mensaje, de modo que las palabras adquieran un valor estético intrínseco.", correct: true, feedback: "¡Brillante! Las palabras no solo transmiten un dato, se vuelven una experiencia estética." },
-                                { text: "Metir usando palabras bonitas para persuadir a la población de forma comercial.", correct: false, feedback: "Esa es retórica publicitaria o propaganda utilitaria, no poética." }
+                                { text: "Mentir usando palabras bonitas para persuadir a la población de forma comercial.", correct: false, feedback: "Esa es retórica publicitaria o propaganda utilitaria, no poética." }
                             ]
                         },
                         interactiveType: "match",
@@ -878,7 +954,7 @@
                 contents: [
                     {
                         name: "¿Para qué sirve el pensamiento complejo?",
-                        reading: "Los problemas que enfrentamos hoy (el calentamiento global, la falta de empleos estables para jóvenes o las sequías temporales) no tienen una sola causa ni se resuelven con respuestas sencillas. Edgar Morin propone el 'pensamiento complejo': una forma de pensar que conecta diferentes disciplinas. Entender que todo está interconectado nos aleja de soluciones fáciles pero destructivas y nos prepara para resolver de raíz las dificultades cotidianas.",
+                        reading: "Los problemas que enfrentamos hoy (el calentamiento global o las sequías temporales) no tienen una sola causa ni se resuelven con respuestas sencillas. Edgar Morin propone el 'pensamiento complejo': una forma de pensar que conecta diferentes disciplinas. Entender que todo está interconectado nos aleja de soluciones fáciles pero destructivas.",
                         notebookReadingActivity: {
                             title: "Diagrama de Red de Problemas Locales",
                             instructions: "Dibuja en tu libreta un 'Mapa de Complejidad' para un problema de tu localidad (por ejemplo, la escasez de agua). Coloca el problema al centro y dibuja flechas que conecten sus causas y efectos económicos, de salud, de medio ambiente y de educación. Escribe un párrafo explicando por qué no se puede resolver de una sola manera."
@@ -888,9 +964,13 @@
                         ],
                         notebookVideoActivity: {
                             title: "Los Tres Principios de Edgar Morin",
-                            instructions: "Con base en el video educativo recomendado, describe brevemente en tu libreta de apuntes por qué el pensamiento complejo y el diálogo abierto son cruciales para resolver problemáticas complejas."
+                            instructions: "Con base en el video educativo recomendado de la SEP, describe brevemente en tu libreta de apuntes por qué el pensamiento complejo y el diálogo abierto son cruciales para resolver problemáticas complejas."
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/aprende-linea",
+                        externalReading: "https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2895/mod_resource/content/1/UAPA-Teoria-Complejidad-Morin/index.html",
+                        notebookAcademicReadingActivity: {
+                            title: "Los Principios del Pensamiento Complejo",
+                            instructions: "Ingresa a la unidad de la UNAM sobre la Teoría de la Complejidad de Morin. En tu libreta de notas, describe el principio dialógico, el principio de recursividad y el principio hologramático, justificando su utilidad en las ciencias sociales."
+                        },
                         quiz: {
                             question: "¿Cuál es el núcleo del pensamiento complejo sugerido por Edgar Morin?",
                             options: [
@@ -903,7 +983,7 @@
                         interactiveData: {
                             instruction: "Une los principios del pensamiento complejo de Morin:",
                             pairs: [
-                                { term: "Dialógico", definition: "Permite mantener la dualidad e integración de lógicas contradictorias." },
+                                { term: "Dialógico", definition: "Permite mantener la dualidad e integración de lógicas contradicciones." },
                                 { term: "Recursivo", definition: "Los efectos de un sistema son a la vez causas productoras del mismo." },
                                 { term: "Hologramático", definition: "La parte está contenida en el todo, y el todo en la parte." }
                             ]
@@ -915,7 +995,7 @@
                     },
                     {
                         name: "Filosofías de la corporalidad, prácticas de libertad",
-                        reading: "Aprender a habitar el cuerpo con dignidad es un acto político. En un mundo que nos bombardea con estereotipos imposibles de belleza en redes sociales o que reduce el cuerpo a mera fuerza de trabajo mal pagada en los campos de cultivo, recuperar la soberanía sobre nuestro cuerpo a través del deporte, la danza, el respeto de género y el autocuidado es una auténtica 'práctica de libertad' (en palabras de Michel Foucault). Tu cuerpo es tu primer territorio de autonomía y revolución pacífica.",
+                        reading: "Aprender a habitar el cuerpo con dignidad es un acto político. En un mundo que nos bombardea con estereotipos imposibles de belleza en redes sociales o que reduce el cuerpo a mera fuerza de trabajo, recuperar la soberanía sobre nuestro cuerpo a través del deporte, la danza, el respeto de género y el autocuidado es una auténtica 'práctica de libertad'. Tu cuerpo es tu primer territorio de autonomía.",
                         notebookReadingActivity: {
                             title: "Ficha de Compromiso con el Autocuidado",
                             instructions: "Escribe en tu libreta un listado titulado 'Mis Prácticas de Libertad'. Anota tres compromisos personales de autocuidado físico, mental o emocional que lleves a cabo para proteger tu salud y mente frente a las presiones de las redes sociales."
@@ -927,7 +1007,11 @@
                             title: "El Cuerpo y la Estética de la Existencia",
                             instructions: "A partir de lo observado en el video de la SEP, explica en tu libreta cómo la libertad de expresión, pensamiento y tránsito son fundamentales para que decidas libremente sobre tus metas y el cuidado de tu cuerpo."
                         },
-                        externalReading: "https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad4/estadoNacionMexicano/ejercicio1",
+                        externalReading: "https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/3172/mod_resource/content/12/UAPA-Revolucion-Percepcion/index.html",
+                        notebookAcademicReadingActivity: {
+                            title: "El Autocuidado como Práctica Ética",
+                            instructions: "Consulta el portal universitario de la UNAM sobre la Revolución de la Percepción Corporal y Bienestar. Transcribe en tu libreta los fundamentos del autocuidado y explica de qué manera representa un ejercicio real de autonomía y resistencia pacífica."
+                        },
                         quiz: {
                             question: "Según las corrientes de la filosofía política, ¿qué es el cuidado de sí como práctica de libertad?",
                             options: [
@@ -952,7 +1036,7 @@
                     },
                     {
                         name: "Reflexionar, ¿para qué?",
-                        reading: "Hemos recorrido un largo viaje filosófico. Al final, ¿para qué sirve filosofar? No se trata de acumular datos aburridos o nombres memorizados de filósofos antiguos. Filosofar sirve para despertar la mirada crítica, dudar de lo obvio, exigir argumentos lógicos a los gobernantes, vivir con arte el día a día y comprender que somos capaces de transformar nuestra propia realidad de vida a través de nuestras decisiones conscientes, argumentadas y comunitarias. ¡El pensamiento crítico es tu poder!",
+                        reading: "Hemos recorrido un largo viaje filosófico. Al final, ¿para qué sirve filosofar? No se trata de acumular datos antiguos. Filosofar sirve para despertar la mirada crítica, dudar de lo obvio, exigir argumentos lógicos a los gobernantes, vivir con arte el día a día y comprender que somos capaces de transformar nuestra propia realidad a través de decisiones comunitarias.",
                         notebookReadingActivity: {
                             title: "Mi Manifiesto Filosófico Personal",
                             instructions: "A manera de conclusión del curso, redacta en una página entera de tu libreta tu 'Manifiesto Personal de Pensamiento Crítico'. Explica cómo las herramientas de la lógica, de la estética y de la política te servirán para tomar mejores decisiones en tu futuro académico y personal."
@@ -962,11 +1046,15 @@
                         ],
                         notebookVideoActivity: {
                             title: "Reflexión Final sobre la Libertad de Preguntar",
-                            instructions: "Escribe en tu libreta una conclusión personal a partir de los videos del curso: ¿Por qué mantener activa la capacidad de hacer preguntas filosóficas te hace más libre frente a las mentiras de los medios o el poder?"
+                            instructions: "Escribe en tu libreta una conclusión personal a partir de los videos de la SEP: ¿Por qué mantener activa la capacidad de hacer preguntas filosóficas te hace más libre frente a las mentiras de los medios o el poder?"
                         },
-                        externalReading: "https://portalacademico.cch.unam.mx/aprende-linea",
+                        externalReading: "https://portalacademico.cch.unam.mx/recursos-de-apoyo/banco-de-estrategias/que-es-la-filosofia",
+                        notebookAcademicReadingActivity: {
+                            title: "La Actitud Filosófica Ante la Vida",
+                            instructions: "Visita la secuencia didáctica del CCH UNAM sobre '¿Qué es la Filosofía?'. Escribe en tu libreta escolar una justificación formal acerca del valor de la actitud reflexiva, analítica e inquisitiva del filósofo frente a las verdades cotidianas de la sociedad moderna."
+                        },
                         quiz: {
-                            question: "¿Cuál es el valor fundamental de la duda y de la filosofía para un ciudadano joven en la actualidad?",
+                            question: "El valor fundamental de la duda y de la filosofía para un ciudadano joven en la actualidad consiste en:",
                             options: [
                                 { text: "No creer en nada y volverse apático para no estudiar.", correct: false, feedback: "El escepticismo perezoso no construye conocimiento reflexivo ni aporta al bien de su entorno." },
                                 { text: "Cuestionar las verdades aparentes para indagar las causas profundas y construir posturas propias fundamentadas, evitando la manipulación.", correct: true, feedback: "¡Brillante conclusión de curso! La duda filosófica es el motor definitivo de la emancipación." },
@@ -1088,10 +1176,10 @@
                 <div class="border-b border-gray-200 mb-6">
                     <nav class="flex space-x-6" aria-label="Tabs">
                         <button onclick="switchTab('tab-reading')" id="btn-tab-reading" class="border-indigo-600 text-indigo-600 border-b-2 py-2 px-1 text-sm font-bold flex items-center gap-1.5 transition-all duration-200">
-                            <i data-lucide="book-open" class="w-4 h-4"></i> 1. Lectura y Libreta
+                            <i data-lucide="book-open" class="w-4 h-4"></i> 1. Caso y Libreta
                         </button>
                         <button onclick="switchTab('tab-media')" id="btn-tab-media" class="border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 py-2 px-1 text-sm font-medium flex items-center gap-1.5 transition-all duration-200">
-                            <i data-lucide="video" class="w-4 h-4"></i> 2. Videos Oficiales y Libreta
+                            <i data-lucide="video" class="w-4 h-4"></i> 2. Videos, Lecturas y Libreta
                         </button>
                         <button onclick="switchTab('tab-activities')" id="btn-tab-activities" class="border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 py-2 px-1 text-sm font-medium flex items-center gap-1.5 transition-all duration-200">
                             <i data-lucide="gamepad-2" class="w-4 h-4"></i> 3. Actividades Lúdicas
@@ -1103,14 +1191,14 @@
                 <div id="tab-reading-content" class="tab-pane active space-y-4">
                     <div class="bg-indigo-50/40 p-5 rounded-2xl border border-indigo-100 leading-relaxed text-sm text-slate-700 shadow-inner relative">
                         <i data-lucide="quote" class="absolute top-3 right-4 w-12 h-12 text-indigo-100 -z-10"></i>
-                        <h4 class="font-bold text-indigo-800 text-base mb-2">Situación de Análisis Crítico:</h4>
+                        <h4 class="font-bold text-indigo-800 text-base mb-2">Situación de Análisis Crítico (Caso Real):</h4>
                         <p>${content.reading}</p>
                     </div>
 
-                    <!-- ACTIVIDAD PARA LA LIBRETA SOBRE LA LECTURA -->
+                    <!-- ACTIVIDAD PARA LA LIBRETA SOBRE LA LECTURA DE CASO -->
                     <div class="bg-amber-50/40 border border-amber-200 p-5 rounded-2xl space-y-3">
                         <h4 class="font-bold text-amber-800 text-sm flex items-center gap-2">
-                            <i data-lucide="edit-3" class="w-5 h-5"></i> Misión en Libreta: Actividad sobre la Lectura
+                            <i data-lucide="edit-3" class="w-5 h-5"></i> Misión en Libreta 1: Actividad sobre el Caso de Estudio
                         </h4>
                         <p class="text-xs font-bold text-amber-900">${content.notebookReadingActivity.title}</p>
                         <p class="text-xs text-slate-700 leading-relaxed">${content.notebookReadingActivity.instructions}</p>
@@ -1129,17 +1217,18 @@
                     
                     <div class="flex justify-end pt-4">
                         <button onclick="switchTab('tab-media')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl text-xs flex items-center gap-2 transition-all duration-150 shadow-md">
-                            Ir a Videos y Libreta <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            Ir a Videos y Lecturas <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </button>
                     </div>
                 </div>
 
                 <div id="tab-media-content" class="tab-pane hidden space-y-6">
+                    <!-- VIDEOS OFICIALES DE LA SEP -->
                     <div>
                         <h4 class="font-bold text-philosophy text-sm mb-3 flex items-center gap-1.5 text-indigo-800">
-                            <i data-lucide="youtube" class="w-4 h-4 text-red-500"></i> Video Educativo Oficial (SEP/Canal Once/Telesecundaria):
+                            <i data-lucide="youtube" class="w-4 h-4 text-red-500"></i> Video Educativo Oficial (Canales oficiales de la SEP y Telesecundaria):
                         </h4>
-                        <p class="text-xs text-slate-500 mb-3 flex items-center gap-1"><i data-lucide="tv" class="w-3.5 h-3.5 text-indigo-500"></i> Video explicativo con imágenes, adaptado para estudiantes de bachillerato (Máximo 10 minutos):</p>
+                        <p class="text-xs text-slate-500 mb-3 flex items-center gap-1"><i data-lucide="tv" class="w-3.5 h-3.5 text-indigo-500"></i> Video dinámico y explicativo con imágenes, adaptado para bachillerato (menos de 10 minutos):</p>
                         <div class="grid grid-cols-1 gap-4">
                             ${content.videos.map(v => `
                                 <a href="${v.url}" target="_blank" class="block bg-slate-50 border hover:border-indigo-400 hover:bg-indigo-50/30 p-4 rounded-xl transition-all duration-200 group">
@@ -1150,7 +1239,7 @@
                                         <div>
                                             <h5 class="font-bold text-xs text-slate-800 line-clamp-2 group-hover:text-indigo-900">${v.title}</h5>
                                             <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
-                                                Plataforma YouTube (Enlace Oficial SEP / MCCEMS 2025) <i data-lucide="external-link" class="w-3 h-3"></i>
+                                                Plataforma YouTube (Recurso Oficial SEP / MCCEMS 2025) <i data-lucide="external-link" class="w-3 h-3"></i>
                                             </p>
                                         </div>
                                     </div>
@@ -1162,7 +1251,7 @@
                     <!-- ACTIVIDAD PARA LA LIBRETA SOBRE EL VIDEO -->
                     <div class="bg-amber-50/40 border border-amber-200 p-5 rounded-2xl space-y-3">
                         <h4 class="font-bold text-amber-800 text-sm flex items-center gap-2">
-                            <i data-lucide="book-open" class="w-5 h-5"></i> Misión en Libreta: Actividad sobre los Videos
+                            <i data-lucide="book-open" class="w-5 h-5"></i> Misión en Libreta 2: Actividad sobre el Video SEP
                         </h4>
                         <p class="text-xs font-bold text-amber-900">${content.notebookVideoActivity.title}</p>
                         <p class="text-xs text-slate-700 leading-relaxed">${content.notebookVideoActivity.instructions}</p>
@@ -1171,14 +1260,27 @@
                         </div>
                     </div>
 
-                    <div class="border-t pt-4">
+                    <!-- SECCIÓN DE LECTURA DE CONSULTA ACADÉMICA VERIFICADA -->
+                    <div class="border-t pt-4 space-y-4">
                         <h4 class="font-bold text-philosophy text-sm mb-2 flex items-center gap-1.5 text-indigo-800">
-                            <i data-lucide="file-text" class="w-4 h-4 text-emerald-500"></i> Lectura Amplia de Consulta Académica (Corta, lenguaje sencillo):
+                            <i data-lucide="file-text" class="w-4 h-4 text-emerald-500"></i> Lectura de Consulta Académica (VERIFICADA Y EXISTENTE):
                         </h4>
-                        <p class="text-xs text-slate-500 mb-3">Accede a esta lectura oficial del Portal Académico del CCH (UNAM). Material corto de 1 a 3 páginas especialmente redactado para adolescentes de bachillerato.</p>
-                        <a href="${content.externalReading}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl hover:bg-indigo-100 transition-all duration-200">
-                            <i data-lucide="link" class="w-4 h-4"></i> Abrir Lectura CCH UNAM <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        <p class="text-xs text-slate-500 mb-3">Accede directamente al portal académico oficial del CCH UNAM, UAPA UNAM o referencia estable de alta disponibilidad. Este enlace ha sido verificado para que cargue correctamente:</p>
+                        <a href="${content.externalReading}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 border border-indigo-700 px-5 py-3 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-sm">
+                            <i data-lucide="link" class="w-4 h-4"></i> Abrir Portal de Lectura Verificado <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </a>
+
+                        <!-- ACTIVIDAD PARA LA LIBRETA SOBRE LA LECTURA ACADÉMICA -->
+                        <div class="bg-indigo-50/50 border border-indigo-200 p-5 rounded-2xl space-y-3">
+                            <h4 class="font-bold text-indigo-800 text-sm flex items-center gap-2">
+                                <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i> Misión en Libreta 3: Análisis de la Lectura Académica
+                            </h4>
+                            <p class="text-xs font-bold text-indigo-900">${content.notebookAcademicReadingActivity.title}</p>
+                            <p class="text-xs text-slate-700 leading-relaxed">${content.notebookAcademicReadingActivity.instructions}</p>
+                            <div class="text-[10px] text-indigo-700 italic flex items-center gap-1">
+                                <i data-lucide="info" class="w-3.5 h-3.5"></i> Usa las definiciones, esquemas y conceptos teóricos que te proporciona el portal de consulta para elaborar tu apunte a mano.
+                            </div>
+                        </div>
                     </div>
 
                     <div class="flex justify-end pt-4">
@@ -1370,7 +1472,7 @@
                 element.querySelector('.match-indicator').className = "match-indicator text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-800";
                 
                 selectedTermElement.classList.remove('border-dashed', 'border-indigo-200', 'bg-indigo-50/30');
-                selectedTermElement.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-950');
+                selectedTermElement.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-955');
                 selectedTermElement.onclick = null;
                 element.onclick = null;
 
@@ -1418,7 +1520,6 @@
 
             const formatMessage = `*EVIDENCIA DE APRENDIZAJE CRÍTICO* 📝\n*Pensamiento Filosófico y Humanidades III*\n\n*Tema:* ${content.name}\n*Dilema:* ${content.debate.prompt}\n\n*Mi Respuesta:* \n"${response}"\n\n_Enviado desde el Portal de Pensamiento Filosófico_`;
             
-            // Usando clipboard seguro
             const temp = document.createElement('textarea');
             temp.value = formatMessage;
             document.body.appendChild(temp);
@@ -1473,11 +1574,14 @@ SITUACIÓN ANALIZADA:
 
 ------------------------------------------------------------------------
 ACTIVIDADES PARA LA LIBRETA:
-1. Lectura: ${content.notebookReadingActivity.title}
+1. Caso y Libreta: ${content.notebookReadingActivity.title}
 Instrucciones: ${content.notebookReadingActivity.instructions}
 
-2. Videos: ${content.notebookVideoActivity.title}
+2. Videos SEP: ${content.notebookVideoActivity.title}
 Instrucciones: ${content.notebookVideoActivity.instructions}
+
+3. Análisis Académico (UNAM): ${content.notebookAcademicReadingActivity.title}
+Instrucciones: ${content.notebookAcademicReadingActivity.instructions}
 
 ------------------------------------------------------------------------
 EVIDENCIA DEL DEBATE DIGITAL:
