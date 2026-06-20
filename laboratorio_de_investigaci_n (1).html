@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Investigación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #14b8a6;
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .print-card {
+                border: 2px solid #000 !important;
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-teal-500 selection:text-slate-900">
+
+    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50 no-print">
+        <div class="max-w-full mx-auto px-4 py-3.5 flex flex-col lg:flex-row justify-between items-center gap-4">
+            
+            <!-- Título y Logotipos Institucionales -->
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-teal-500/20 to-teal-800/30 p-2.5 rounded-xl border border-teal-500/30">
+                    <i class="fa-solid fa-flask-bubble text-teal-400 text-2xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-md md:text-lg font-black tracking-tight text-white flex items-center gap-2">
+                        Laboratorio de Investigación 
+                        <span class="text-[10px] bg-teal-500/10 text-teal-300 px-2.5 py-0.5 rounded border border-teal-500/20 font-bold uppercase tracking-wider">NEM 2026</span>
+                    </h1>
+                    <p class="text-[11px] text-slate-400">Bachillerato General • 1er Semestre • Recursos Alineados al Plan SEP</p>
+                </div>
+            </div>
+
+            <!-- Dashboard de Calificaciones y Progreso Permanente (Margen Superior Derecho) -->
+            <div class="flex flex-wrap items-center gap-3 md:gap-4 bg-slate-900/90 px-4 py-2 rounded-2xl border border-slate-800 active-glow">
+                
+                <!-- Barra de Progreso del Alumno -->
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase font-black text-slate-400 tracking-wider">Progreso Temático:</span>
+                    <div class="w-20 md:w-28 bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700/50">
+                        <div id="student-progress-bar" class="bg-gradient-to-r from-teal-500 to-emerald-400 h-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <span id="student-progress-txt" class="text-xs font-mono font-bold text-teal-400">0%</span>
+                </div>
+
+                <div class="h-6 w-[1px] bg-slate-800 hidden md:block"></div>
+
+                <!-- XP Gamificación -->
+                <div class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-award text-amber-400 text-sm"></i>
+                    <span class="text-xs font-semibold text-slate-200">XP:</span>
+                    <span id="student-xp" class="text-xs font-mono font-bold text-amber-400">0</span>
+                </div>
+
+                <div class="h-6 w-[1px] bg-slate-800 hidden md:block"></div>
+
+                <!-- Botón de Calificaciones Permanentes -->
+                <button onclick="showGradesScreen()" class="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-500 hover:to-teal-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-md shadow-teal-950/40">
+                    <i class="fa-solid fa-graduation-cap"></i> <span>Boleta de Calificaciones</span>
+                </button>
+
+                <!-- Interruptor Docente -->
+                <button onclick="toggleUserRole()" id="btn-role" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all border border-slate-700">
+                    <i class="fa-solid fa-user-shield"></i> Vista: Estudiante
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor General de Notificaciones -->
+    <div id="toast-container" class="fixed top-24 right-4 z-50 max-w-sm pointer-events-none no-print"></div>
+
+    <div class="flex-grow flex flex-col md:flex-row max-w-full w-full mx-auto" id="main-workspace">
+        
+        <!-- COLUMNA IZQUIERDA: Acordeón del Plan de Estudios NEM -->
+        <aside class="w-full md:w-80 bg-slate-950 border-r border-slate-800 p-4 flex flex-col gap-4 shrink-0 no-print">
+            <div class="space-y-1">
+                <h2 class="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-route text-teal-400"></i> Ruta Metodológica
+                </h2>
+                <p class="text-[10px] text-slate-500 leading-normal">
+                    Haz clic en un Propósito Formativo (PF) para desplegar sus contenidos y actividades de estudio.
+                </p>
+            </div>
+
+            <!-- Menú Desplegable de Contenidos -->
+            <div class="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-1" id="sidebar-accordion">
+                <!-- Se poblará dinámicamente con la base de datos de los 7 Propósitos -->
+            </div>
+
+            <!-- Tarjeta de Referencia a Archivos Word/PDF de Apoyo -->
+            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
+                <p class="text-[10px] text-slate-400 leading-relaxed font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-folder-open text-amber-500"></i> Materiales Base de Consulta:
+                </p>
+                <div class="grid grid-cols-2 gap-2 text-[9px] text-slate-300">
+                    <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center flex flex-col items-center gap-1">
+                        <i class="fa-solid fa-file-pdf text-rose-500 text-lg"></i>
+                        <span class="truncate w-full font-mono">LABORATORIO...pdf</span>
+                    </div>
+                    <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center flex flex-col items-center gap-1">
+                        <i class="fa-solid fa-file-word text-blue-500 text-lg"></i>
+                        <span class="truncate w-full font-mono font-bold">LABORATORIO...docx</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-grow bg-slate-900/40 p-4 md:p-6 lg:p-8 flex flex-col gap-6 overflow-y-auto">
+            
+            <!-- Panel Docente de Orientación Pedagógica (Visible opcionalmente) -->
+            <div id="teacher-view-panel" class="hidden bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6 space-y-3 no-print">
+                <div class="flex items-center gap-3">
+                    <span class="bg-emerald-500/20 text-emerald-300 p-2.5 rounded-xl border border-emerald-500/30">
+                        <i class="fa-solid fa-chalkboard-user text-xl"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm font-bold text-emerald-300">Orientaciones Didácticas Generales para el Docente</h3>
+                        <p class="text-xs text-emerald-400">Modelo Educativo 2025/2026 • Subsecretaría de Educación Media Superior</p>
+                    </div>
+                </div>
+                <div id="teacher-content-area" class="text-xs text-slate-300 leading-relaxed space-y-2">
+                    <!-- Orientaciones dinámicas según el tema -->
+                </div>
+            </div>
+
+            <!-- Estado Inicial / Instrucciones de Bienvenida -->
+            <div id="empty-state" class="flex-grow flex flex-col items-center justify-center text-center p-12 bg-slate-950/20 rounded-3xl border border-slate-800/80 border-dashed">
+                <div class="bg-teal-500/10 p-4 rounded-full border border-teal-500/20 mb-4 animate-bounce">
+                    <i class="fa-solid fa-magnifying-glass-chart text-4xl text-teal-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">¡Bienvenido al Laboratorio de Investigación!</h3>
+                <p class="text-xs text-slate-400 max-w-lg leading-relaxed mb-6">
+                    Bajo el marco de la <strong>Nueva Escuela Mexicana</strong>, concebimos el entorno escolar y comunitario como un espacio vivo para indagar y transformar. Utiliza el panel izquierdo para seleccionar el <strong>Propósito Formativo</strong> que estudiarás hoy. 
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl text-[11px]">
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-left space-y-1">
+                        <span class="text-teal-400 font-bold"><i class="fa-solid fa-book"></i> 1. Lee con Atención</span>
+                        <p class="text-slate-500 text-[10px]">Lecturas de profundidad detalladas basadas en fuentes oficiales y el PDF escolar.</p>
+                    </div>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-left space-y-1">
+                        <span class="text-amber-400 font-bold"><i class="fa-solid fa-pen-fancy"></i> 2. Trabaja en Libreta</span>
+                        <p class="text-slate-500 text-[10px]">Resuelve actividades físicas para consolidar tu portafolio de evidencias.</p>
+                    </div>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-left space-y-1">
+                        <span class="text-emerald-400 font-bold"><i class="fa-solid fa-gamepad"></i> 3. Zona Lúdica Digital</span>
+                        <p class="text-slate-500 text-[10px]">Cuestionarios, retos interactivos y debates lógicos para ganar XP.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL DE TRABAJO ACTIVO (Visible solo al seleccionar un contenido) -->
+            <div id="active-content-panel" class="hidden space-y-6">
+                
+                <!-- Encabezado del Tema Seleccionado -->
+                <div class="bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-800 p-6 rounded-2xl space-y-2">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span id="breadcrumb-prop" class="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"></span>
+                        <span id="breadcrumb-cont" class="bg-slate-800 text-slate-400 px-3 py-1 rounded-full text-[10px] font-mono"></span>
+                    </div>
+                    <h2 id="active-title" class="text-xl md:text-2xl font-extrabold text-white"></h2>
+                    <p id="active-intro" class="text-xs text-slate-400 leading-relaxed"></p>
+                </div>
+
+                <!-- Pestañas Principales de la Experiencia de Aprendizaje Híbrido -->
+                <div class="flex border-b border-slate-800 bg-slate-950 p-1.5 rounded-2xl gap-2 no-print">
+                    <button onclick="switchMainTab('reading')" id="tab-reading" class="flex-1 text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-200 bg-teal-600 text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> <span>1. Lectura de Profundidad</span>
+                    </button>
+                    <button onclick="switchMainTab('notebook')" id="tab-notebook" class="flex-1 text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-pencil"></i> <span>2. Actividad en Libreta</span>
+                    </button>
+                    <button onclick="switchMainTab('interactive')" id="tab-interactive" class="flex-1 text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-gamepad"></i> <span>3. Retos Interactivos</span>
+                    </button>
+                </div>
+
+                <!-- CONTENIDOS DE LAS PESTAÑAS -->
+
+                <!-- PESTAÑA 1: LECTURA DE PROFUNDIDAD -->
+                <div id="section-reading" class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                    <div class="bg-slate-900/50 px-5 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <h4 class="text-xs font-black text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-book text-teal-400"></i> Fase de Lectura y Análisis Crítico
+                        </h4>
+                        <span class="text-[10px] text-slate-400 font-semibold italic">Material Compilado de Fuentes SEP / DGB</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div id="reading-body" class="text-xs text-slate-300 leading-relaxed space-y-4 max-w-none text-justify">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+                        
+                        <!-- Nota de Vinculación Pedagógica -->
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800/80 flex items-start gap-3 mt-6">
+                            <span class="bg-teal-500/10 p-2 rounded-lg text-teal-400 shrink-0"><i class="fa-solid fa-circle-exclamation text-lg"></i></span>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-teal-300">Soporte Metodológico Oficial</h5>
+                                <p id="reading-meta" class="text-[10px] text-slate-400 leading-relaxed mt-0.5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2: ACTIVIDAD EN LIBRETA FÍSICA -->
+                <div id="section-notebook" class="hidden bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                    <div class="bg-slate-900/50 px-5 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <h4 class="text-xs font-black text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-pen-clip text-amber-500"></i> Portafolio de Trabajo Físico (Tu Libreta de Clases)
+                        </h4>
+                        <span class="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Evidencias en Cuaderno</span>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <h5 class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-instructions text-teal-400"></i> Instrucciones para el Alumno:
+                            </h5>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">
+                                Toma tu libreta de apuntes, escribe la fecha del día, el título del Propósito Formativo y realiza con letra clara y buena ortografía los ejercicios detallados abajo. Estas actividades serán verificadas y firmadas físicamente por tu profesor.
+                            </p>
+                        </div>
+
+                        <!-- Espacio donde se inyectará la actividad física -->
+                        <div id="notebook-activity-container" class="space-y-4">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+
+                        <!-- Checkbox de Autodeclaración de Tarea Terminada en Libreta -->
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                                <div>
+                                    <h6 class="text-xs font-bold text-slate-200">¿Terminaste el trabajo en tu libreta?</h6>
+                                    <p class="text-[10px] text-slate-400">Marcar esta casilla agregará tu progreso a la boleta digital.</p>
+                                </div>
+                            </div>
+                            <input type="checkbox" id="chk-notebook-done" onchange="toggleNotebookActivity()" class="w-5 h-5 accent-teal-500 rounded border-slate-800 bg-slate-900 focus:ring-0 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3: RETOS Y EVALUACIONES INTERACTIVAS DIGITALES -->
+                <div id="section-interactive" class="hidden space-y-6">
+                    
+                    <!-- Sub-Pestañas de la Zona Lúdica -->
+                    <div class="flex border-b border-slate-800 bg-slate-950 p-1.5 rounded-xl gap-2 no-print">
+                        <button onclick="switchGameSubTab(1)" id="subtab-game-1" class="flex-1 text-center py-2 px-3 rounded-lg text-xs font-bold transition-all duration-200 bg-teal-600 text-white">
+                            <i class="fa-solid fa-clipboard-question mr-1 text-teal-200"></i> Reto 1: Comprensión
+                        </button>
+                        <button onclick="switchGameSubTab(2)" id="subtab-game-2" class="flex-1 text-center py-2 px-3 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-puzzle-piece mr-1 text-amber-400"></i> Reto 2: Dinámico
+                        </button>
+                        <button onclick="switchGameSubTab(3)" id="subtab-game-3" class="flex-1 text-center py-2 px-3 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-comments mr-1 text-cyan-400"></i> Reto 3: Análisis de Campo
+                        </button>
+                    </div>
+
+                    <!-- Contenedor General de Retos Lúdicos -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        
+                        <!-- RETO 1: CUESTIONARIO / EXAMEN RÁPIDO -->
+                        <div id="game-panel-1" class="space-y-4">
+                            <div class="border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-bold text-white">Evaluación Continua: Cuestionario</h4>
+                                <p class="text-[10px] text-slate-400">Responde de forma correcta para acumular tus primeros 10 XP.</p>
+                            </div>
+                            <div id="quiz-question-box" class="space-y-4">
+                                <!-- Inyectado dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- RETO 2: RETO DINÁMICO CONCEPTUAL (SORTING, MATCHING, ORDERING) -->
+                        <div id="game-panel-2" class="hidden space-y-4">
+                            <div class="border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-bold text-white">Reto de Habilidades de Campo</h4>
+                                <p class="text-[10px] text-slate-400">Interactúa, clasifica u ordena conceptualmente para sumar 15 XP.</p>
+                            </div>
+                            <div id="interactive-game-box" class="min-h-[220px] flex items-center justify-center">
+                                <!-- Inyectado dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- RETO 3: DEBATE / ANÁLISIS CRÍTICO -->
+                        <div id="game-panel-3" class="hidden space-y-4">
+                            <div class="border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-bold text-white">Dilema de Reflexión Crítica</h4>
+                                <p class="text-[10px] text-slate-400">Resuelve el dilema con argumentos lógicos. Evita respuestas superficiales.</p>
+                            </div>
+                            <div id="debate-prompt-box" class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                <!-- Inyectado dinámicamente -->
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-300">Tu respuesta analítica (Mínimo 30 palabras):</label>
+                                <textarea id="debate-response" rows="4" placeholder="Escribe aquí tu fundamentación..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 outline-none focus:ring-1 focus:ring-teal-500 transition-all"></textarea>
+                                <div class="flex justify-between items-center">
+                                    <span id="debate-word-count" class="text-[10px] text-slate-500 font-mono">0 palabras</span>
+                                    <button onclick="evaluateDebate()" class="bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow-md">
+                                        <i class="fa-solid fa-paper-plane"></i> Validar Argumentación
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="debate-evaluation-box" class="hidden bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                                <!-- Evaluación automática inyectada dinámicamente -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PORTAFOLIO DE EVIDENCIAS RÁPIDO -->
+                <section class="bg-slate-950 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 no-print shadow-xl">
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-square-poll-vertical text-teal-400"></i> Carpeta de Evaluación y Calificación
+                        </h4>
+                        <p class="text-[10px] text-slate-500">¿Terminaste de estudiar este tema y respondiste los retos? Accede a tu boleta final para capturar evidencias.</p>
+                    </div>
+                    <button onclick="showGradesScreen()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-award"></i> <span>Ver Mi Boleta Digital</span>
+                    </button>
+                </section>
+
+            </div>
+
+        </main>
+    </div>
+
+    <div id="grades-screen" class="hidden flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-6">
+        
+        <!-- Boleta de Evaluación Formativa -->
+        <div class="bg-slate-950 border-2 border-teal-500/40 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl relative overflow-hidden print-card">
+            
+            <!-- Marca de agua de Fondo NEM -->
+            <div class="absolute -right-20 -bottom-20 text-[200px] text-teal-500/[0.02] font-black uppercase pointer-events-none select-none">NEM</div>
+
+            <!-- Cabecera de la Boleta -->
+            <div class="border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="space-y-1.5">
+                    <span class="text-[10px] font-black text-teal-400 uppercase tracking-widest bg-teal-500/10 px-2.5 py-1 rounded border border-teal-500/20">DOCUMENTO DE CONTROL INTERNO</span>
+                    <h2 class="text-lg md:text-xl font-black text-white">Boleta de Evaluación de Progresos</h2>
+                    <p class="text-xs text-slate-400 font-medium">Asignatura: <strong class="text-slate-200">Laboratorio de Investigación</strong> • Ciclo Escolar: <strong class="text-slate-200">2025-2026</strong></p>
+                </div>
+                <!-- Sello Oficial Digital -->
+                <div class="border-2 border-teal-500/30 px-3 py-1.5 rounded-xl text-center shrink-0 bg-teal-500/[0.02]">
+                    <span class="text-[9px] block text-slate-500 font-bold">SELLO DIGITAL</span>
+                    <span class="text-[10px] font-mono text-teal-400 font-bold uppercase tracking-wider">VALIDACIÓN NEM 2026</span>
+                </div>
+            </div>
+
+            <!-- Formulario del Alumno -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                <div class="space-y-2">
+                    <label class="block text-xs font-black text-slate-300 uppercase tracking-wider">Nombre Completo del Estudiante:</label>
+                    <input type="text" id="student-name-input" placeholder="[ Escribe aquí tu nombre completo ]" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-teal-300 font-semibold outline-none focus:border-teal-500 transition-all">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-black text-slate-300 uppercase tracking-wider">Plantel Escolar de Bachillerato:</label>
+                    <input type="text" id="student-school-input" placeholder="[ Ingresa tu plantel o grupo ]" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-300 outline-none focus:border-teal-500 transition-all">
+                </div>
+            </div>
+
+            <!-- Métricas Clave de Evaluación (XP, Progreso, Calificación) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                
+                <div class="bg-gradient-to-br from-teal-950/40 to-slate-950 p-4 rounded-2xl border border-teal-500/20 text-center space-y-1">
+                    <span class="text-[10px] font-bold text-teal-400 uppercase tracking-wider block">Calificación Obtenida</span>
+                    <h3 id="grade-score" class="text-4xl font-extrabold text-white font-mono">0.0</h3>
+                    <p class="text-[9px] text-slate-400">Escala oficial de evaluación SEP: 5 a 10</p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Temas Completados</span>
+                    <h3 id="grade-completed-count" class="text-4xl font-extrabold text-white font-mono">0 / 7</h3>
+                    <p class="text-[9px] text-slate-400">Porcentaje de avance: <span id="grade-completed-percent">0%</span></p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">Experiencia Acumulada</span>
+                    <h3 id="grade-xp-score" class="text-4xl font-extrabold text-amber-400 font-mono">0</h3>
+                    <p class="text-[9px] text-slate-400">Puntaje acumulado total (XP)</p>
+                </div>
+
+            </div>
+
+            <!-- Tabla Detallada por Propósito Formativo -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900 text-[10px] uppercase font-bold text-slate-400 border-b border-slate-800">
+                        <tr>
+                            <th class="p-3">Ruta Metodológica / Propósito Formativo</th>
+                            <th class="p-3 text-center">Examen Rápido</th>
+                            <th class="p-3 text-center">Debate Crítico</th>
+                            <th class="p-3 text-center">Trabajo Libreta</th>
+                            <th class="p-3 text-center">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grades-table-body" class="divide-y divide-slate-800/60">
+                        <!-- Generado dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Panel de Instrucciones para la Entrega (Muy visible) -->
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 space-y-3 no-print">
+                <div class="flex items-center gap-2 text-amber-400">
+                    <i class="fa-solid fa-camera text-lg"></i>
+                    <h5 class="text-xs font-black uppercase tracking-wider">Instrucciones de Evidencia Oficial para el Alumno</h5>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                    1. Asegúrate de haber ingresado tu <strong>Nombre Completo</strong> y tu <strong>Plantel</strong> en los campos correspondientes.<br>
+                    2. Toma una <strong>captura de pantalla completa</strong> de esta boleta digital, cuidando que se vea claramente tu nombre, progreso de actividades y calificación final.<br>
+                    3. Si lo prefieres, haz clic en el botón de abajo <strong>"Guardar como PDF"</strong> para obtener el archivo oficial impreso.<br>
+                    4. Envía la imagen o el PDF obtenido a tu docente mediante la plataforma oficial del colegio (Google Classroom, MS Teams, correo institucional, etc.) como evidencia oficial de tu progreso continuo.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <button onclick="window.print()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-print"></i> Guardar como PDF / Imprimir
+                    </button>
+                    <button onclick="hideGradesScreen()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 border border-slate-700">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a la Ruta Metodológica
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="bg-slate-950 text-slate-500 text-[11px] py-6 border-t border-slate-800 no-print mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left space-y-1">
+                <p class="font-bold text-slate-400">Asignatura: Laboratorio de Investigación (NEM 2025/2026)</p>
+                <p>Material de soporte interactivo para el Bachillerato General. Dirección General del Bachillerato (DGB).</p>
+            </div>
+            <div class="flex gap-4 font-mono text-[10px]">
+                <span>Materia Oficial del Componente Extendido</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const curriculum = [
+            {
+                id: 1,
+                title: "PF 1: Problemática y Paradigmas de Investigación Social",
+                shortTitle: "Problemática y Paradigmas",
+                meta: "Selecciona una problemática social de su comunidad desde un enfoque pertinente para su estudio, considerando las características, tipos y paradigmas de investigación.",
+                docReference: "Páginas 8-9 de LABORATORIO DE INVESTIGACION .pdf",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. ¿Qué es la Investigación Social?</p>
+                    <p>La investigación social es una actividad sistemática, estructurada y crítica que busca comprender las interacciones del ser humano en su entorno. A diferencia de las explicaciones místicas o del mero sentido común, la investigación social aplica métodos de rigor científico para recopilar datos objetivos que describan las conductas, instituciones y fenómenos socioculturales de nuestra sociedad.</p>
+                    
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Características Clave de la Investigación Social</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Sistematicidad:</strong> El investigador sigue un protocolo estructurado; las fases no se improvisan.</li>
+                        <li><strong>Objetividad y Reflexividad:</strong> El investigador reconoce sus prejuicios y busca sustentar sus afirmaciones en datos de la realidad concreta.</li>
+                        <li><strong>Empirismo:</strong> Toda afirmación científica debe ser contrastada y comprobada directamente con datos del campo.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">3. Tipos de Investigación Científica</p>
+                    <p>Según el alcance planteado para el estudio del objeto, la investigación puede clasificarse en:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Exploratoria:</strong> Aborda problemas poco estudiados o novedosos (por ejemplo, el impacto de una nueva red social en el aula).</li>
+                        <li><strong>Descriptiva:</strong> Detalla con precisión las características del fenómeno analizado (por ejemplo, registrar cuántos alumnos consumen alimentos procesados en la cafetería escolar).</li>
+                        <li><strong>Explicativa:</strong> Busca el origen, causas y porqués del fenómeno social.</li>
+                        <li><strong>Participativa / Comunitaria:</strong> Integra activamente a los sujetos estudiados en la búsqueda de soluciones a sus propios problemas del entorno.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">4. Los Tres Paradigmas Fundamentales</p>
+                    <p>Un paradigma es un marco de supuestos teóricos y metodológicos que dirigen la mirada de un investigador científico:</p>
+                    <ul class="list-disc pl-5 space-y-2 mt-1">
+                        <li><strong>Paradigma Positivista (Cuantitativo):</strong> Considera que los hechos sociales se rigen por leyes universales cuantificables. Su método principal es la medición estadística objetiva y de corte matemático.</li>
+                        <li><strong>Paradigma Interpretativo (Cualitativo):</strong> Su meta no es medir, sino comprender los significados profundos, percepciones y vivencias personales de los sujetos en su contexto natural.</li>
+                        <li><strong>Paradigma Crítico / Sociocrítico:</strong> Va más allá de observar; su objetivo principal es <strong>transformar las estructuras de poder injustas</strong> y empoderar a los sectores vulnerables.</li>
+                    </ul>
+                `,
+                docLink: "Revisa con atención las páginas 8 y 9 de LABORATORIO DE INVESTIGACION .pdf para profundizar en la construcción de los paradigmas.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Cartografía y Cuadro Comparativo</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Realiza en tu libreta las siguientes dos actividades:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Cartografía de Problemáticas:</strong> Dibuja un croquis a mano alzada de tu escuela o de tu calle. Identifica y señala tres problemáticas sociales o ambientales visibles en el croquis (por ejemplo: acumulación de basura, falta de luminarias o vandalismo).
+                            </li>
+                            <li>
+                                <strong>Cuadro Comparativo de Paradigmas:</strong> Traza una tabla comparativa de 3 columnas para describir el paradigma <em>Positivista</em>, el <em>Interpretativo</em> y el <em>Crítico</em>. Detalla su objetivo principal, qué tipo de datos utiliza cada uno y pon un ejemplo escolar.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Letra legible, uso de colores en el mapa y contenidos teóricos claros basados en la lectura.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Sugiera a los alumnos recorrer el patio de la escuela en equipos para registrar hechos observables del clima escolar.",
+                quiz: {
+                    question: "¿Cuál de los siguientes paradigmas busca transformar las realidades de exclusión y desigualdades sociales de forma participativa?",
+                    options: [
+                        { text: "El paradigma Crítico o Sociocrítico.", correct: true },
+                        { text: "El paradigma Positivista.", correct: false },
+                        { text: "El paradigma Hermenéutico Puro.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "sorting",
+                    instruction: "Clasifica los enunciados: Hecho Científico (Hecho) u Opinión Informal (Opinión):",
+                    items: [
+                        { text: "El 15% de los alumnos del plantel reporta inasistencias los lunes.", category: "Hecho" },
+                        { text: "Creo que los chicos no leen porque los celulares son malos.", category: "Opinión" },
+                        { text: "Las bitácoras escolares demuestran que el aula de cómputo tiene 5 equipos rotos.", category: "Hecho" },
+                        { text: "La gente de esta colonia es apática por naturaleza.", category: "Opinión" }
+                    ]
+                },
+                debate: {
+                    prompt: "En redes sociales corre el rumor de que los jóvenes de tu bachillerato no tienen metas. ¿Cómo diseñarías una indagación rápida en el aula para refutar científicamente esta afirmación empírica?",
+                    keywords: ["indagación", "datos", "evidencia", "método", "entorno"]
+                }
+            },
+            {
+                id: 2,
+                title: "PF 2: Construcción del Protocolo de Investigación",
+                shortTitle: "Protocolo y Planificación",
+                meta: "Construye de manera gradual los elementos teóricos y metodológicos fundamentales del proceso de investigación a partir del esbozo de un protocolo.",
+                docReference: "Sección 3.2 de LABORATORIO DE INVESTIGACION .pdf",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. ¿Qué es el Protocolo de Investigación?</p>
+                    <p>El protocolo es el diseño, croquis o mapa rector de cualquier investigación científica. Funciona como una guía técnica escrita antes de salir al campo a recolectar datos reales. Su finalidad es evitar la improvisación y brindar validez metodológica.</p>
+                    
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Estructura Básica del Protocolo</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Planteamiento de la problemática:</strong> Delimitar y formular de manera explícita el problema social en estudio.</li>
+                        <li><strong>Pregunta de investigación:</strong> El cuestionamiento central que guía todo el trabajo. Debe ser precisa y no responderse con un 'sí' o 'no'.</li>
+                        <li><strong>Objetivos:</strong> Metas claras que inician con un verbo en infinitivo (describir, analizar, categorizar).</li>
+                        <li><strong>Justificación:</strong> Razones teóricas, metodológicas o de transformación comunitaria que sustentan la pertinencia de hacer el estudio.</li>
+                        <li><strong>Supuestos o Hipótesis:</strong> Respuestas tentativas al problema que deberán contrastarse en el campo.</li>
+                        <li><strong>Cronograma de actividades:</strong> Distribución temporal de los recursos y fases (como el diagrama de Gantt).</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">3. La Delimitación Metodológica de la Problemática</p>
+                    <p>Un error común en primer semestre es elegir temas de escala nacional como 'La deserción en México'. Es imposible para un grupo estudiantil investigar un país entero en tres meses. La delimitación acota el tema a límites viables:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Espacial o Geográfica:</strong> Delimitar el lugar (ej. El aula de primer semestre del plantel).</li>
+                        <li><strong>Temporal:</strong> Acotar la época (ej. Durante el ciclo escolar 2025-2026).</li>
+                        <li><strong>Poblacional:</strong> Especificar los sujetos (ej. Las y los alumnos que estudian el bachillerato).</li>
+                    </ul>
+                `,
+                docLink: "Encuentra plantillas de delimitación y cronogramas en la sección 3.2 de tu guía LABORATORIO DE INVESTIGACION .pdf.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Estructuración y Diseño del Cronograma de Gantt</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Redacta en tu libreta el esbozo de tu primer protocolo escolar:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Tema Delimitado:</strong> Escribe un título para un tema que quieras investigar en tu escuela. Asegúrate de incluir límites de espacio, tiempo y población.
+                            </li>
+                            <li>
+                                <strong>Pregunta y Objetivos:</strong> Redacta una pregunta de investigación formal y un objetivo general que inicie con un verbo en infinitivo.
+                            </li>
+                            <li>
+                                <strong>Cronograma Manual:</strong> Dibuja una cuadrícula con las etapas de tu proyecto (Delimitación, Marco Teórico, Aplicación de campo, Análisis, Reporte) organizadas en 4 meses de trabajo. Usa colores para simular las barras de Gantt.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Rúbrica:</strong> Coherencia lógica entre la pregunta y el objetivo general, diseño limpio y estructurado de la cuadrícula del cronograma.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Monitoree que el cronograma sea realista considerando las 3 horas de clases semanales asignadas a la asignatura.",
+                quiz: {
+                    question: "¿Qué elemento del protocolo delimita formalmente el alcance geográfico, de tiempo y los sujetos concretos de estudio?",
+                    options: [
+                        { text: "La delimitación y formulación de la problemática.", correct: true },
+                        { text: "El cronograma de Gantt.", correct: false },
+                        { text: "La justificación metodológica.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "ordering",
+                    instruction: "Ordena jerárquicamente las etapas iniciales de la construcción de un protocolo de investigación:",
+                    steps: [
+                        { order: 1, text: "Selección del problema y delimitación de tiempo y espacio." },
+                        { order: 2, text: "Formulación de Preguntas y planteamiento de Objetivos." },
+                        { order: 3, text: "Redacción de la Justificación y formulación de Supuestos." },
+                        { order: 4, text: "Construcción del Cronograma de actividades de campo." }
+                    ]
+                },
+                debate: {
+                    prompt: "Un estudiante propone investigar 'El calentamiento global y sus efectos en el Ártico'. ¿Por qué esta propuesta carece de viabilidad metodológica para vuestro contexto escolar y cómo la reformularías?",
+                    keywords: ["viabilidad", "delimitación", "recursos", "plantel", "alcance"]
+                }
+            },
+            {
+                id: 3,
+                title: "PF 3: Enfoques, Métodos y Caja de Herramientas",
+                shortTitle: "Enfoques y Métodos",
+                meta: "Define el objeto de estudio con base en un método, enfoque teórico-metodológico y herramientas pertinentes a su contexto, conforme a su utilidad y aplicación.",
+                docReference: "Glosario de LABORATORIO DE INVESTIGACION .docx",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. ¿Qué es la Caja de Herramientas?</p>
+                    <p>El glosario de "LABORATORIO DE INVESTIGACION .docx" define la 'caja de herramientas de investigación' como el repertorio de recursos teóricos, conceptuales y metodológicos que se utilizan para comprender y explicar de forma válida la realidad de las comunidades.</p>
+                    
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Métodos de Razonamiento Científico</p>
+                    <p>El método indica el camino sistemático a seguir para esclarecer y categorizar los datos:</p>
+                    <ul class="list-disc pl-5 space-y-2 mt-1">
+                        <li><strong>Método Inductivo:</strong> Parte de observaciones particulares del contexto para formular generalizaciones y nuevas teorías.</li>
+                        <li><strong>Método Deductivo:</strong> Parte de premisas y teorías generales conocidas para comprobarlas en casos particulares de la escuela.</li>
+                        <li><strong>Método Análisis-Síntesis:</strong> Descompone el problema en partes sencillas para entenderlo y luego integra los hallazgos en un todo coherente.</li>
+                        <li><strong>Método Histórico-Comparativo:</strong> Estudia la trayectoria cronológica del fenómeno social y analiza sus similitudes con otras realidades.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">3. Enfoques Metodológicos: Cuanti, Cuali y Mixto</p>
+                    <ul class="list-disc pl-5 space-y-2 mt-1">
+                        <li><strong>Cualitativo:</strong> Estudia discursos detallados, bitácoras abiertas, vivencias humanas y expresiones corporales. Se asocia con el método interpretativo.</li>
+                        <li><strong>Cuantitativo:</strong> Se centra en encuestas estandarizadas cerradas, promedios matemáticos y análisis estadístico. Busca la generalización matemática.</li>
+                        <li><strong>Mixto:</strong> Combina con rigor técnico ambos enfoques, permitiendo una mirada integral del problema (ej. medir la inasistencia con datos y entrevistar a los alumnos para entender las causas).</li>
+                    </ul>
+                `,
+                docLink: "Usa el glosario detallado en el Word LABORATORIO DE INVESTIGACION .docx para fundamentar la terminología del diseño de tu objeto de estudio.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Diagrama de Enfoques y Métodos</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Elabora en tu libreta el diseño conceptual de tu caja de herramientas:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Mapa de Soluciones:</strong> Traza un mapa mental que tenga en el centro tu problemática delimitada. Dibuja dos ramas que salgan del centro: una para el enfoque cualitativo y otra para el cuantitativo.
+                            </li>
+                            <li>
+                                <strong>Preguntas de Enfoque:</strong> Escribe qué tipo de preguntas formularías si te inclinaras por el lado cuantitativo (ej. ¿cuántos alumnos sufren acoso?) frente al enfoque cualitativo (ej. ¿cómo se sienten los alumnos ante el acoso escolar?).
+                            </li>
+                            <li>
+                                <strong>Método Seleccionado:</strong> Justifica en un párrafo de 5 renglones cuál método (inductivo o deductivo) es el más coherente para tu investigación comunitaria y por qué.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Coherencia metodológica, uso de colores y una fundamentación teórica sólida y argumentada.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Insista en que los alumnos justifiquen la elección del enfoque basándose en la naturaleza del objeto de estudio, no en la facilidad de los métodos.",
+                quiz: {
+                    question: "¿Qué método científico de razonamiento va de la recopilación de datos particulares hacia la formulación de generalizaciones o teorías amplias?",
+                    options: [
+                        { text: "El método Inductivo.", correct: true },
+                        { text: "El método Deductivo clásico.", correct: false },
+                        { text: "El diseño experimental puro.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "match",
+                    instruction: "Asocia cada elemento de la caja de herramientas con su definición metodológica:",
+                    pairs: [
+                        { term: "Enfoque Cuantitativo", match: "Usa encuestas y estadísticas numéricas." },
+                        { term: "Enfoque Cualitativo", match: "Estudia percepciones, discursos y vivencias." },
+                        { term: "Método Deductivo", match: "Va de teorías generales a casos concretos." }
+                    ]
+                },
+                debate: {
+                    prompt: "Si quisieras resolver la problemática del abandono de materias en tu bachillerato, ¿por qué un enfoque mixto de tu caja de herramientas supera a un enfoque puramente cuantitativo?",
+                    keywords: ["mixto", "entender", "estadísticas", "vivencias", "integral"]
+                }
+            },
+            {
+                id: 4,
+                title: "PF 4: Fundamentación Teórica e Identidad Académica",
+                shortTitle: "Estado del Arte y APA",
+                meta: "Fundamenta el estudio de la problemática social de la comunidad con los elementos teóricos desde la perspectiva crítica, a través del estado del arte.",
+                docReference: "Página 25 de LABORATORIO DE INVESTIGACION .pdf",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. El Estado del Arte como Antecedente de Campo</p>
+                    <p>El Estado del Arte es una técnica de investigación documental que consiste en revisar críticamente las publicaciones e investigaciones científicas elaboradas previamente sobre nuestro tema. Como señala Carlos Sabino en tu bibliografía básica: 'solo investigando se aprende a investigar'. Conocer qué se ha escrito de tu tema te ayuda a no cometer los mismos errores o repetir estudios ya superados.</p>
+                    
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Estructuración del Marco Teórico</p>
+                    <p>El marco teórico dota de rigor y fundamentación formal a tu protocolo. Se divide en tres dimensiones:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Marco Conceptual:</strong> Define los términos clave de la problemática para homologar interpretaciones (por ejemplo, definir formalmente qué es 'acoso escolar' según la CNDH).</li>
+                        <li><strong>Marco Histórico:</strong> Analiza la trayectoria del problema a lo largo del tiempo utilizando la metodología de trayectoria histórica del MCCEMS.</li>
+                        <li><strong>Marco Referencial / Normativo:</strong> Describe el contexto geográfico específico y las leyes o reglamentos vigentes vinculados con el fenómeno estudiado.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">3. El Uso Ético de la Información y las Normas APA</p>
+                    <p>El plagio es la apropiación ilegal de las ideas ajenas y constituye una falta ética grave en la ciencia. Para evitarlo, se utilizan las Normas APA. Una referencia típica de libro debe registrar: Apellido del autor, Inicial del nombre. (Año de publicación). <em>Título del libro en cursivas</em>. Editorial.</p>
+                `,
+                docLink: "Encuentra en la bibliografía recomendada de LABORATORIO DE INVESTIGACION .pdf (pág. 27-28) ejemplos de citación y ordenamiento ético.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Estructuración Teórica y Cita APA</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Redacta en tu libreta las siguientes actividades para estructurar tu marco de antecedentes:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Fichas de Glosario Conceptual:</strong> Selecciona tres conceptos indispensables para tu investigación social (ej. 'Inclusión', 'Redes Sociales', 'Autoestima'). Busca su significado formal en un diccionario o libro de texto y escríbelo.
+                            </li>
+                            <li>
+                                <strong>Redacción de una Cita APA:</strong> Simula que estás usando la frase de un autor del PDF escolar. Redacta un párrafo corto donde expliques una problemática de tu entorno, incorpores una cita textual entre comillas y asignes los créditos del autor usando el formato correcto de las Normas APA.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Uso correcto de las comillas para textos literales, estructuración exacta del formato de citación APA y coherencia sintáctica.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Fomente el uso ético de bases de datos científicas abiertas (BIDI-UNAM, SciELO o Redalyc) para el acopio del Estado del Arte.",
+                quiz: {
+                    question: "¿Qué acción de deshonestidad intelectual comete un investigador si presenta textos de internet como de su autoría sin citar la fuente original?",
+                    options: [
+                        { text: "Comete Plagio Académico.", correct: true },
+                        { text: "Comete Sistematización no Autorizada.", correct: false },
+                        { text: "Comete un error de Delimitación Temporal.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "match",
+                    instruction: "Relaciona el elemento conceptual con su respectivo uso ético en las Normas APA:",
+                    pairs: [
+                        { term: "Plagio", match: "Copiar textos directamente sin dar crédito." },
+                        { term: "Cita Directa", match: "Texto literal entre comillas con apellido y año." },
+                        { term: "Estado del Arte", match: "Revisar investigaciones previas del tema." }
+                    ]
+                },
+                debate: {
+                    prompt: "Un estudiante dice: 'Si modifico 5 palabras de un párrafo copiado de un sitio web, ya se convierte en una idea original mía y no tengo que citar al autor'. Evalúa críticamente esta idea desde la honestidad intelectual de tu comunidad de bachillerato.",
+                    keywords: ["plagio", "honestidad", "ética", "citar", "original"]
+                }
+            },
+            {
+                id: 5,
+                title: "PF 5: Recolección de Datos de Campo",
+                shortTitle: "Técnicas e Instrumentos",
+                meta: "Recolecta datos relacionados con la problemática y el objeto de estudio, a través de técnicas e instrumentos de investigación en las Ciencias Sociales.",
+                docReference: "Tabla de Planeación Didáctica en LABORATORIO DE INVESTIGACION .pdf",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. Técnicas e Instrumentos de Recolección</p>
+                    <p>En las Ciencias Sociales, las **técnicas** representan los procedimientos y actividades organizadas para obtener información (por ejemplo, la encuesta, la observación o la entrevista a profundidad). Por otro lado, los **instrumentos** constituyen las herramientas físicas o soportes de registro donde se asientan y concentran los datos (por ejemplo, un cuestionario en papel, un guion de preguntas estructuradas, listas de cotejo o el diario de campo).</p>
+                    
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Validez y Confiabilidad científica</p>
+                    <p>Toda recolección de campo exige que los instrumentos sean robustos. La **Validez** implica que el instrumento realmente mida la variable o fenómeno social planteado (por ejemplo, que una encuesta de autoestima escolar no termine midiendo la condición económica del hogar). La **Confiabilidad** implica que la aplicación repetida del instrumento en las mismas circunstancias arroje resultados consistentes y estables.</p>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">3. Criterios Éticos e Informantes Confidenciales</p>
+                    <p>Bajo la perspectiva de derechos del Modelo Educativo de la Nueva Escuela Mexicana, es obligatorio normar nuestra conducta de campo mediante tres pautas fundamentales:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Consentimiento Informado:</strong> Explicar a los informantes de qué trata el estudio y solicitar su aprobación antes de aplicar encuestas.</li>
+                        <li><strong>Confidencialidad y Anonimato:</strong> No registrar nombres reales ni fotografías sin autorización, usando códigos de resguardo.</li>
+                        <li><strong>Rigor Metodológico:</strong> Recoger datos reales de campo sin manipular los cuestionarios para forzar que den el resultado esperado en nuestras hipótesis.</li>
+                    </ul>
+                `,
+                docLink: "Revisa la planeación didáctica del quinto propósito en la pág. 14-15 de LABORATORIO DE INVESTIGACION .pdf.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Diseño de Instrumento y Guion Piloto</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Redacta en tu libreta el diseño preliminar de tus herramientas de recolección de campo:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Boceto de Cuestionario Cuantitativo:</strong> Redacta un cuestionario cerrado piloto de 3 preguntas vinculadas con tu tema. Cada pregunta debe incluir 3 opciones de respuesta clara.
+                            </li>
+                            <li>
+                                <strong>Guion de Consentimiento Informado:</strong> Redacta un párrafo introductorio de saludo de 4 renglones en el que expliques a un compañero cuál es el objetivo de tu proyecto de investigación y le preguntes éticamente si acepta participar y responder.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Ortografía cuidada, claridad en las preguntas y una sólida redacción ética respetuosa con los informantes.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Organice simulaciones de role-playing en el salón de clases antes de que salgan a aplicar encuestas al patio.",
+                quiz: {
+                    question: "¿Qué documento o proceso asegura que el participante conoce el uso ético que se le dará a sus respuestas y acepta participar con libertad?",
+                    options: [
+                        { text: "El Consentimiento Informado.", correct: true },
+                        { text: "El Diario de Campo.", correct: false },
+                        { text: "La Lista de Cotejo institucional.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "sorting",
+                    instruction: "Clasifica los recursos de investigación: ¿Es una 'Técnica' o un 'Instrumento'?:",
+                    items: [
+                        { text: "La Entrevista a profundidad", category: "Técnica" },
+                        { text: "Cuestionario en formulario digital de 10 preguntas", category: "Instrumento" },
+                        { text: "La Observación participante directa", category: "Técnica" },
+                        { text: "Diario de campo de anotaciones libres", category: "Instrumento" }
+                    ]
+                },
+                debate: {
+                    prompt: "Durante la aplicación de encuestas en tu salón, un estudiante de menor grado te confía un problema escolar delicado. ¿Cómo procederías de manera ética y metodológica con este dato?",
+                    keywords: ["ética", "confidencialidad", "director", "respeto", "ayuda"]
+                }
+            },
+            {
+                id: 6,
+                title: "PF 6: Análisis de Datos y Propuestas de Solución",
+                shortTitle: "Análisis y Propuestas",
+                meta: "Propone soluciones basadas en los hallazgos, que contribuyan a la transformación de la comunidad.",
+                docReference: "Sección 4 de LABORATORIO DE INVESTIGACION .pdf",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. Sistematización de los Datos de Campo</p>
+                    <p>Una vez completado el trabajo de recolección en tu escuela, debes organizar los datos. Este proceso de ordenamiento científico se llama **sistematización**:</p>
+                    <ul class="list-disc pl-5 space-y-2 mt-1">
+                        <li><strong>Sistematización Cuantitativa:</strong> Para cuestionarios cerrados, se procede a contar las frecuencias, calcular promedios y porcentajes, y vaciar las variables en gráficas estadísticas de pastel o barras mediante hojas de cálculo.</li>
+                        <li><strong>Sistematización Cualitativa:</strong> Para entrevistas a profundidad y diarios de campo, se transcriben los testimonios completos y se realiza una **codificación** o agrupamiento conceptual. Esto implica clasificar las opiniones recurrentes en categorías analíticas (por ejemplo: 'falta de comunicación', 'temores escolares', etc.). El programa de estudios propone apoyarse de herramientas como *Taguette* o *Voyant Tools* para este análisis.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Formulación de Propuestas Viables e Impacto Real</p>
+                    <p>La meta educativa de Laboratorio de Investigación es formarte como un **agente activo de cambio**. Por ello, tus hallazgos de campo deben traducirse en propuestas contextualizadas:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Viabilidad:</strong> La solución propuesta debe poderse realizar con los recursos del grupo y sin requerir presupuestos gigantescos.</li>
+                        <li><strong>Sostenibilidad:</strong> Debe ser respetuosa con la cultura comunitaria y con el medio ambiente local.</li>
+                    </ul>
+                `,
+                docLink: "Consulta las rúbricas de evaluación formativa de proyectos de las páginas 18 a 20 de LABORATORIO DE INVESTIGACION .pdf.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Boceto de Gráfica y Ficha de Propuesta Social</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Redacta en tu libreta los pasos para sistematizar y plantear alternativas de mejora:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Simulación Gráfica de Datos:</strong> Imagina que aplicaste tu encuesta a 10 alumnos. Dibuja a mano una gráfica de barras o de pastel que muestre los porcentajes ficticios de respuestas (ej. 7 alumnos contestaron 'Sí' y 3 contestaron 'No'). Asigna colores y leyendas.
+                            </li>
+                            <li>
+                                <strong>Ficha Técnica de la Propuesta:</strong> Describe una propuesta de solución para tu problemática escolar. Divide la explicación en 3 apartados claros: Título de la acción, recursos materiales necesarios (asegúrate de que sean de reciclaje o bajo costo) y el beneficio esperado en tu escuela.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Trazos geométricos limpios, colores diferenciadores y una propuesta con viabilidad real enfocada al plantel.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Fomente que los alumnos piensen en soluciones basadas en concientización, talleres de pares o infografías digitales de costo cero.",
+                quiz: {
+                    question: "¿Qué característica obligatoria debe tener una propuesta de solución derivada de la investigación escolar de la NEM?",
+                    options: [
+                        { text: "Debe ser viable, contextualizada y adaptable a los recursos de la comunidad escolar.", correct: true },
+                        { text: "Debe proponer presupuestos internacionales para solucionar problemáticas mundiales.", correct: false },
+                        { text: "Debe ser estrictamente teórica sin necesidad de llevarse a la práctica.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "match",
+                    instruction: "Asocia cada tipo de análisis con el respectivo proceso de sistematización científica:",
+                    pairs: [
+                        { term: "Sistematización Cuantitativa", match: "Cálculo de porcentajes y diseño de gráficas de barras." },
+                        { term: "Sistematización Cualitativa", match: "Categorizar testimonios recopilados en entrevistas." },
+                        { term: "Propuesta de Transformación", match: "Sugerencias de mejora viables basadas en evidencias." }
+                    ]
+                },
+                debate: {
+                    prompt: "Tus datos indican que el 80% de los estudiantes arroja basura en el patio del bachillerato. Plantea una solución transformadora que no dependa de comprar botes de basura caros.",
+                    keywords: ["conciencia", "campaña", "organizar", "limpieza", "reciclar"]
+                }
+            },
+            {
+                id: 7,
+                title: "PF 7: Comunicación Científica y Proyección",
+                shortTitle: "Divulgación y Proyecciones",
+                meta: "Comunica los resultados de la investigación social, que permita identificar nuevas áreas de estudio y el impacto en la comunidad.",
+                docReference: "Sección 8 de LABORATORIO DE INVESTIGACION .pdf (TICCAD)",
+                lectura: `
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed">1. La Comunicación Científica en el Bachillerato</p>
+                    <p>La fase final de la investigación social consiste en divulgar los resultados. De nada sirve descubrir hallazgos si estos se quedan en una libreta escolar archivada. La comunicación científica exige el uso de formatos claros, formales y sintéticos que faciliten la comprensión del grupo escolar:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                        <li><strong>Informe Académico Escrito:</strong> Es el reporte completo de la investigación estructurado con rigor conceptual.</li>
+                        <li><strong>Cartel Científico (Póster):</strong> Formato visual muy útil en congresos escolares, que integra en un lienzo los objetivos, metodologías, gráficas clave y soluciones propuestas.</li>
+                        <li><strong>Coloquio / Panel:</strong> Exposición oral y discusión ante el grupo de alumnos para intercambiar ideas y retroalimentar.</li>
+                    </ul>
+
+                    <p class="text-slate-300 font-semibold text-[13px] leading-relaxed mt-4">2. Integración de TICCAD y Proyecciones a Futuro</p>
+                    <p>El programa de estudios sugiere el uso de herramientas de diseño digital colaborativas (TICCAD) para la maquetación visual del cartel. Finalmente, toda investigación científica debe señalar sus **Proyecciones**, es decir, abrir el camino para futuras líneas de estudio que profundicen en lo que no se logró responder en el semestre actual.</p>
+                `,
+                docLink: "Revisa la sección de TICCAD en la página 24 de LABORATORIO DE INVESTIGACION .pdf para planear tus estrategias de divulgación digital.",
+                notebookActivity: `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h6 class="text-xs font-bold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-feather-pointed"></i> Tarea de Libreta: Boceto de Cartel Científico y Pitch de Exposición</h6>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong>Instrucciones:</strong> Elabora en tu libreta el plan de comunicación para divulgar tus resultados escolares:
+                        </p>
+                        <ol class="list-decimal pl-5 text-[11px] text-slate-300 space-y-3 mt-2">
+                            <li>
+                                <strong>Esquema en Miniatura del Cartel Científico:</strong> Dibuja un rectángulo grande que abarque una página completa. Divídelo en cuadrantes y simula la estructura visual del cartel (Título, Autores, Pregunta de investigación, Metodología, Gráfica de resultados y Propuesta). Usa cuadros y flechas organizadoras.
+                            </li>
+                            <li>
+                                <strong>Discurso de Exposición (Pitch de 1 Minuto):</strong> Escribe un discurso explicativo corto de 5 líneas para capturar la atención de tu profesor y compañeros el día de la feria de ciencias. Debe iniciar planteando el problema y finalizar con la solución de tu proyecto.
+                            </li>
+                        </ol>
+                        <div class="text-[10px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                            <strong>Criterio de Evaluación:</strong> Distribución visual armónica en el boceto y un discurso convincente, persuasivo y metodológico.
+                        </div>
+                    </div>
+                `,
+                teacherNote: "Organice un coloquio escolar invitando a directivos del plantel para dar mayor realce y validez a los hallazgos de los jóvenes.",
+                quiz: {
+                    question: "¿Qué formato de comunicación científica recopila de forma visual, gráfica y en un único lienzo los componentes y resultados clave del estudio?",
+                    options: [
+                        { text: "El Cartel Científico (Póster).", correct: true },
+                        { text: "La Monografía de antecedentes.", correct: false },
+                        { text: "El Diario de Campo.", correct: false }
+                    ]
+                },
+                game: {
+                    type: "ordering",
+                    instruction: "Ordena las partes tradicionales que componen la estructura de un Cartel Científico de bachillerato:",
+                    steps: [
+                        { order: 1, text: "Título formal, Autores y delimitación del problema escolar." },
+                        { order: 2, text: "Metodología seleccionada (Enfoque, sujetos de estudio)." },
+                        { order: 3, text: "Resultados clave presentados mediante gráficas y tablas." },
+                        { order: 4, text: "Propuestas de transformación social implementadas y referencias APA." }
+                    ]
+                },
+                debate: {
+                    prompt: "Vas a exponer tu cartel en el plantel. Escribe un discurso rápido de un minuto que demuestre el impacto real de tu solución comunitaria.",
+                    keywords: ["proyecto", "datos", "solución", "beneficio", "comunidad"]
+                }
+            }
+        ];
+
+        // --- SISTEMA DE ESTADO ---
+        let currentPropId = null;
+        let userRole = 'estudiante'; // 'estudiante' | 'docente'
+        let studentXP = parseInt(localStorage.getItem('lab_inv_xp')) || 0;
+        let completedActivities = JSON.parse(localStorage.getItem('lab_inv_completed')) || {};
+        let activeMainTab = 'reading'; // 'reading' | 'notebook' | 'interactive'
+        let activeGameTab = 1;
+
+        // Web Audio API para Gamificación
+        function playSfx(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.45);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.5);
+                } else if (type === 'error') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(147, ctx.currentTime + 0.12); // D3
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.4);
+                }
+            } catch (e) {
+                console.log("Audio Context no disponible.");
+            }
+        }
+
+        // Sistema de Toasts
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-4 mb-3 rounded-2xl shadow-xl border transition-all duration-300 transform translate-x-full text-xs font-semibold flex items-center gap-2 max-w-sm pointer-events-auto bg-slate-950 border-slate-800 text-slate-100`;
+            
+            let icon = '<i class="fa-solid fa-circle-info text-teal-400"></i>';
+            if (type === 'success') icon = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+            else if (type === 'error') icon = '<i class="fa-solid fa-circle-exclamation text-rose-500"></i>';
+
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => { toast.classList.remove('translate-x-full'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // --- STREAMING_CHUNK: Renderizado del Menú Lateral ---
+        function renderSidebar() {
+            const container = document.getElementById('sidebar-accordion');
+            container.innerHTML = '';
+
+            curriculum.forEach(prop => {
+                const propBlock = document.createElement('div');
+                propBlock.className = "border border-slate-800 rounded-xl overflow-hidden bg-slate-900/40";
+                
+                const propHeader = document.createElement('button');
+                propHeader.className = "w-full text-left p-3 flex justify-between items-center bg-slate-900/80 hover:bg-slate-800 transition-colors gap-2";
+                propHeader.onclick = () => selectProp(prop.id);
+                
+                const isSelected = currentPropId === prop.id;
+                const isAllDone = completedActivities[prop.id]?.allCompleted;
+                const isNotebookDone = completedActivities[prop.id]?.notebookDone;
+
+                const iconStatus = (isAllDone && isNotebookDone) 
+                    ? '<i class="fa-solid fa-circle-check text-emerald-400 shrink-0 mt-0.5 text-xs"></i>' 
+                    : '<i class="fa-solid fa-circle-notch text-slate-700 shrink-0 mt-0.5 text-xs"></i>';
+
+                propHeader.innerHTML = `
+                    <div class="space-y-0.5 pr-1">
+                        <span class="text-[9px] font-black text-teal-400 font-mono tracking-wider">PROPÓSITO ${prop.id}</span>
+                        <h3 class="text-xs font-bold text-white leading-snug line-clamp-2">${prop.shortTitle}</h3>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        ${iconStatus}
+                    </div>
+                `;
+
+                propBlock.appendChild(propHeader);
+                container.appendChild(propBlock);
+            });
+        }
+
+        // --- STREAMING_CHUNK: Selección de Temas ---
+        function selectProp(id) {
+            currentPropId = id;
+            const propObj = curriculum.find(p => p.id === id);
+
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('grades-screen').classList.add('hidden');
+            document.getElementById('main-workspace').classList.remove('hidden');
+
+            const panel = document.getElementById('active-content-panel');
+            panel.classList.remove('hidden');
+
+            // Actualizar textos
+            document.getElementById('breadcrumb-prop').innerText = `PROPÓSITO ${id}`;
+            document.getElementById('breadcrumb-cont').innerText = `CONTENIDOS COMPLETO`;
+            document.getElementById('active-title').innerText = propObj.title;
+            document.getElementById('active-intro').innerText = propObj.meta;
+
+            // Lectura de Profundidad
+            document.getElementById('reading-body').innerHTML = propObj.lectura;
+            document.getElementById('reading-meta').innerHTML = `
+                Soporte de referencia pedagógica: <strong>${propObj.docReference}</strong>. 
+                Utiliza las definiciones complementarias del glosario de <strong>"LABORATORIO DE INVESTIGACION .docx"</strong> para enriquecer tus notas en la libreta.
+            `;
+
+            // Actividad de Libreta
+            document.getElementById('notebook-activity-container').innerHTML = propObj.notebookActivity;
+            
+            // Checkbox libreta
+            const nbChecked = completedActivities[currentPropId]?.notebookDone || false;
+            document.getElementById('chk-notebook-done').checked = nbChecked;
+
+            // Configurar Retos Interactivos
+            setupQuiz();
+            setupGame();
+            setupDebate();
+
+            // Configurar Panel Docente
+            setupTeacherPanel(propObj);
+
+            // Cambiar a pestaña 1 por defecto
+            switchMainTab('reading');
+
+            // Renderizar de nuevo sidebar
+            renderSidebar();
+            updateTotalProgress();
+
+            showToast(`Cargado: Propósito ${id}`, 'info');
+        }
+
+        // Cambiar pestañas principales (Lectura, Libreta, Interactivos)
+        function switchMainTab(tabName) {
+            activeMainTab = tabName;
+            
+            const tabs = ['reading', 'notebook', 'interactive'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const section = document.getElementById(`section-${t}`);
+                if (t === tabName) {
+                    btn.className = "flex-1 text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-200 bg-teal-600 text-white shadow-md shadow-teal-950/20";
+                    section.classList.remove('hidden');
+                } else {
+                    btn.className = "flex-1 text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-900/60";
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        // Cambiar subpestañas lúdicas
+        function switchGameSubTab(tabNum) {
+            activeGameTab = tabNum;
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`subtab-game-${i}`);
+                const panel = document.getElementById(`game-panel-${i}`);
+                if (i === tabNum) {
+                    btn.className = "flex-1 text-center py-2 px-3 rounded-lg text-xs font-bold transition-all duration-200 bg-teal-600 text-white shadow";
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.className = "flex-1 text-center py-2 px-3 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-900";
+                    panel.classList.add('hidden');
+                }
+            }
+        }
+
+        // --- STREAMING_CHUNK: Reto Libreta Física ---
+        function toggleNotebookActivity() {
+            const checked = document.getElementById('chk-notebook-done').checked;
+            
+            if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+            completedActivities[currentPropId].notebookDone = checked;
+
+            if (checked) {
+                playSfx('success');
+                addXP(15);
+                showToast("¡Actividad en libreta guardada! No olvides mostrársela a tu profesor.", "success");
+            } else {
+                showToast("Actividad en libreta marcada como pendiente.", "info");
+            }
+
+            saveState();
+        }
+
+        // --- STREAMING_CHUNK: Reto 1 - Cuestionario ---
+        function setupQuiz() {
+            const box = document.getElementById('quiz-question-box');
+            box.innerHTML = '';
+
+            const quizState = completedActivities[currentPropId]?.quiz;
+
+            if (quizState && quizState.completed) {
+                box.innerHTML = `
+                    <div class="text-center p-6 bg-slate-900 rounded-xl border border-emerald-500/20">
+                        <i class="fa-solid fa-circle-check text-emerald-400 text-4xl mb-2"></i>
+                        <h5 class="text-xs font-bold text-white">Reto de Comprensión Superado</h5>
+                        <p class="text-[11px] text-slate-400 mt-1">¡Has respondido de manera correcta y sumado 10 XP!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const propObj = curriculum.find(p => p.id === currentPropId);
+            const q = propObj.quiz;
+            const container = document.createElement('div');
+            container.className = "space-y-3";
+            container.innerHTML = `
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <span class="text-[9px] font-bold text-teal-400 uppercase tracking-widest">Pregunta de Evaluación</span>
+                    <p class="text-xs font-bold text-white mt-1 leading-relaxed">${q.question}</p>
+                </div>
+                <div class="grid grid-cols-1 gap-2" id="quiz-options-wrapper"></div>
+            `;
+
+            box.appendChild(container);
+            const optionsWrapper = document.getElementById('quiz-options-wrapper');
+
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = "w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 hover:bg-slate-800 text-xs font-medium flex items-center gap-3 transition-all";
+                optBtn.innerHTML = `
+                    <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span class="text-slate-300 leading-snug">${opt.text}</span>
+                `;
+                optBtn.onclick = () => verifyQuizAnswer(opt.correct, optBtn);
+                optionsWrapper.appendChild(optBtn);
+            });
+        }
+
+        function verifyQuizAnswer(isCorrect, btn) {
+            const options = document.getElementById('quiz-options-wrapper').querySelectorAll('button');
+            options.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                btn.className = "w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-300 text-xs font-bold flex items-center gap-3 transition-all";
+                playSfx('success');
+                addXP(10);
+                
+                if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+                completedActivities[currentPropId].quiz = { completed: true, correct: true };
+                saveState();
+
+                setTimeout(() => { selectProp(currentPropId); }, 1500);
+            } else {
+                btn.className = "w-full text-left p-3 rounded-xl border-2 border-rose-500 bg-rose-500/10 text-rose-300 text-xs font-bold flex items-center gap-3 transition-all";
+                playSfx('error');
+                showToast("Intenta nuevamente analizando mejor la lectura de profundidad.", "error");
+                setTimeout(() => {
+                    options.forEach(b => b.disabled = false);
+                }, 1500);
+            }
+        }
+
+        // --- STREAMING_CHUNK: Reto 2 - Reto Dinámico ---
+        function setupGame() {
+            const box = document.getElementById('interactive-game-box');
+            box.innerHTML = '';
+
+            const gameState = completedActivities[currentPropId]?.game;
+
+            if (gameState && gameState.completed) {
+                box.innerHTML = `
+                    <div class="text-center p-6 bg-slate-900 rounded-xl border border-emerald-500/20 w-full max-w-md">
+                        <i class="fa-solid fa-medal text-amber-400 text-4xl mb-2 animate-bounce"></i>
+                        <h5 class="text-xs font-bold text-white">Reto Dinámico Superado</h5>
+                        <p class="text-[11px] text-slate-400 mt-1">Has demostrado tus habilidades lúdicas de campo y sumado 15 XP.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const propObj = curriculum.find(p => p.id === currentPropId);
+            const game = propObj.game;
+
+            if (game.type === 'sorting') {
+                renderSortingGame(game, box);
+            } else if (game.type === 'match') {
+                renderMatchingGame(game, box);
+            } else if (game.type === 'ordering') {
+                renderOrderingGame(game, box);
+            }
+        }
+
+        // Juego Clasificación
+        function renderSortingGame(game, container) {
+            let currentIndex = 0;
+            const items = [...game.items];
+            
+            const gameDiv = document.createElement('div');
+            gameDiv.className = "w-full max-w-md bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4";
+            gameDiv.innerHTML = `
+                <div class="text-center">
+                    <p class="text-[10px] text-slate-400 leading-snug">${game.instruction}</p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 mt-3 min-h-[90px] flex items-center justify-center text-center">
+                        <h5 id="sorting-item-text" class="text-xs font-semibold text-white leading-relaxed"></h5>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="submitSortAnswer('Hecho', '${game.items[0].category}')" id="btn-sort-1" class="bg-teal-600 hover:bg-teal-500 py-2.5 rounded-xl text-xs font-bold text-white transition-all"></button>
+                    <button onclick="submitSortAnswer('Opinión', '${game.items[0].category}')" id="btn-sort-2" class="bg-slate-800 hover:bg-slate-700 py-2.5 rounded-xl text-xs font-bold text-slate-300 transition-all"></button>
+                </div>
+                <div class="text-center">
+                    <span id="sorting-progress" class="text-[10px] font-mono text-slate-500"></span>
+                </div>
+            `;
+            container.appendChild(gameDiv);
+
+            window.updateSortUI = () => {
+                if (currentIndex >= items.length) {
+                    playSfx('success');
+                    addXP(15);
+                    if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+                    completedActivities[currentPropId].game = { completed: true };
+                    saveState();
+                    selectProp(currentPropId);
+                    return;
+                }
+                const item = items[currentIndex];
+                document.getElementById('sorting-item-text').innerText = item.text;
+                document.getElementById('sorting-progress').innerText = `Item ${currentIndex + 1} de ${items.length}`;
+
+                const btn1 = document.getElementById('btn-sort-1');
+                const btn2 = document.getElementById('btn-sort-2');
+
+                if (currentPropId === 1) {
+                    btn1.innerText = "Hecho Científico";
+                    btn1.onclick = () => submitSortAnswer("Hecho", item.category);
+                    btn2.innerText = "Opinión Popular";
+                    btn2.onclick = () => submitSortAnswer("Opinión", item.category);
+                } else if (currentPropId === 5) {
+                    btn1.innerText = "Técnica de Recolección";
+                    btn1.onclick = () => submitSortAnswer("Técnica", item.category);
+                    btn2.innerText = "Instrumento de Campo";
+                    btn2.onclick = () => submitSortAnswer("Instrumento", item.category);
+                }
+            };
+
+            window.submitSortAnswer = (chosen, correct) => {
+                if (chosen === correct) {
+                    playSfx('success');
+                    showToast("¡Correcto!", "success");
+                    currentIndex++;
+                    updateSortUI();
+                } else {
+                    playSfx('error');
+                    showToast("Clasificación errónea. Revisa la teoría.", "error");
+                }
+            };
+
+            updateSortUI();
+        }
+
+        // Juego Emparejamiento
+        function renderMatchingGame(game, container) {
+            const gameDiv = document.createElement('div');
+            gameDiv.className = "w-full max-w-xl space-y-4";
+            
+            gameDiv.innerHTML = `
+                <p class="text-[10px] text-slate-400 text-center mb-2">${game.instruction}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2" id="match-terms"></div>
+                    <div class="space-y-2" id="match-definitions"></div>
+                </div>
+            `;
+            container.appendChild(gameDiv);
+
+            let selectedTerm = null;
+            let selectedDef = null;
+
+            const shuffledTerms = [...game.pairs].sort(() => Math.random() - 0.5);
+            const shuffledDefs = [...game.pairs].sort(() => Math.random() - 0.5);
+
+            const termsContainer = document.getElementById('match-terms');
+            const defsContainer = document.getElementById('match-definitions');
+
+            shuffledTerms.forEach(pair => {
+                const termBtn = document.createElement('button');
+                termBtn.className = "w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900 hover:border-teal-500 text-xs font-semibold text-slate-200 transition-all";
+                termBtn.innerText = pair.term;
+                termBtn.dataset.term = pair.term;
+                termBtn.onclick = () => {
+                    termsContainer.querySelectorAll('button').forEach(b => b.className = b.className.replace('border-teal-500 bg-teal-500/10', 'border-slate-800 bg-slate-900'));
+                    termBtn.className = "w-full text-left p-3 rounded-xl border border-teal-500 bg-teal-500/10 text-xs font-semibold text-teal-300 transition-all";
+                    selectedTerm = pair.term;
+                    checkMatches();
+                };
+                termsContainer.appendChild(termBtn);
+            });
+
+            shuffledDefs.forEach(pair => {
+                const defBtn = document.createElement('button');
+                defBtn.className = "w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900 hover:border-amber-500 text-xs font-medium text-slate-300 transition-all";
+                defBtn.innerText = pair.match;
+                defBtn.dataset.match = pair.match;
+                defBtn.onclick = () => {
+                    defsContainer.querySelectorAll('button').forEach(b => b.className = b.className.replace('border-amber-500 bg-amber-500/10', 'border-slate-800 bg-slate-900'));
+                    defBtn.className = "w-full text-left p-3 rounded-xl border border-amber-500 bg-amber-500/10 text-xs font-medium text-amber-300 transition-all";
+                    selectedDef = pair.match;
+                    checkMatches();
+                };
+                defsContainer.appendChild(defBtn);
+            });
+
+            let matchedCount = 0;
+
+            function checkMatches() {
+                if (selectedTerm && selectedDef) {
+                    const validPair = game.pairs.find(p => p.term === selectedTerm && p.match === selectedDef);
+                    if (validPair) {
+                        playSfx('success');
+                        showToast("¡Correcto!", "success");
+                        
+                        const termBtn = Array.from(termsContainer.querySelectorAll('button')).find(b => b.dataset.term === selectedTerm);
+                        const defBtn = Array.from(defsContainer.querySelectorAll('button')).find(b => b.dataset.match === selectedDef);
+
+                        termBtn.className = "w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/20 text-xs font-bold text-emerald-300 cursor-not-allowed opacity-60";
+                        defBtn.className = "w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/20 text-xs font-bold text-emerald-300 cursor-not-allowed opacity-60";
+                        
+                        termBtn.disabled = true;
+                        defBtn.disabled = true;
+
+                        matchedCount++;
+                        selectedTerm = null;
+                        selectedDef = null;
+
+                        if (matchedCount === game.pairs.length) {
+                            setTimeout(() => {
+                                playSfx('success');
+                                addXP(15);
+                                if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+                                completedActivities[currentPropId].game = { completed: true };
+                                saveState();
+                                selectProp(currentPropId);
+                            }, 1200);
+                        }
+                    } else {
+                        playSfx('error');
+                        showToast("Combinación incorrecta. Inténtalo de nuevo.", "error");
+                        selectedTerm = null;
+                        selectedDef = null;
+                        termsContainer.querySelectorAll('button').forEach(b => { if(!b.disabled) b.className = "w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900 text-xs font-semibold text-slate-200"; });
+                        defsContainer.querySelectorAll('button').forEach(b => { if(!b.disabled) b.className = "w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900 text-xs font-medium text-slate-300"; });
+                    }
+                }
+            }
+        }
+
+        // Juego Ordenamiento
+        function renderOrderingGame(game, container) {
+            const gameDiv = document.createElement('div');
+            gameDiv.className = "w-full max-w-md bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4";
+            
+            let listHtml = "";
+            const shuffledSteps = [...game.steps].sort(() => Math.random() - 0.5);
+
+            shuffledSteps.forEach((step, idx) => {
+                listHtml += `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-200 select-none">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-grip-vertical text-slate-600"></i> ${step.text}</span>
+                        <div class="flex gap-1 shrink-0">
+                            <button onclick="moveStep(${idx}, -1)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-1.5 rounded"><i class="fa-solid fa-chevron-up text-[10px]"></i></button>
+                            <button onclick="moveStep(${idx}, 1)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-1.5 rounded"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            gameDiv.innerHTML = `
+                <p class="text-[10px] text-slate-400 text-center leading-relaxed">${game.instruction}</p>
+                <div class="space-y-2" id="order-list-wrapper">${listHtml}</div>
+                <button onclick="verifyOrderGame()" class="w-full bg-teal-600 hover:bg-teal-500 py-2 rounded-xl text-xs font-bold text-white transition-all mt-4"><i class="fa-solid fa-square-check mr-1.5"></i> Validar Secuencia</button>
+            `;
+            container.appendChild(gameDiv);
+
+            window.currentOrderingSteps = shuffledSteps;
+            window.moveStep = (index, direction) => {
+                const targetIndex = index + direction;
+                if (targetIndex >= 0 && targetIndex < window.currentOrderingSteps.length) {
+                    const temp = window.currentOrderingSteps[index];
+                    window.currentOrderingSteps[index] = window.currentOrderingSteps[targetIndex];
+                    window.currentOrderingSteps[targetIndex] = temp;
+                    reRenderOrderList();
+                }
+            };
+
+            window.reRenderOrderList = () => {
+                const listWrapper = document.getElementById('order-list-wrapper');
+                listWrapper.innerHTML = '';
+                window.currentOrderingSteps.forEach((step, idx) => {
+                    const div = document.createElement('div');
+                    div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-200 select-none animate-fade-in";
+                    div.innerHTML = `
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-grip-vertical text-slate-600"></i> ${step.text}</span>
+                        <div class="flex gap-1 shrink-0">
+                            <button onclick="moveStep(${idx}, -1)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-1.5 rounded"><i class="fa-solid fa-chevron-up text-[10px]"></i></button>
+                            <button onclick="moveStep(${idx}, 1)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-1.5 rounded"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                        </div>
+                    `;
+                    listWrapper.appendChild(div);
+                });
+            };
+
+            window.verifyOrderGame = () => {
+                let isCorrect = true;
+                window.currentOrderingSteps.forEach((step, idx) => {
+                    if (step.order !== idx + 1) isCorrect = false;
+                });
+
+                if (isCorrect) {
+                    playSfx('success');
+                    addXP(15);
+                    if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+                    completedActivities[currentPropId].game = { completed: true };
+                    saveState();
+                    selectProp(currentPropId);
+                } else {
+                    playSfx('error');
+                    showToast("La secuencia es incorrecta. Sigue el orden lógico.", "error");
+                }
+            };
+        }
+
+        // --- STREAMING_CHUNK: Reto 3 - Debate Crítico ---
+        function setupDebate() {
+            const propObj = curriculum.find(p => p.id === currentPropId);
+            const debate = propObj.debate;
+            document.getElementById('debate-prompt-box').innerHTML = `
+                <p class="text-[11px] text-slate-300 leading-relaxed italic"><i class="fa-solid fa-quote-left text-teal-400 mr-1.5"></i> ${debate.prompt}</p>
+            `;
+
+            const resArea = document.getElementById('debate-response');
+            resArea.value = completedActivities[currentPropId]?.debate?.response || '';
+            
+            resArea.oninput = () => {
+                const words = resArea.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+                document.getElementById('debate-word-count').innerText = `${words} palabras`;
+            };
+            resArea.oninput();
+
+            const evalBox = document.getElementById('debate-evaluation-box');
+            const debateState = completedActivities[currentPropId]?.debate;
+
+            if (debateState && debateState.completed) {
+                evalBox.classList.remove('hidden');
+                evalBox.innerHTML = `
+                    <div class="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl space-y-2">
+                        <h5 class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Argumentación Guardada
+                        </h5>
+                        <p class="text-[11px] text-slate-300 italic">"${debateState.response}"</p>
+                        <p class="text-[10px] text-teal-400 font-bold italic mt-1"><i class="fa-solid fa-circle-nodes"></i> Retroalimentación: Tu respuesta contiene el vocabulario necesario del marco teórico de la NEM.</p>
+                    </div>
+                `;
+                resArea.disabled = true;
+            } else {
+                evalBox.classList.add('hidden');
+                resArea.disabled = false;
+            }
+        }
+
+        function evaluateDebate() {
+            const resArea = document.getElementById('debate-response');
+            const text = resArea.value.trim();
+            const words = text.split(/\s+/).filter(w => w.length > 0).length;
+
+            if (words < 30) {
+                playSfx('error');
+                showToast("Para una argumentación válida, redacta al menos 30 palabras.", "error");
+                return;
+            }
+
+            const propObj = curriculum.find(p => p.id === currentPropId);
+            const keywords = propObj.debate.keywords;
+            
+            let matchedKeys = [];
+            keywords.forEach(key => {
+                const regex = new RegExp(key, 'i');
+                if (regex.test(text)) matchedKeys.push(key);
+            });
+
+            if (matchedKeys.length < 2) {
+                playSfx('error');
+                showToast(`Faltan términos del vocabulario científico. Incorpora palabras clave de la lectura (ej: ${keywords.join(', ')}).`, "error");
+                return;
+            }
+
+            playSfx('success');
+            addXP(20);
+
+            if (!completedActivities[currentPropId]) completedActivities[currentPropId] = {};
+            completedActivities[currentPropId].debate = { completed: true, response: text };
+            completedActivities[currentPropId].allCompleted = true;
+            
+            saveState();
+            selectProp(currentPropId);
+            showToast("¡Argumentación guardada con éxito!", "success");
+        }
+
+        // --- STREAMING_CHUNK: Panel Docente ---
+        function setupTeacherPanel(propObj) {
+            const container = document.getElementById('teacher-content-area');
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <p><strong>Claves Didácticas del Propósito Formativo ${propObj.id}:</strong></p>
+                    <p class="italic text-slate-400">"El docente de la NEM debe validar formativamente que la argumentación escrita del alumno trascienda la mera opinión subjetiva e integre los conceptos formales de la caja de herramientas."</p>
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                        <p class="font-bold text-amber-400">Solucionario y Criterios del Tema:</p>
+                        <ul class="list-disc pl-4 mt-1.5 space-y-1">
+                            <li>Respuesta correcta del cuestionario: <strong>"${propObj.quiz.options.find(o => o.correct).text}"</strong></li>
+                            <li>Términos requeridos para el debate crítico: <strong>${propObj.debate.keywords.join(', ')}</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleUserRole() {
+            const btn = document.getElementById('btn-role');
+            const panel = document.getElementById('teacher-view-panel');
+            if (userRole === 'estudiante') {
+                userRole = 'docente';
+                btn.className = "bg-amber-600 hover:bg-amber-500 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all border border-transparent";
+                btn.innerHTML = '<i class="fa-solid fa-user-shield"></i> Vista: Docente';
+                panel.classList.remove('hidden');
+                showToast("Orientación Didáctica de la NEM activada", "success");
+            } else {
+                userRole = 'estudiante';
+                btn.className = "bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all border border-slate-700";
+                btn.innerHTML = '<i class="fa-solid fa-user-shield"></i> Vista: Estudiante';
+                panel.classList.add('hidden');
+                showToast("Regresaste a la vista del estudiante.", "info");
+            }
+        }
+
+        // --- STREAMING_CHUNK: Control de Gamificación y Estado ---
+        function addXP(amount) {
+            studentXP += amount;
+            document.getElementById('student-xp').innerText = studentXP;
+            localStorage.setItem('lab_inv_xp', studentXP);
+            showToast(`+${amount} XP Acumulados`, "success");
+        }
+
+        function saveState() {
+            localStorage.setItem('lab_inv_completed', JSON.stringify(completedActivities));
+            updateTotalProgress();
+        }
+
+        function updateTotalProgress() {
+            let totalProps = curriculum.length;
+            let completedCount = 0;
+
+            curriculum.forEach(p => {
+                const state = completedActivities[p.id];
+                if (state && state.allCompleted && state.notebookDone) {
+                    completedCount++;
+                }
+            });
+
+            const percentage = Math.round((completedCount / totalProps) * 100);
+            document.getElementById('student-progress-bar').style.width = `${percentage}%`;
+            document.getElementById('student-progress-txt').innerText = `${percentage}%`;
+        }
+
+        // --- STREAMING_CHUNK: Muestra la Boleta Digital ---
+        function showGradesScreen() {
+            document.getElementById('main-workspace').classList.add('hidden');
+            const gradesScreen = document.getElementById('grades-screen');
+            gradesScreen.classList.remove('hidden');
+
+            // Cargar datos en la boleta
+            document.getElementById('grade-xp-score').innerText = studentXP;
+
+            let totalProps = curriculum.length;
+            let completedCount = 0;
+
+            curriculum.forEach(p => {
+                const state = completedActivities[p.id];
+                if (state && state.allCompleted && state.notebookDone) {
+                    completedCount++;
+                }
+            });
+
+            const percent = Math.round((completedCount / totalProps) * 100);
+            document.getElementById('grade-completed-count').innerText = `${completedCount} / ${totalProps}`;
+            document.getElementById('grade-completed-percent').innerText = `${percent}%`;
+
+            // Calcular calificación escolar mexicana base 10 (mínimo 5 si tiene algún progreso)
+            let baseGrade = 5.0;
+            if (completedCount > 0) {
+                baseGrade = 5.0 + ((completedCount / totalProps) * 5.0);
+            }
+            document.getElementById('grade-score').innerText = baseGrade.toFixed(1);
+
+            // Poblar tabla de materias
+            const tbody = document.getElementById('grades-table-body');
+            tbody.innerHTML = '';
+
+            curriculum.forEach(p => {
+                const state = completedActivities[p.id] || {};
+                const quizDone = state.quiz?.completed ? '🏆 Sí (10 XP)' : '❌ Pendiente';
+                const debateDone = state.debate?.completed ? '🏆 Sí (20 XP)' : '❌ Pendiente';
+                const nbDone = state.notebookDone ? '✔️ Realizado (15 XP)' : '❌ Sin Realizar';
+                const isAllDone = (state.allCompleted && state.notebookDone);
+                const statusLabel = isAllDone 
+                    ? '<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">COMPLETADO</span>'
+                    : '<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-bold">EN PROCESO</span>';
+
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-800/40 hover:bg-slate-900/40 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3 font-medium text-slate-200">
+                        <span class="text-[10px] text-teal-400 font-bold block">PF ${p.id}</span>
+                        ${p.shortTitle}
+                    </td>
+                    <td class="p-3 text-center text-slate-300">${quizDone}</td>
+                    <td class="p-3 text-center text-slate-300">${debateDone}</td>
+                    <td class="p-3 text-center text-slate-300">${nbDone}</td>
+                    <td class="p-3 text-center">${statusLabel}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            gradesScreen.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideGradesScreen() {
+            document.getElementById('grades-screen').classList.add('hidden');
+            document.getElementById('main-workspace').classList.remove('hidden');
+        }
+
+        // --- CARGA INICIAL ---
+        window.onload = function() {
+            renderSidebar();
+            updateTotalProgress();
+            document.getElementById('student-xp').innerText = studentXP;
+        };
+    </script>
+</body>
+</html>
