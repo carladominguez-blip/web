@@ -1,0 +1,416 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.hero {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  margin-bottom: 1.5rem;
+}
+.badge {
+  display: inline-block;
+  background: var(--color-background-info);
+  color: var(--color-text-info);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.hero h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.4rem; }
+.hero p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+
+.tab-bar {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 0 1.5rem; margin-bottom: 1.5rem;
+}
+.tab-btn {
+  padding: 7px 14px; border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-secondary);
+  background: transparent; cursor: pointer;
+  font-size: 13px; color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  transition: all 0.15s;
+}
+.tab-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+.tab-btn.active {
+  background: var(--color-background-info);
+  color: var(--color-text-info);
+  border-color: transparent;
+  font-weight: 500;
+}
+
+.section { display: none; padding: 0 1.5rem 2rem; }
+.section.visible { display: block; }
+
+.ficha-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+.ficha-type-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; padding: 3px 10px;
+  border-radius: var(--border-radius-md); margin-bottom: 0.85rem;
+}
+.tipo-libro { background: #EAF3DE; color: #3B6D11; }
+.tipo-articulo { background: #EEEDFE; color: #3C3489; }
+.tipo-resena { background: #FAEEDA; color: #854F0B; }
+.tipo-capitulo { background: #FAECE7; color: #993C1D; }
+
+.field-row { display: flex; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.field-row:last-of-type { border-bottom: none; }
+.field-label { font-size: 12px; color: var(--color-text-secondary); min-width: 120px; flex-shrink: 0; font-weight: 500; padding-top: 1px; }
+.field-value { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+
+.ref-box {
+  background: var(--color-background-secondary);
+  border-left: 3px solid #5DCAA5;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  padding: 0.85rem 1rem;
+  margin-top: 1rem;
+}
+.ref-box .ref-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 5px; letter-spacing: 0.04em; }
+.ref-box .ref-text { font-size: 12px; color: var(--color-text-primary); line-height: 1.7; }
+.ref-box a { color: var(--color-text-info); text-decoration: none; word-break: break-all; }
+
+.quiz-area { max-width: 620px; }
+.question-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem; margin-bottom: 1rem;
+}
+.q-num { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 8px; font-weight: 500; }
+.q-text { font-size: 15px; color: var(--color-text-primary); margin-bottom: 1rem; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  text-align: left; padding: 10px 14px;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  background: transparent; cursor: pointer;
+  font-size: 13px; color: var(--color-text-primary);
+  font-family: var(--font-sans); line-height: 1.4;
+  transition: all 0.15s;
+}
+.opt-btn:hover:not(:disabled) { background: var(--color-background-secondary); }
+.opt-btn.correct { background: #EAF3DE; border-color: #97C459; color: #3B6D11; }
+.opt-btn.wrong { background: #FCEBEB; border-color: #F09595; color: #A32D2D; }
+.opt-btn:disabled { cursor: default; }
+.feedback { margin-top: 10px; font-size: 13px; padding: 8px 12px; border-radius: var(--border-radius-md); line-height: 1.5; }
+.feedback.ok { background: #EAF3DE; color: #3B6D11; }
+.feedback.fail { background: #FCEBEB; color: #A32D2D; }
+
+.score-bar {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem;
+  border: 0.5px solid var(--color-border-tertiary);
+}
+.score-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.score-lbl { font-size: 12px; color: var(--color-text-secondary); }
+
+.glosario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.glosario-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.1rem;
+}
+.glosario-term { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.glosario-def { font-size: 13px; color: var(--color-text-secondary); line-height: 1.55; }
+
+.anatomia-wrap {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem; margin-bottom: 1rem;
+}
+.anatomia-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.anatomia-row:last-child { border-bottom: none; }
+.anat-num { width: 24px; height: 24px; border-radius: 50%; background: var(--color-background-info); color: var(--color-text-info); font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.anat-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.anat-desc { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; line-height: 1.5; }
+.anat-example { font-size: 11px; background: var(--color-background-secondary); color: var(--color-text-secondary); padding: 4px 8px; border-radius: var(--border-radius-md); margin-top: 4px; font-style: italic; }
+
+.section-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 1rem; }
+.section-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.25rem; line-height: 1.6; }
+</style>
+
+<h2 class="sr-only" style="position:absolute;left:-9999px">Página interactiva sobre fichas bibliográficas para nivel medio superior</h2>
+
+<div class="hero">
+  <div class="badge"><i class="ti ti-book" aria-hidden="true"></i> Habilidades de investigación</div>
+  <h1>Fichas bibliográficas</h1>
+  <p>Aprende a identificar, leer y elaborar fichas bibliográficas en formato APA. Explora los ejemplos, comprende su estructura y pon a prueba tus conocimientos.</p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('fichas')"><i class="ti ti-files" aria-hidden="true"></i> Fichas</button>
+  <button class="tab-btn" onclick="showTab('anatomia')"><i class="ti ti-layout-list" aria-hidden="true"></i> Anatomía de una ficha</button>
+  <button class="tab-btn" onclick="showTab('glosario')"><i class="ti ti-vocabulary" aria-hidden="true"></i> Glosario</button>
+  <button class="tab-btn" onclick="showTab('quiz')"><i class="ti ti-help-circle" aria-hidden="true"></i> Pon a prueba tu conocimiento</button>
+</div>
+
+<div id="tab-fichas" class="section visible">
+  <p class="section-sub">Estas fichas provienen de fuentes académicas reales. Observa cómo cada tipo de fuente (libro, artículo, reseña, coordinación) tiene sus propios campos.</p>
+
+  <div class="ficha-card">
+    <span class="ficha-type-badge tipo-libro"><i class="ti ti-book-2" aria-hidden="true"></i> Libro</span>
+    <div class="field-row"><span class="field-label">Autor</span><span class="field-value">Rionda Ramírez, Jorge Isauro</span></div>
+    <div class="field-row"><span class="field-label">Título</span><span class="field-value">Historia de los movimientos sociales en México: Las metamorfosis del fascismo periférico</span></div>
+    <div class="field-row"><span class="field-label">Editorial</span><span class="field-value">Sepha Edición y Diseño</span></div>
+    <div class="field-row"><span class="field-label">Lugar</span><span class="field-value">Madrid, España</span></div>
+    <div class="field-row"><span class="field-label">Año</span><span class="field-value">2008</span></div>
+    <div class="field-row"><span class="field-label">Páginas</span><span class="field-value">154 p.</span></div>
+    <div class="field-row"><span class="field-label">ISBN</span><span class="field-value">978-84-96764-43-9</span></div>
+    <div class="ref-box">
+      <div class="ref-label">REFERENCIA APA</div>
+      <div class="ref-text">Rionda Ramírez, J. I. (2008). <em>Historia de los movimientos sociales en México: Las metamorfosis del fascismo periférico.</em> Madrid: Sepha Edición y Diseño.</div>
+    </div>
+  </div>
+
+  <div class="ficha-card">
+    <span class="ficha-type-badge tipo-articulo"><i class="ti ti-article" aria-hidden="true"></i> Artículo de revista</span>
+    <div class="field-row"><span class="field-label">Autor</span><span class="field-value">González-Izás, Matilde</span></div>
+    <div class="field-row"><span class="field-label">Título</span><span class="field-value">Transformaciones del capitalismo: género y desigualdades socioespaciales en México</span></div>
+    <div class="field-row"><span class="field-label">Revista</span><span class="field-value">Estudios Sociológicos — El Colegio de México</span></div>
+    <div class="field-row"><span class="field-label">Volumen</span><span class="field-value">43</span></div>
+    <div class="field-row"><span class="field-label">Año</span><span class="field-value">2025</span></div>
+    <div class="field-row"><span class="field-label">Páginas</span><span class="field-value">1–25</span></div>
+    <div class="field-row"><span class="field-label">DOI</span><span class="field-value"><a href="https://doi.org/10.24201/es.2025v43.e2933" target="_blank">10.24201/es.2025v43.e2933</a></span></div>
+    <div class="ref-box">
+      <div class="ref-label">REFERENCIA APA</div>
+      <div class="ref-text">González-Izás, M. (2025). Transformaciones del capitalismo: género y desigualdades socioespaciales en México. <em>Estudios Sociológicos, 43,</em> 1–25. <a href="https://doi.org/10.24201/es.2025v43.e2933">https://doi.org/10.24201/es.2025v43.e2933</a></div>
+    </div>
+  </div>
+
+  <div class="ficha-card">
+    <span class="ficha-type-badge tipo-resena"><i class="ti ti-message-2" aria-hidden="true"></i> Reseña</span>
+    <div class="field-row"><span class="field-label">Autor de reseña</span><span class="field-value">López Rivera, Edwin</span></div>
+    <div class="field-row"><span class="field-label">Obra reseñada</span><span class="field-value">Marichal, Carlos — <em>Historia mínima de la globalización moderna y contemporánea</em></span></div>
+    <div class="field-row"><span class="field-label">Editorial de obra</span><span class="field-value">El Colegio de México, 2024</span></div>
+    <div class="field-row"><span class="field-label">Revista</span><span class="field-value">Revista Historia Económica de América Latina</span></div>
+    <div class="field-row"><span class="field-label">Año</span><span class="field-value">2024</span></div>
+    <div class="field-row"><span class="field-label">DOI</span><span class="field-value"><a href="https://doi.org/10.59709/RHEAL/02.02.24" target="_blank">10.59709/RHEAL/02.02.24</a></span></div>
+    <div class="ref-box">
+      <div class="ref-label">REFERENCIA APA</div>
+      <div class="ref-text">López Rivera, E. (2024). Carlos Marichal, <em>Historia mínima de la globalización moderna y contemporánea,</em> El Colegio de México, 2024. <em>Revista Historia Económica de América Latina.</em> <a href="https://doi.org/10.59709/RHEAL/02.02.24">https://doi.org/10.59709/RHEAL/02.02.24</a></div>
+    </div>
+  </div>
+
+  <div class="ficha-card">
+    <span class="ficha-type-badge tipo-capitulo"><i class="ti ti-users" aria-hidden="true"></i> Libro con coordinadores</span>
+    <div class="field-row"><span class="field-label">Coordinadores</span><span class="field-value">Romero Ibarra, María Eugenia; Serrano Álvarez, Pablo</span></div>
+    <div class="field-row"><span class="field-label">Título</span><span class="field-value">Regiones y expansión capitalista en México durante el siglo XIX</span></div>
+    <div class="field-row"><span class="field-label">Editorial</span><span class="field-value">UNAM (Fac. de Economía) / Universidad de Colima</span></div>
+    <div class="field-row"><span class="field-label">Lugar</span><span class="field-value">México</span></div>
+    <div class="field-row"><span class="field-label">Año</span><span class="field-value">1998</span></div>
+    <div class="field-row"><span class="field-label">Páginas</span><span class="field-value">520 p.</span></div>
+    <div class="field-row"><span class="field-label">ISBN</span><span class="field-value">968-36-6446-6</span></div>
+    <div class="ref-box">
+      <div class="ref-label">REFERENCIA APA</div>
+      <div class="ref-text">Romero Ibarra, M. E., y Serrano Álvarez, P. (coords.). (1998). <em>Regiones y expansión capitalista en México durante el siglo XIX.</em> México: Universidad Nacional Autónoma de México, Facultad de Economía y Universidad de Colima.</div>
+    </div>
+  </div>
+
+  <div class="ficha-card">
+    <span class="ficha-type-badge tipo-articulo"><i class="ti ti-article" aria-hidden="true"></i> Artículo de revista</span>
+    <div class="field-row"><span class="field-label">Autor</span><span class="field-value">Vázquez García, Agustín Raymundo</span></div>
+    <div class="field-row"><span class="field-label">Título</span><span class="field-value">La autogestión energética ante la guerra capitalista. El caso de la resistencia en México</span></div>
+    <div class="field-row"><span class="field-label">Revista</span><span class="field-value">Revista CoPaLa. Construyendo Paz Latinoamericana</span></div>
+    <div class="field-row"><span class="field-label">Vol. / Núm.</span><span class="field-value">Vol. 8, Núm. 17</span></div>
+    <div class="field-row"><span class="field-label">Año</span><span class="field-value">2023</span></div>
+    <div class="field-row"><span class="field-label">Páginas</span><span class="field-value">42–55</span></div>
+    <div class="field-row"><span class="field-label">DOI</span><span class="field-value"><a href="https://doi.org/10.35600/25008870.2023.17.0266" target="_blank">10.35600/25008870.2023.17.0266</a></span></div>
+    <div class="ref-box">
+      <div class="ref-label">REFERENCIA APA</div>
+      <div class="ref-text">Vázquez García, A. R. (2023). La autogestión energética ante la guerra capitalista. El caso de la resistencia en México. <em>Revista CoPaLa. Construyendo Paz Latinoamericana, 8</em>(17), 42–55. <a href="https://doi.org/10.35600/25008870.2023.17.0266">https://doi.org/10.35600/25008870.2023.17.0266</a></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-anatomia" class="section">
+  <p class="section-sub">Una ficha bibliográfica siempre tiene los mismos componentes esenciales. Conocerlos te permitirá elaborarlas correctamente y localizar fuentes con rapidez.</p>
+  <div class="anatomia-wrap">
+    <div class="anatomia-row">
+      <div class="anat-num">1</div>
+      <div>
+        <div class="anat-label">Autor(es)</div>
+        <div class="anat-desc">Apellido, Inicial del nombre. Si hay varios, se separan con punto y coma. Para coordinadores se añade (coord.) o (coords.).</div>
+        <div class="anat-example">Rionda Ramírez, J. I. — López Rivera, E. — Romero Ibarra, M. E., y Serrano Álvarez, P. (coords.)</div>
+      </div>
+    </div>
+    <div class="anatomia-row">
+      <div class="anat-num">2</div>
+      <div>
+        <div class="anat-label">Año de publicación</div>
+        <div class="anat-desc">Entre paréntesis, inmediatamente después del autor. Es el año de la edición consultada.</div>
+        <div class="anat-example">(2008) — (2025) — (1998)</div>
+      </div>
+    </div>
+    <div class="anatomia-row">
+      <div class="anat-num">3</div>
+      <div>
+        <div class="anat-label">Título de la obra</div>
+        <div class="anat-desc">En <em>cursivas</em> para libros y revistas; en redonda para artículos. El subtítulo se separa con dos puntos.</div>
+        <div class="anat-example"><em>Historia de los movimientos sociales en México: Las metamorfosis del fascismo periférico</em></div>
+      </div>
+    </div>
+    <div class="anatomia-row">
+      <div class="anat-num">4</div>
+      <div>
+        <div class="anat-label">Fuente (revista o editorial)</div>
+        <div class="anat-desc">Para artículos: nombre de la revista en cursivas + volumen(número). Para libros: editorial + lugar de publicación.</div>
+        <div class="anat-example"><em>Estudios Sociológicos, 43,</em> 1–25 — Madrid: Sepha Edición y Diseño</div>
+      </div>
+    </div>
+    <div class="anatomia-row">
+      <div class="anat-num">5</div>
+      <div>
+        <div class="anat-label">Páginas</div>
+        <div class="anat-desc">Para artículos: rango de páginas. Para libros: total de páginas (p.) o páginas específicas (pp.).</div>
+        <div class="anat-example">42–55 — 154 p.</div>
+      </div>
+    </div>
+    <div class="anatomia-row">
+      <div class="anat-num">6</div>
+      <div>
+        <div class="anat-label">Identificador único (ISBN / DOI)</div>
+        <div class="anat-desc">El ISBN identifica libros; el DOI identifica artículos digitales y enlaza directamente a la fuente en línea.</div>
+        <div class="anat-example">ISBN: 978-84-96764-43-9 — DOI: 10.24201/es.2025v43.e2933</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-glosario" class="section">
+  <p class="section-sub">Domina estos términos clave para hablar con propiedad sobre fuentes académicas y documentación bibliográfica.</p>
+  <div class="glosario-grid">
+    <div class="glosario-card"><div class="glosario-term">Ficha bibliográfica</div><div class="glosario-def">Tarjeta o registro que concentra los datos de identificación de una fuente de información.</div></div>
+    <div class="glosario-card"><div class="glosario-term">APA</div><div class="glosario-def">American Psychological Association. Normas de citación y formato ampliamente usadas en ciencias sociales y educación.</div></div>
+    <div class="glosario-card"><div class="glosario-term">DOI</div><div class="glosario-def">Digital Object Identifier. Código único y permanente que identifica y localiza un documento digital en internet.</div></div>
+    <div class="glosario-card"><div class="glosario-term">ISBN</div><div class="glosario-def">International Standard Book Number. Número que identifica de forma única cada edición de un libro.</div></div>
+    <div class="glosario-card"><div class="glosario-term">Referencia bibliográfica</div><div class="glosario-def">Lista ordenada de todas las fuentes citadas en un trabajo, que permite al lector localizarlas.</div></div>
+    <div class="glosario-card"><div class="glosario-term">Coordinador (coord.)</div><div class="glosario-def">Persona que organiza y edita los capítulos escritos por distintos autores dentro de un mismo libro.</div></div>
+    <div class="glosario-card"><div class="glosario-term">Reseña</div><div class="glosario-def">Texto crítico breve sobre una obra publicada; tiene su propio autor distinto al autor de la obra reseñada.</div></div>
+    <div class="glosario-card"><div class="glosario-term">Volumen / Número</div><div class="glosario-def">El volumen agrupa números de una revista por año o ciclo; el número identifica cada entrega dentro del volumen.</div></div>
+    <div class="glosario-card"><div class="glosario-term">Institución editora</div><div class="glosario-def">Universidad, organismo o empresa responsable de publicar la obra; equivale a la editorial en revistas académicas.</div></div>
+  </div>
+</div>
+
+<div id="tab-quiz" class="section">
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="score-display">0 / 6</div>
+      <div class="score-lbl">respuestas correctas</div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="tab-btn" onclick="resetQuiz()"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar</button>
+  </div>
+  <div class="quiz-area" id="quiz-container"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "¿Qué campo diferencia a una ficha de artículo de revista de la ficha de un libro?",
+    opts: ["El nombre del autor", "El volumen y número de la revista", "El ISBN", "El lugar de publicación"],
+    correct: 1,
+    fb: "Los artículos de revista se identifican con volumen, número y páginas dentro de la revista. Los libros tienen editorial y lugar de publicación."
+  },
+  {
+    q: "En el formato APA, ¿cómo se escribe el nombre del autor?",
+    opts: ["Nombre completo seguido del apellido", "Apellido(s), inicial(es) del nombre", "Solo el apellido", "Inicial del nombre y apellido completo"],
+    correct: 1,
+    fb: "APA usa: Apellido, Inicial. Ejemplo: Rionda Ramírez, J. I. — así se ordena alfabéticamente con facilidad."
+  },
+  {
+    q: "¿Qué significa DOI en una referencia bibliográfica?",
+    opts: ["Documento Oficial de Investigación", "Digital Object Identifier", "Directorio de Obras Indexadas", "Datos de Origen de Información"],
+    correct: 1,
+    fb: "DOI (Digital Object Identifier) es un código permanente que enlaza directamente al documento en línea, sin importar si cambia la URL del sitio."
+  },
+  {
+    q: "En la ficha del libro coordinado por Romero Ibarra y Serrano Álvarez, ¿qué abreviatura indica su rol?",
+    opts: ["(ed.)", "(dir.)", "(coords.)", "(comp.)"],
+    correct: 2,
+    fb: "La abreviatura (coords.) indica coordinadores: personas que organizan y editan las contribuciones de varios autores en un mismo volumen."
+  },
+  {
+    q: "¿Qué identifica el ISBN en una ficha bibliográfica?",
+    opts: ["El artículo de una revista", "El número de páginas del libro", "Cada edición de un libro de manera única", "El año de publicación"],
+    correct: 2,
+    fb: "El ISBN (International Standard Book Number) es un código numérico único que identifica cada edición y formato de un libro."
+  },
+  {
+    q: "Según las fichas estudiadas, ¿cuál de estas fuentes es la más reciente?",
+    opts: ["Rionda Ramírez (2008)", "Romero Ibarra y Serrano Álvarez (1998)", "González-Izás (2025)", "Vázquez García (2023)"],
+    correct: 2,
+    fb: "El artículo de González-Izás fue publicado en 2025, lo que lo convierte en la fuente más reciente del conjunto."
+  }
+];
+
+let scores = new Array(questions.length).fill(null);
+
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-card';
+    div.id = 'q' + i;
+    div.innerHTML = `<div class="q-num">Pregunta ${i+1} de ${questions.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((o, j) => `<button class="opt-btn" onclick="answer(${i},${j})">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb${i}" style="display:none"></div>`;
+    c.appendChild(div);
+  });
+  updateScore();
+}
+
+function answer(qi, ai) {
+  const card = document.getElementById('q' + qi);
+  const btns = card.querySelectorAll('.opt-btn');
+  const fb = document.getElementById('fb' + qi);
+  if (scores[qi] !== null) return;
+  const correct = questions[qi].correct === ai;
+  scores[qi] = correct ? 1 : 0;
+  btns.forEach((b, j) => {
+    b.disabled = true;
+    if (j === questions[qi].correct) b.classList.add('correct');
+    else if (j === ai && !correct) b.classList.add('wrong');
+  });
+  fb.style.display = 'block';
+  fb.className = 'feedback ' + (correct ? 'ok' : 'fail');
+  fb.innerHTML = (correct ? '<i class="ti ti-check" aria-hidden="true"></i> ¡Correcto! ' : '<i class="ti ti-x" aria-hidden="true"></i> No exactamente. ') + questions[qi].fb;
+  updateScore();
+}
+
+function updateScore() {
+  const total = scores.filter(s => s === 1).length;
+  document.getElementById('score-display').textContent = total + ' / ' + questions.length;
+}
+
+function resetQuiz() {
+  scores = new Array(questions.length).fill(null);
+  buildQuiz();
+}
+
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('visible');
+  event.target.classList.add('active');
+  if (name === 'quiz' && document.getElementById('quiz-container').innerHTML === '') buildQuiz();
+}
+
+buildQuiz();
+</script>
