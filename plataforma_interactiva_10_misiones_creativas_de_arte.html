@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitácora de Arte y Cultura I - 10 Misiones Creativas</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+    }
+    .pastel-pink { background-color: #fff1f2; }
+    .pastel-blue { background-color: #f0f9ff; }
+    .pastel-green { background-color: #f0fdf4; }
+    .pastel-yellow { background-color: #fefce8; }
+    .pastel-purple { background-color: #faf5ff; }
+    .pastel-orange { background-color: #fff7ed; }
+    
+    .pastel-pink-border { border-color: #fecdd3; }
+    .pastel-blue-border { border-color: #bae6fd; }
+    .pastel-green-border { border-color: #bbf7d0; }
+    .pastel-yellow-border { border-color: #fef08a; }
+    .pastel-purple-border { border-color: #f3e8ff; }
+    .pastel-orange-border { border-color: #ffedd5; }
+
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="text-slate-800 transition-colors duration-200">
+
+  <!-- TOP BRANDING & NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-rose-100 rounded-xl">
+          <i data-lucide="palette" class="w-6 h-6 text-rose-500"></i>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-extrabold text-slate-950 tracking-tight">Actividades Artísticas y Culturales I</h1>
+          <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Experiencia de Aprendizaje Activo • MCC 2025</p>
+        </div>
+      </div>
+      
+      <!-- Role Toggle -->
+      <div class="flex bg-slate-100 p-1 rounded-xl shadow-inner scale-90 sm:scale-100">
+        <button id="btn-estudiante" onclick="switchRole('estudiante')" class="px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-rose-600 shadow-sm">
+          <span class="flex items-center space-x-2">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span>Estudiante</span>
+          </span>
+        </button>
+        <button id="btn-docente" onclick="switchRole('docente')" class="px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900">
+          <span class="flex items-center space-x-2">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+            <span>Docente</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- BANNER DE INTRODUCCIÓN -->
+    <div class="pastel-pink border-2 pastel-pink-border rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden shadow-sm">
+      <div class="absolute -right-8 -bottom-8 opacity-10">
+        <i data-lucide="sparkles" class="w-64 h-64 text-rose-800"></i>
+      </div>
+      <div class="relative z-10 max-w-3xl">
+        <span class="bg-rose-200/60 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Bachillerato General de la NEM</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3 leading-tight">
+          El Arte como Necesidad Humana
+        </h2>
+        <p class="text-slate-700 text-sm sm:text-base mt-3 font-normal leading-relaxed">
+          Esta plataforma te guiará a través de **10 misiones creativas** para explorar tus emociones, la memoria colectiva y la identidad comunitaria. Cada misión incluye una lectura, un video, dos actividades para tu libreta física y una sección interactiva para registrar tus evidencias.
+        </p>
+      </div>
+    </div>
+
+    <!-- MAIN GRID LAYOUT -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- NAVIGATION SIDEBAR (MISSIONS LIST) -->
+      <div class="lg:col-span-1 space-y-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 sticky top-20 shadow-sm">
+          <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider mb-3 px-2">Mapa de Misiones</h3>
+          <nav class="space-y-1" id="missions-nav-list">
+            <!-- Navigation links injected via JS to maintain cleanly structured array of 10 missions -->
+          </nav>
+        </div>
+      </div>
+
+      <!-- CONTENT AREA -->
+      <div class="lg:col-span-3 space-y-8">
+        
+        <!-- VISTA ESTUDIANTE -->
+        <div id="view-estudiante" class="space-y-8">
+          
+          <!-- DYNAMIC MISSION CONTAINER -->
+          <div id="active-mission-container">
+            <!-- Active mission injected here by JS -->
+          </div>
+
+          <!-- INTERACTIVE TOOLS SECTION (CANVAS AND MAP) -->
+          <div class="border border-slate-200 bg-white rounded-3xl p-6 sm:p-8 shadow-sm">
+            <h3 class="text-xl font-extrabold text-slate-900 mb-2 flex items-center space-x-2">
+              <i data-lucide="cpu" class="text-rose-500 w-5 h-5"></i>
+              <span>Laboratorio de Herramientas Interactivas</span>
+            </h3>
+            <p class="text-xs text-slate-500 mb-6">Utiliza estas utilidades digitales para complementar tus reflexiones y resolver los retos de tus misiones.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              
+              <!-- TOOL 1: CANVAS -->
+              <div class="border border-slate-150 rounded-2xl overflow-hidden bg-slate-50 flex flex-col justify-between">
+                <div class="p-4 bg-white border-b border-slate-150 flex items-center justify-between">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-900">Lienzo Digital de Expresión</h4>
+                    <p class="text-[10px] text-slate-500">Trazos de libre experimentación</p>
+                  </div>
+                  <button onclick="clearCanvas()" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-semibold rounded-lg transition-all">
+                    Limpiar
+                  </button>
+                </div>
+                <div class="p-4 flex flex-col items-center">
+                  <canvas id="emotionCanvas" class="w-full h-48 bg-white rounded-xl border border-slate-200 cursor-crosshair shadow-inner" width="400" height="192"></canvas>
+                  <div class="flex items-center space-x-1.5 mt-3 w-full justify-center">
+                    <button onclick="setBrushColor('#fecdd3')" class="w-5 h-5 rounded-full border border-rose-300 transition-transform hover:scale-110" style="background-color: #fecdd3;"></button>
+                    <button onclick="setBrushColor('#bae6fd')" class="w-5 h-5 rounded-full border border-sky-300 transition-transform hover:scale-110" style="background-color: #bae6fd;"></button>
+                    <button onclick="setBrushColor('#bbf7d0')" class="w-5 h-5 rounded-full border border-emerald-300 transition-transform hover:scale-110" style="background-color: #bbf7d0;"></button>
+                    <button onclick="setBrushColor('#fef08a')" class="w-5 h-5 rounded-full border border-yellow-300 transition-transform hover:scale-110" style="background-color: #fef08a;"></button>
+                    <button onclick="setBrushColor('#f3e8ff')" class="w-5 h-5 rounded-full border border-purple-300 transition-transform hover:scale-110" style="background-color: #f3e8ff;"></button>
+                    <button onclick="setBrushColor('#1e293b')" class="w-5 h-5 rounded-full border border-slate-700 transition-transform hover:scale-110" style="background-color: #1e293b;"></button>
+                    <div class="w-px h-4 bg-slate-200 mx-1"></div>
+                    <input type="range" id="brushSize" min="2" max="15" value="5" class="w-16 accent-rose-500">
+                  </div>
+                </div>
+              </div>
+
+              <!-- TOOL 2: MAP -->
+              <div class="border border-slate-150 rounded-2xl overflow-hidden bg-slate-50 flex flex-col justify-between">
+                <div class="p-4 bg-white border-b border-slate-150">
+                  <h4 class="font-bold text-xs text-slate-900">Cartógrafo de Memorias del Barrio</h4>
+                  <p class="text-[10px] text-slate-500">Haz clic en el mapa para marcar una zona con memoria colectiva</p>
+                </div>
+                <div class="p-4">
+                  <div class="relative bg-white border border-slate-200 rounded-xl aspect-[4/3] overflow-hidden shadow-inner cursor-pointer" id="map-container" onclick="handleMapClick(event)">
+                    <!-- Grid background -->
+                    <div class="absolute inset-0 grid grid-cols-3 grid-rows-3 opacity-10 pointer-events-none">
+                      <div class="border-b border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Escuela</div>
+                      <div class="border-b border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Parque</div>
+                      <div class="border-b border-slate-500 flex items-center justify-center text-[8px] font-bold">Plaza</div>
+                      <div class="border-b border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Mercado</div>
+                      <div class="border-b border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Centro</div>
+                      <div class="border-b border-slate-500 flex items-center justify-center text-[8px] font-bold">Murales</div>
+                      <div class="border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Casas</div>
+                      <div class="border-r border-slate-500 flex items-center justify-center text-[8px] font-bold">Cancha</div>
+                      <div class="flex items-center justify-center text-[8px] font-bold">Callejón</div>
+                    </div>
+                    <div id="pins-container" class="absolute inset-0 pointer-events-none"></div>
+                  </div>
+                  <div class="flex items-center justify-between mt-3 text-[10px]">
+                    <div class="flex items-center space-x-1.5 font-bold">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="text-slate-600">Orgullo</span>
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-slate-600">Olvido</span>
+                      <span class="w-2 h-2 rounded-full bg-sky-500"></span><span class="text-slate-600">Tradición</span>
+                    </div>
+                    <span class="text-slate-400">Clic en mapa para fijar pin</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- GENERADOR DE EVIDENCIA CONSOLIDADO -->
+          <div class="pastel-purple border-2 pastel-purple-border rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center space-x-3 mb-6">
+              <span class="p-3 bg-white text-purple-600 rounded-2xl shadow-sm">
+                <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+              </span>
+              <div>
+                <span class="text-xs font-bold uppercase text-purple-600 tracking-wider">Compilación y Validación</span>
+                <h3 class="text-2xl font-bold text-slate-900">Generador de Bitácora Digital de Clase</h3>
+              </div>
+            </div>
+
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+              Al llenar los campos abajo y presionar "Generar Bitácora", se compilarán tus respuestas de las 10 misiones junto con tus registros del lienzo y el mapa en un formato ordenado listo para ser presentado o guardado.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Nombre Completo del Estudiante:</label>
+                <input id="student-name" type="text" placeholder="Ej: Diana García Mendoza" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-purple-200">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Grupo / Semestre:</label>
+                <input id="student-group" type="text" placeholder="Ej: 1° Semestre - Grupo B" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-purple-200">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Fecha de Sesión:</label>
+                <input id="student-date" type="text" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-purple-200">
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+              <button onclick="generateReport()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-3 rounded-2xl text-sm shadow-sm transition-all flex items-center space-x-2">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>Compilar Reporte de Evidencias</span>
+              </button>
+              <button onclick="copyRawReport()" id="copy-btn" class="bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-3 rounded-2xl text-sm shadow-sm transition-all flex items-center space-x-2 border border-slate-200/60 hidden">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+                <span>Copiar Todo al Portapapeles</span>
+              </button>
+            </div>
+
+            <!-- Report Display Box -->
+            <div id="report-output-box" class="mt-6 bg-white border border-slate-200 rounded-2xl p-6 hidden">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                <h4 class="font-bold text-slate-900 text-sm">Resumen de Evidencias Compilado</h4>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-semibold">Listo para Entrega</span>
+              </div>
+              <pre id="report-output" class="whitespace-pre-wrap font-mono text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-150 overflow-x-auto leading-relaxed max-h-96"></pre>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- VISTA DOCENTE -->
+        <div id="view-docente" class="space-y-8 hidden">
+          
+          <!-- Ficha de la Asignatura -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center space-x-3 mb-6">
+              <span class="p-3 pastel-purple text-purple-600 rounded-2xl">
+                <i data-lucide="award" class="w-6 h-6"></i>
+              </span>
+              <div>
+                <span class="text-xs font-bold uppercase text-purple-500 tracking-wider">Herramientas Docentes</span>
+                <h3 class="text-2xl font-bold text-slate-900">Ficha de Orientación Metodológica NEM 2025</h3>
+              </div>
+            </div>
+
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+              Estimado(a) docente, esta plataforma ha sido estructurada con base en los contenidos de los planes y programas vigentes del nuevo Marco Curricular Común. Las 10 misiones han sido dosificadas para permitir la transversalidad con habilidades socioemocionales, el pensamiento crítico y la interacción comunitaria.
+            </p>
+
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 space-y-4 text-xs">
+              <h4 class="font-bold text-slate-950 text-sm text-purple-800 flex items-center">
+                <i data-lucide="help-circle" class="w-4.5 h-4.5 mr-1.5 text-purple-600"></i>
+                <span>¿Cómo evaluar el portafolio físico y digital de manera integrada?</span>
+              </h4>
+              <p class="text-slate-600 leading-relaxed">
+                Cada misión propone <strong>dos evidencias físicas obligatorias en la libreta</strong> de los alumnos: una derivada de la lectura analítica y otra derivada de la visualización reflexiva de contenidos audiovisuales. Esto permite consolidar el hábito de la escritura reflexiva a mano, la elaboración de esquemas artísticos individuales y la resolución física de problemas de composición visual. Al mismo tiempo, el reporte digital consolida las síntesis escritas y el uso de los interactivos gráficos como evidencia de competencias digitales.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <h4 class="font-bold text-slate-900 text-sm mb-4">Rúbrica de Logro Curricular para la Asignatura</h4>
+              <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200">
+                      <th class="p-3 font-bold text-slate-700">Competencia / Criterio</th>
+                      <th class="p-3 font-bold text-emerald-800 bg-emerald-50">Logrado (Excelente)</th>
+                      <th class="p-3 font-bold text-amber-800 bg-amber-50">En Desarrollo (Suficiente)</th>
+                      <th class="p-3 font-bold text-red-800 bg-red-50">Inicial (Requiere Apoyo)</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 text-slate-600">
+                    <tr>
+                      <td class="p-3 font-bold text-slate-800">Análisis y Apreciación Estética</td>
+                      <td class="p-3 bg-emerald-50/20">Identifica claramente los planteamientos teóricos de Damasio, Huizinga o Nussbaum. Integra reflexiones profundas en su libreta y la bitácora.</td>
+                      <td class="p-3 bg-amber-50/20">Resume las lecturas de forma textual sin profundizar en el impacto existencial o social del arte en su propia vida.</td>
+                      <td class="p-3 bg-red-50/20">No realiza el análisis de lecturas o confunde los conceptos elementales de apreciación de las obras.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-bold text-slate-800">Experimentación Práctica (Libreta/Lienzo)</td>
+                      <td class="p-3 bg-emerald-50/20">Realiza de manera completa los bocetos, partituras visuales y collages físicos indicados en cada misión con cuidado técnico.</td>
+                      <td class="p-3 bg-amber-50/20">Completa solo algunas actividades de libreta o las realiza de manera descuidada, omitiendo la exploración abstracta profunda.</td>
+                      <td class="p-3 bg-red-50/20">Falta de evidencias prácticas físicas en la libreta. Trazos aleatorios sin intención en el lienzo digital.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-bold text-slate-800">Compromiso y Conciencia Comunitaria</td>
+                      <td class="p-3 bg-emerald-50/20">Mapea problemas reales de su entorno mediante el uso de la cartografía social. Propone soluciones transformadoras y viables.</td>
+                      <td class="p-3 bg-amber-50/20">Coloca marcadores aislados sin argumentar la relevancia histórica o comunitaria del territorio mapeado.</td>
+                      <td class="p-3 bg-red-50/20">No logra mapear de forma lógica hitos de orgullo o abandono de su propio territorio familiar o escolar.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 mt-16 py-8 text-center text-xs text-slate-400">
+    <p>Diseño de Experiencia de Aprendizaje Activo • Actividades Artísticas y Culturales I • Licenciado para uso en el Aula</p>
+  </footer>
+
+  <script>
+    // 10 UNIQUE CREATIVE MISSIONS ARRAY
+    const misiones = [
+      {
+        id: 1,
+        title: "Damasio y el Cerebro Emocional",
+        badge: "Homeostasis Emocional",
+        colorClass: "pastel-pink",
+        borderClass: "pastel-pink-border",
+        icon: "heart-handshake",
+        concept: "La experimentación con formas artísticas es clave para regular nuestro sistema nervioso. El neurocientífico Antonio Damasio explica que el cerebro usa las imágenes visuales y el sonido para regular las emociones corporales y convertirlas en sentimientos con significado.",
+        
+        readingTitle: "Sentir y Saber - Antonio Damasio (Adaptación)",
+        readingExcerpt: "Las emociones no son debilidades mentales; son alarmas biológicas sofisticadas de supervivencia que coordinan la salud del cuerpo. El arte, como la música y la pintura, es la tecnología externa más potente que ha inventado el Homo Sapiens para ajustar esa alarma de manera consciente y pacífica.",
+        readingNotebookActivity: "En una hoja completa de tu libreta, dibuja un 'Termómetro Emocional'. Delimita 5 zonas que vayan de la agitación a la calma absoluta. Asigna un color pastel único para cada nivel y escribe las sensaciones físicas precisas que sientes en tu cuerpo en cada uno de ellos.",
+        
+        videoTitle: "¿Para qué sirve el arte en momentos difíciles?",
+        videoSearch: "Bully Magnets Para que sirve el arte",
+        videoNotebookActivity: "Visualiza el video sugerido. En tu libreta, redacta una 'Carta abstracta sin palabras' dirigida a tu yo del futuro usando únicamente símbolos gráficos geométricos y flechas de dirección para representarte tus expectativas del bachillerato.",
+        
+        promptLabel1: "Explica la metáfora detrás de tus trazos y colores en el termómetro emocional de tu libreta:",
+        promptLabel2: "¿Cómo puede el arte actuar como un regulador homeostático de tus emociones diarias?"
+      },
+      {
+        id: 2,
+        title: "Cartografía Social y Territorio",
+        badge: "Identidad del Barrio",
+        colorClass: "pastel-green",
+        borderClass: "pastel-green-border",
+        icon: "map-pin",
+        concept: "El mapa oficial de un territorio muestra autopistas y fronteras frías. La cartografía social, formulada por Olver Palomino, nos permite mapear las emociones colectivas: las historias, el orgullo, las ausencias y los deseos estéticos de quienes lo habitan de forma cotidiana.",
+        
+        readingTitle: "Cartografía Social - Olver Palomino (Adaptación)",
+        readingExcerpt: "El territorio se vive y se siente antes de ser medido. La cartografía social es un proceso lúdico y colectivo donde los habitantes rediseñan sus propios planos comunitarios basándose en la memoria, las emociones y los desafíos sociales del barrio. El mapa se vuelve arte narrativo.",
+        readingNotebookActivity: "Dibuja un 'Croquis Sentipensante' en tu libreta que muestre el trayecto diario de tu casa a la escuela. Marca con estrellas amarillas las zonas donde ves manifestaciones artísticas u orgullo comunitario y con círculos rojos las áreas que te provocan miedo u olvido.",
+        
+        videoTitle: "Murales comunitarios y transformación colectiva",
+        videoSearch: "Arte urbano transformacion social colectiva",
+        videoNotebookActivity: "Tras ver el video, diseña en tu libreta el boceto detallado de un mural artístico para transformar una pared gris o abandonada de tu escuela. Escribe un título y justifica los elementos culturales que elegiste incluir.",
+        
+        promptLabel1: "Describe brevemente las zonas de orgullo e inseguridad que marcaste en el croquis de tu libreta:",
+        promptLabel2: "Si pudieras pintar un gran mural en tu comunidad para sanar un espacio público abandonado, ¿qué tema social propondrías?"
+      },
+      {
+        id: 3,
+        title: "Homo Ludens - El Juego y el Arte",
+        badge: "Cultura Lúdica",
+        colorClass: "pastel-yellow",
+        borderClass: "pastel-yellow-border",
+        icon: "smile",
+        concept: "El historiador Johan Huizinga demostró que la cultura humana nace y se desenvuelve como un juego libre. El arte no es una labor fría y solemne; es una actividad lúdica donde las reglas pueden subvertirse para imaginar formas alternativas de ver el universo.",
+        
+        readingTitle: "Homo Ludens - Johan Huizinga (Adaptación)",
+        readingExcerpt: "El juego es libre, no es la vida real ni es aburrida obligación. Sin embargo, absorbe al jugador de forma intensa y devota. Toda expresión artística (teatro, danza, pintura) funciona bajo este mismo principio: un espacio sagrado con reglas imaginarias aceptadas con gusto.",
+        readingNotebookActivity: "Identifica un juego tradicional que solías disfrutar de niño. En tu libreta, rediseña sus reglas para convertirlo en un 'Juego de Arte'. Establece nuevas reglas donde los participantes deban utilizar gestos corporales o dibujos rápidos para avanzar.",
+        
+        videoTitle: "La necesidad lúdica en el ser humano y el arte",
+        videoSearch: "El juego y el arte homo ludens",
+        videoNotebookActivity: "Mira el video. Escribe en tu libreta una reflexión de media página sobre por qué las sociedades adultas modernas tienden a catalogar el juego como una pérdida de tiempo y qué se pierde cuando dejamos de jugar.",
+        
+        promptLabel1: "Explica cómo funciona tu propuesta modificada de 'Juego de Arte':",
+        promptLabel2: "¿Cómo influye el sentido lúdico y de juego en tu capacidad para crear obras sin temor a equivocarte?"
+      },
+      {
+        id: 4,
+        title: "Paisajes Sonoros Cotidianos",
+        badge: "Sensibilidad Acústica",
+        colorClass: "pastel-blue",
+        borderClass: "pastel-blue-border",
+        icon: "music",
+        concept: "El mundo no solo es visual; vivimos inmersos en una sopa de vibraciones acústicas de la cual rara vez somos conscientes. Aprender a escuchar activamente nuestro entorno nos permite desarmar el estrés, comprender la identidad de nuestro espacio y canalizarla sonoramente.",
+        
+        readingTitle: "La Ecología Acústica del Entorno",
+        readingExcerpt: "Un paisaje sonoro es la recopilación de todos los sonidos que nos rodean, desde el viento hasta el claxon del tráfico. Nos permite rastrear de manera profunda la evolución tecnológica, la degradación ecológica y la salud mental colectiva de las urbes.",
+        readingNotebookActivity: "Quédate en absoluto silencio durante 5 minutos en tu aula o patio. En tu libreta, realiza una 'Partitura Visual del Ruido'. Representa cada sonido que percibas mediante trazos libres (líneas quebradas para ruidos fuertes, ondas para susurros, puntos para ruidos secos).",
+        
+        videoTitle: "Cómo crear música con objetos de la vida diaria",
+        videoSearch: "Instrumentos reciclados y paisaje sonoro",
+        videoNotebookActivity: "Observa el video. Diseña en tu libreta el esquema de un instrumento musical de percusión inventado por ti, utilizando únicamente materiales reciclados que tengas a la mano en casa.",
+        
+        promptLabel1: "Describe los ruidos más extraños o sorprendentes que lograste capturar en tu partitura visual de libreta:",
+        promptLabel2: "¿Cómo cambia tu perspectiva del día a día si decides escuchar en lugar de solo oír de manera automática?"
+      },
+      {
+        id: 5,
+        title: "El Cuerpo como Territorio",
+        badge: "Expresividad Corporal",
+        colorClass: "pastel-purple",
+        borderClass: "pastel-purple-border",
+        icon: "user",
+        concept: "Nuestra primera frontera con el mundo es nuestro propio cuerpo. A través del movimiento libre, el gesto y la postura, comunicamos de manera elocuente ideas y sentimientos complejos que las palabras escritas u orales tradicionales simplemente no alcanzan a describir.",
+        
+        readingTitle: "El lenguaje de la corporalidad",
+        readingExcerpt: "El cuerpo almacena memorias corporales de tensión, alegría, represión y juego libre. El lenguaje corporal y la danza contemporánea son herramientas potentes para liberar esas zonas de sombra de la musculatura, devolviendo al individuo la soberanía sobre su propia motricidad.",
+        readingNotebookActivity: "Dibuja en tu libreta el contorno básico de un cuerpo humano de frente. Identifica y colorea las zonas donde se acumula la tensión cuando estás estresado por la escuela (ej. hombros, mandíbula, estómago) y escribe una propuesta física de relajación.",
+        
+        videoTitle: "Danza Contemporánea como expresión de la vida real",
+        videoSearch: "Danza contemporanea expresion emocional libre",
+        videoNotebookActivity: "Mira el video. Selecciona una emoción fuerte y describe paso a paso en tu libreta una breve secuencia de 3 movimientos corporales exagerados que puedan comunicar esa emoción sin hacer ningún sonido.",
+        
+        promptLabel1: "Menciona las zonas corporales donde identificaste mayor tensión y tu propuesta física de relajación:",
+        promptLabel2: "¿De qué maneras crees que la danza contemporánea o el performance corporal ayuda a sanar dolores emocionales?"
+      },
+      {
+        id: 6,
+        title: "Perspectiva de Género en el Arte",
+        badge: "Interseccionalidad",
+        colorClass: "pastel-pink",
+        borderClass: "pastel-pink-border",
+        icon: "shield-alert",
+        concept: "Históricamente, muchas creadoras artísticas e identidades diversas han sido invisibilizadas por los discursos dominantes. Utilizando la perspectiva de género y la interseccionalidad, podemos cuestionar las jerarquías estéticas tradicionales y reescribir nuestra historia cultural.",
+        
+        readingTitle: "Glosario para la Igualdad - INMUJERES (Adaptación)",
+        readingExcerpt: "La interseccionalidad es la herramienta analítica para comprender cómo convergen múltiples opresiones o factores identitarios (género, etnicidad, edad, clase social). En el arte, esto nos permite analizar críticamente quién tiene el poder de exponer sus obras y quién es marginado del escenario público.",
+        readingNotebookActivity: "Haz un collage manual en tu libreta utilizando recortes de revistas o periódicos viejos donde representes la diversidad de roles que asumen las mujeres en tu comunidad inmediata, evitando clichés tradicionales de mercadotecnia.",
+        
+        videoTitle: "Mujeres creadoras invisibilizadas en la historia del arte",
+        videoSearch: "Mujeres artistas olvidadas historia del arte",
+        videoNotebookActivity: "Visualiza el video sugerido. Elige a una artista histórica destacada de las mencionadas y elabora en tu libreta una 'Ficha de Rescate Biográfico' ilustrada con su nombre, época, técnica artística principal y obstáculos que enfrentó.",
+        
+        promptLabel1: "Describe brevemente las imágenes o ideas que decidiste contrastar en tu collage de libreta:",
+        promptLabel2: "¿Por qué crees que es importante rescatar y visibilizar los nombres de creadoras e identidades diversas en los libros de texto de arte?"
+      },
+      {
+        id: 7,
+        title: "El Grafiti y Arte de Protesta",
+        badge: "Apropiación Urbana",
+        colorClass: "pastel-orange",
+        borderClass: "pastel-orange-border",
+        icon: "brush",
+        concept: "Las paredes de nuestras ciudades hablan de manera estridente. El grafiti y el esténcil no son actos vandálicos sin sentido; representan una apropiación del espacio público como lienzo democrático alterno donde los jóvenes expresan descontento, demandas colectivas o sueños comunes.",
+        
+        readingTitle: "Historia y Evolución del Arte Callejero",
+        readingExcerpt: "Desde los antiguos grabados romanos hasta el nacimiento del grafiti en Nueva York en los años 70, pintar muros públicos ha sido el megáfono predilecto de los sectores sociales excluidos de los medios masivos. El esténcil y el sticker art democratizan el acceso a la expresión estética cotidiana.",
+        readingNotebookActivity: "Diseña en tu libreta una plantilla o 'Esténcil' de tamaño mediano con un logotipo abstracto que represente una causa comunitaria que te importe mucho (cuidado del agua, respeto animal, libre expresión). Sombrea con lápiz cómo quedaría la marca final.",
+        
+        videoTitle: "La diferencia entre graffiti vandálico y graffiti artístico",
+        videoSearch: "Documental arte urbano y graffiti social",
+        videoNotebookActivity: "Mira el video. En tu libreta, escribe un decálogo (10 puntos ordenados) de ética urbana que propongas para los jóvenes creadores de arte urbano de tu localidad para respetar espacios comunes.",
+        
+        promptLabel1: "Explica cuál es la causa comunitaria que buscas apoyar con tu diseño de esténcil en la libreta:",
+        promptLabel2: "¿Crees que las autoridades municipales deberían proveer más muros libres para el grafiti juvenil? Justifica tu postura críticamente."
+      },
+      {
+        id: 8,
+        title: "Micro-relatos Visuales y Memoria",
+        badge: "Historia Familiar",
+        colorClass: "pastel-blue",
+        borderClass: "pastel-blue-border",
+        icon: "camera",
+        concept: "La memoria colectiva no solo se nutre de los monumentos nacionales; se preserva de manera íntima en los álbumes familiares y en los relatos orales de nuestros abuelos. La fotografía nos permite congelar instantes clave de nuestra identidad para cuestionar quiénes somos y de dónde venimos.",
+        
+        readingTitle: "La Memoria Visual Familiar como Archivo Histórico",
+        readingExcerpt: "Una simple fotografía descolorida de hace cuarenta años en el patio de tus abuelos revela patrones de vestimenta, dinámicas afectivas, contextos económicos y la arquitectura urbana de otra época. Es un portal para entender que el arte y la vida cotidiana están íntimamente unidos.",
+        readingNotebookActivity: "Dibuja en tu libreta el marco de un cuadro fotográfico. Dentro de él, recrea mediante un dibujo detallado a lápiz una escena o recuerdo de tu infancia temprana que no haya quedado registrado en fotos reales pero que recuerdes con nostalgia.",
+        
+        videoTitle: "Cómo armar un fanzine o foto-libro artesanal",
+        videoSearch: "Como hacer un fanzine de fotos y dibujos",
+        videoNotebookActivity: "Tras ver el video, escribe en tu libreta el guion para un cortometraje fotográfico de 4 escenas simples que narre la historia de cómo se conocieron tus abuelos o un momento divertido de tu familia.",
+        
+        promptLabel1: "Relata brevemente la escena o el recuerdo infantil que decidiste dibujar en tu libreta:",
+        promptLabel2: "¿Por qué el conservar archivos, cartas y fotos familiares de forma física se considera un acto de resistencia cultural frente a lo efímero de las redes sociales?"
+      },
+      {
+        id: 9,
+        title: "El Objeto Cotidiano Re-significado",
+        badge: "Ready-made y Concepto",
+        colorClass: "pastel-yellow",
+        borderClass: "pastel-yellow-border",
+        icon: "package",
+        concept: "El arte conceptual cambió radicalmente las reglas del juego estético. Nos enseñó que el mérito no radica solo en la destreza manual de esculpir o pintar de forma fotorrealista, sino en la capacidad mental de aislar y recontextualizar un objeto ordinario para forzar una nueva mirada crítica del espectador.",
+        
+        readingTitle: "Marcel Duchamp y la revolución del Ready-made",
+        readingExcerpt: "Al tomar un mingitorio común, firmarlo con seudónimo y colocarlo en un pedestal de museo, Duchamp obligó al mundo a preguntarse: ¿Qué es realmente el arte? ¿El objeto en sí mismo o la idea del creador? Esto democratizó la creación y desarmó la exclusividad de las galerías élites.",
+        readingNotebookActivity: "Elige un objeto ordinario y sin valor de tu mochila (una goma gastada, un sacapuntas, una pluma vieja). Dibújalo en tu libreta como si fuera una escultura monumental de 10 metros de altura en medio de una plaza pública. Escribe la ficha descriptiva de la obra.",
+        
+        videoTitle: "El arte conceptual explicado de forma súper sencilla",
+        videoSearch: "Entender el arte conceptual facil",
+        videoNotebookActivity: "Mira el video de apoyo. En tu libreta, escribe unas 'instrucciones de uso poéticas' para tu objeto ordinario re-significado, detallando usos divertidos y completamente absurdos que se le podrían dar en un museo.",
+        
+        promptLabel1: "Describe el objeto ordinario que seleccionaste y el nombre que le diste a tu monumento dibujado:",
+        promptLabel2: "¿Cómo cambia tu noción de 'belleza' o 'arte' al entender que un objeto común puede ser una escultura conceptual?"
+      },
+      {
+        id: 10,
+        title: "Performance Colectivo",
+        badge: "Transformación Social",
+        colorClass: "pastel-purple",
+        borderClass: "pastel-purple-border",
+        icon: "users",
+        concept: "La asignatura de Actividades Artísticas y Culturales culmina cuando sacamos el conocimiento del aula para impactar la realidad comunitaria. A través del performance y las intervenciones artísticas efímeras, podemos concientizar sobre el cuidado escolar, la empatía y la salud emocional común.",
+        
+        readingTitle: "Crear Capacidades Humanas a través del Arte - Martha Nussbaum",
+        readingExcerpt: "El arte es un ingrediente crítico para la democracia. Fomenta la 'imaginación narrativa': la capacidad de ponerse en los zapatos de otra persona, de comprender sus dolores y necesidades de manera genuina. Una sociedad que desprecia las artes se deshumaniza rápidamente.",
+        readingNotebookActivity: "Elabora en tu libreta un 'Fanzine de Bolsillo' utilizando un trozo de papel reciclado doblado en 8 secciones. Diseña una portada atractiva, 6 páginas ilustradas sobre la importancia del respeto mutuo en el salón de clases, y una contraportada con tus datos.",
+        
+        videoTitle: "Intervenciones artísticas en espacios públicos que asombraron al mundo",
+        videoSearch: "Mejores flashmob e intervenciones artisticas urbanas",
+        videoNotebookActivity: "Tras ver el video, escribe en tu libreta la planeación para un 'Flashmob' o performance sorpresa de 3 minutos de duración que involucre a tus compañeros de clase para sorprender gratamente al resto del plantel en el recreo.",
+        
+        promptLabel1: "Resume brevemente el tema principal y el mensaje de las páginas de tu fanzine de libreta:",
+        promptLabel2: "Según los postulados de Martha Nussbaum, ¿de qué forma las artes evitan que una comunidad estudiantil o urbana caiga en la insensibilidad social?"
+      }
+    ];
+
+    // Global Interactive State
+    let activeMissionId = 1;
+    const canvasRef = document.getElementById('emotionCanvas');
+    const ctxRef = canvasRef.getContext('2d');
+    let isDrawing = false;
+    let brushColor = '#1e293b';
+    const pins = [];
+
+    // Switch Role UI updates
+    function switchRole(role) {
+      const btnEst = document.getElementById('btn-estudiante');
+      const btnDoc = document.getElementById('btn-docente');
+      const viewEst = document.getElementById('view-estudiante');
+      const viewDoc = document.getElementById('view-docente');
+
+      if (role === 'estudiante') {
+        btnEst.className = 'px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-rose-600 shadow-sm';
+        btnDoc.className = 'px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900';
+        viewEst.classList.remove('hidden');
+        viewDoc.classList.add('hidden');
+        showToast("Modo Estudiante Activo", "Explora y documenta tus misiones.");
+      } else {
+        btnDoc.className = 'px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-emerald-600 shadow-sm';
+        btnEst.className = 'px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900';
+        viewEst.classList.add('hidden');
+        viewDoc.classList.remove('hidden');
+        showToast("Modo Docente Activo", "Accede a orientaciones de la NEM 2025.");
+      }
+    }
+
+    // Toast notifications wrapper
+    function showToast(title, desc) {
+      const toast = document.createElement('div');
+      toast.className = 'bg-slate-900/95 backdrop-blur text-white px-4 py-3 rounded-2xl shadow-xl max-w-xs pointer-events-auto transition-all duration-300 border border-slate-800 text-xs leading-relaxed space-y-1';
+      toast.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-800 pb-1 mb-1">
+          <strong class="text-rose-400 font-bold">${title}</strong>
+          <button class="text-slate-400 hover:text-white font-bold ml-2" onclick="this.parentElement.parentElement.remove()">✕</button>
+        </div>
+        <p class="text-slate-300">${desc}</p>
+      `;
+      document.getElementById('toast-container').appendChild(toast);
+      setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
+    }
+
+    // Build sidebar navigation dynamically
+    function buildSidebar() {
+      const navList = document.getElementById('missions-nav-list');
+      navList.innerHTML = misiones.map(m => `
+        <button onclick="setActiveMission(${m.id})" id="nav-btn-${m.id}" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all text-left hover:bg-slate-100 text-slate-600">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <span class="p-1.5 rounded-lg bg-slate-50 border border-slate-150 text-slate-500 shrink-0 flex items-center justify-center">
+              <i data-lucide="${m.icon}" class="w-3.5 h-3.5"></i>
+            </span>
+            <span class="truncate block">Misión ${String(m.id).padStart(2, '0')}: ${m.title}</span>
+          </div>
+          <span class="text-[9px] uppercase font-bold text-slate-400 px-1.5 py-0.5 rounded-md shrink-0 ml-1 bg-slate-50">NEM</span>
+        </button>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Render active mission content
+    function setActiveMission(id) {
+      activeMissionId = id;
+      const m = misiones.find(item => item.id === id);
+      
+      // Update nav buttons selection classes
+      misiones.forEach(item => {
+        const btn = document.getElementById(`nav-btn-${item.id}`);
+        if (btn) {
+          if (item.id === id) {
+            btn.className = "w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left bg-rose-50 text-rose-700 border border-rose-100 shadow-sm";
+          } else {
+            btn.className = "w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all text-left hover:bg-slate-150 text-slate-600";
+          }
+        }
+      });
+
+      // Construct and inject the active mission UI block
+      const container = document.getElementById('active-mission-container');
+      container.innerHTML = `
+        <div class="border border-slate-200 bg-white rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300">
+          
+          <!-- Header -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div class="flex items-center space-x-3">
+              <span class="p-3 ${m.colorClass} ${m.borderClass} border text-rose-600 rounded-2xl flex items-center justify-center">
+                <i data-lucide="${m.icon}" class="w-6 h-6 text-rose-500"></i>
+              </span>
+              <div>
+                <span class="text-[10px] font-extrabold uppercase text-rose-500 tracking-wider">Misión Creativa ${String(m.id).padStart(2, '0')}</span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">${m.title}</h3>
+              </div>
+            </div>
+            <span class="text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded-full uppercase tracking-widest">${m.badge}</span>
+          </div>
+
+          <!-- Conceptual Introduction -->
+          <p class="text-slate-600 text-sm leading-relaxed mb-6 bg-slate-50 p-4 rounded-xl border border-slate-150 font-normal">
+            ${m.concept}
+          </p>
+
+          <!-- Core Materials Dual Column -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            <!-- COLUMN 1: READING -->
+            <div class="${m.colorClass} border-2 ${m.borderClass} rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="bg-white/80 border border-rose-150 text-rose-800 text-[10px] font-bold px-2.5 py-1 rounded-lg">Lectura de Reflexión</span>
+                  <i data-lucide="book-open" class="w-4 h-4 text-rose-500"></i>
+                </div>
+                <h4 class="font-extrabold text-slate-950 text-sm mb-2">${m.readingTitle}</h4>
+                <p class="text-xs text-slate-700 italic leading-relaxed mb-4">
+                  "${m.readingExcerpt}"
+                </p>
+              </div>
+
+              <!-- Required Notebook Evidence for Reading -->
+              <div class="bg-white/90 border border-slate-150 rounded-xl p-4 mt-2">
+                <div class="flex items-center space-x-2 text-rose-700 font-extrabold text-xs mb-1.5">
+                  <i data-lucide="book" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                  <span>EVIDENCIA EN LA LIBRETA (Lectura)</span>
+                </div>
+                <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  ${m.readingNotebookActivity}
+                </p>
+              </div>
+            </div>
+
+            <!-- COLUMN 2: VIDEO -->
+            <div class="pastel-blue border-2 pastel-blue-border rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="bg-white/80 border border-sky-150 text-sky-800 text-[10px] font-bold px-2.5 py-1 rounded-lg">Apreciación Audiovisual</span>
+                  <i data-lucide="video" class="w-4 h-4 text-sky-500"></i>
+                </div>
+                <h4 class="font-extrabold text-slate-950 text-sm mb-2">${m.videoTitle}</h4>
+                <p class="text-xs text-slate-700 leading-relaxed mb-4">
+                  Busca y visualiza el siguiente video didáctico en YouTube para expandir tus horizontes estéticos:
+                </p>
+                <!-- Suggested Search & YouTube link action -->
+                <div class="bg-white border border-sky-200 p-2.5 rounded-xl flex items-center justify-between text-xs font-semibold mb-4">
+                  <span class="font-mono text-[11px] text-slate-600 truncate mr-2">Búsqueda: "${m.videoSearch}"</span>
+                  <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(m.videoSearch)}" target="_blank" class="text-sky-600 hover:text-sky-700 font-bold flex items-center shrink-0">
+                    Ir <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Required Notebook Evidence for Video -->
+              <div class="bg-white/90 border border-slate-150 rounded-xl p-4">
+                <div class="flex items-center space-x-2 text-sky-700 font-extrabold text-xs mb-1.5">
+                  <i data-lucide="pen-tool" class="w-4 h-4 shrink-0 text-sky-500"></i>
+                  <span>EVIDENCIA EN LA LIBRETA (Video)</span>
+                </div>
+                <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  ${m.videoNotebookActivity}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Digital Evidence Integration Inputs -->
+          <div class="border-t border-slate-100 pt-6 space-y-4">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400">Preguntas de Validación Digital</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">${m.promptLabel1}</label>
+                <textarea id="resp-m${m.id}-p1" placeholder="Describe brevemente lo que plasmó tu mano en tu cuaderno físico..." class="w-full p-3 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-rose-100 focus:border-rose-400 outline-none transition-all resize-none h-24"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">${m.promptLabel2}</label>
+                <textarea id="resp-m${m.id}-p2" placeholder="Escribe tu reflexión argumentando desde las ideas analizadas..." class="w-full p-3 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-rose-100 focus:border-rose-400 outline-none transition-all resize-none h-24"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // Canvas Draw System
+    function initCanvas() {
+      const rect = canvasRef.getBoundingClientRect();
+      // Keep drawn elements stable during resizing
+      const temp = document.createElement('canvas');
+      temp.width = canvasRef.width;
+      temp.height = canvasRef.height;
+      temp.getContext('2d').drawImage(canvasRef, 0, 0);
+
+      canvasRef.width = rect.width;
+      canvasRef.height = rect.height;
+      ctxRef.drawImage(temp, 0, 0, rect.width, rect.height);
+      ctxRef.lineCap = 'round';
+      ctxRef.lineJoin = 'round';
+    }
+
+    canvasRef.addEventListener('mousedown', (e) => { isDrawing = true; draw(e); });
+    canvasRef.addEventListener('mousemove', draw);
+    canvasRef.addEventListener('mouseup', () => { isDrawing = false; ctxRef.beginPath(); });
+    canvasRef.addEventListener('mouseleave', () => { isDrawing = false; ctxRef.beginPath(); });
+
+    // Touch Support for mobile canvas
+    canvasRef.addEventListener('touchstart', (e) => {
+      isDrawing = true;
+      const t = e.touches[0];
+      const me = new MouseEvent("mousedown", { clientX: t.clientX, clientY: t.clientY });
+      canvasRef.dispatchEvent(me);
+    });
+    canvasRef.addEventListener('touchmove', (e) => {
+      const t = e.touches[0];
+      const me = new MouseEvent("mousemove", { clientX: t.clientX, clientY: t.clientY });
+      canvasRef.dispatchEvent(me);
+    }, { passive: true });
+    canvasRef.addEventListener('touchend', () => { isDrawing = false; ctxRef.beginPath(); });
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const rect = canvasRef.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ctxRef.strokeStyle = brushColor;
+      ctxRef.lineWidth = document.getElementById('brushSize').value;
+      ctxRef.lineTo(x, y);
+      ctxRef.stroke();
+      ctxRef.beginPath();
+      ctxRef.moveTo(x, y);
+    }
+
+    function setBrushColor(color) {
+      brushColor = color;
+      showToast("Color Seleccionado", `Pincel cambiado al tono ${color}.`);
+    }
+
+    function clearCanvas() {
+      ctxRef.clearRect(0, 0, canvasRef.width, canvasRef.height);
+      showToast("Lienzo Limpiado", "Tu pizarrón interactivo está listo de nuevo.");
+    }
+
+    // Cartography Map Pin System
+    function handleMapClick(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      // Select pin type depending on active mission to make it contextual
+      let type = 'rose';
+      let typeName = 'Orgullo y Patrimonio Cultural';
+      if (activeMissionId % 3 === 0) {
+        type = 'amber';
+        typeName = 'Área Olvidada / Recuperación Urgente';
+      } else if (activeMissionId % 2 === 0) {
+        type = 'sky';
+        typeName = 'Espacio de Tradición y Festejo';
+      }
+
+      const activeMission = misiones.find(m => m.id === activeMissionId);
+      const newPin = {
+        x, y, type, typeName,
+        missionTitle: activeMission.title,
+        id: pins.length + 1
+      };
+
+      pins.push(newPin);
+      renderPins();
+      showToast("Marcador Fijado", `Ubicaste un punto de "${typeName}" en tu Cartografía Social.`);
+    }
+
+    function renderPins() {
+      const container = document.getElementById('pins-container');
+      container.innerHTML = '';
+      pins.forEach(pin => {
+        const pinEl = document.createElement('div');
+        let col = 'bg-rose-500';
+        if (pin.type === 'amber') col = 'bg-amber-500';
+        if (pin.type === 'sky') col = 'bg-sky-500';
+
+        pinEl.className = `absolute -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border border-white shadow-md cursor-pointer animate-ping ${col}`;
+        pinEl.style.left = `${pin.x}%`;
+        pinEl.style.top = `${pin.y}%`;
+
+        const staticPin = document.createElement('div');
+        staticPin.className = `absolute -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-lg pointer-events-auto cursor-pointer ${col}`;
+        staticPin.style.left = `${pin.x}%`;
+        staticPin.style.top = `${pin.y}%`;
+        
+        // Show pin data inside a hover toast on click
+        staticPin.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showToast(`Pin ${pin.id}: ${pin.typeName}`, `Asociado a la misión: ${pin.missionTitle}`);
+        });
+
+        container.appendChild(pinEl);
+        container.appendChild(staticPin);
+      });
+    }
+
+    // Report Compiler and Exporter Logic
+    function generateReport() {
+      const name = document.getElementById('student-name').value || 'Estudiante sin registrar';
+      const group = document.getElementById('student-group').value || 'Sin grupo asignado';
+      const date = document.getElementById('student-date').value || 'Sin fecha';
+
+      // Compile answers of all 10 missions
+      let compiledMissionsText = "";
+      misiones.forEach(m => {
+        const r1 = document.getElementById(`resp-m${m.id}-p1`)?.value || "Evidencia física elaborada en la libreta. Respuesta digital no registrada.";
+        const r2 = document.getElementById(`resp-m${m.id}-p2`)?.value || "Análisis no registrado digitalmente.";
+        
+        compiledMissionsText += `
+========================================================================
+MISIÓN CREATIVA ${String(m.id).padStart(2, '0')}: ${m.title.toUpperCase()}
+Foco: ${m.badge}
+------------------------------------------------------------------------
+* Evidencia 1: Libreta (Lectura de "${m.readingTitle}"):
+  "${r1}"
+
+* Evidencia 2: Libreta (Video "${m.videoTitle}"):
+  "${r2}"
+`;
+      });
+
+      // Cartography coordinates summary
+      let cartographySummary = "No se registraron pines interactivos de forma digital. Trabajo completo realizado de forma analógica en libreta.";
+      if (pins.length > 0) {
+        cartographySummary = pins.map(p => `[Marcador #${p.id}] Coordenadas: (${p.x.toFixed(1)}%, ${p.y.toFixed(1)}%)\n  - Categoría: ${p.typeName}\n  - Registrado durante: Misión ${p.missionTitle}`).join('\n');
+      }
+
+      const reportOutput = `========================================================================
+      BITÁCORA INTEGRAL DE EVIDENCIAS EN CLASE (10 MISIONES COMPILADAS)
+             ACTIVIDADES ARTÍSTICAS Y CULTURALES I: MODELO 2025
+========================================================================
+
+DATOS ESCOLARES DEL ESTUDIANTE:
+------------------------------------------------------------------------
+Nombre Completo:  ${name}
+Grupo / Semestre: ${group}
+Fecha de Entrega: ${date}
+
+------------------------------------------------------------------------
+RESUMEN DE CARTOGRAFÍA SOCIAL COMUNITARIA INTERACTIVA:
+------------------------------------------------------------------------
+${cartographySummary}
+
+------------------------------------------------------------------------
+EVIDENCIAS Y RESPUESTAS DE LAS 10 MISIONES CREATIVAS:
+------------------------------------------------------------------------${compiledMissionsText}
+
+========================================================================
+EL ARTE NO ES UN ADORNO, ES UNA NECESIDAD HUMANA • FIN DE LA BITÁCORA
+========================================================================`;
+
+      document.getElementById('report-output').textContent = reportOutput;
+      document.getElementById('report-output-box').classList.remove('hidden');
+      document.getElementById('copy-btn').classList.remove('hidden');
+
+      // Scroll smoothly to output
+      document.getElementById('report-output-box').scrollIntoView({ behavior: 'smooth' });
+      showToast("Reporte Compilado", "Tu bitácora completa ha sido generada correctamente.");
+    }
+
+    function copyRawReport() {
+      const text = document.getElementById('report-output').textContent;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-emerald-500"></i><span>¡Todo Copiado!</span>';
+        lucide.createIcons();
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i><span>Copiar Todo al Portapapeles</span>';
+          lucide.createIcons();
+        }, 3000);
+        showToast("Copiado Exitosamente", "Puedes pegar el reporte en un documento Word, correo electrónico o classroom.");
+      } catch (err) {
+        console.error('No se pudo copiar el reporte', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Initialize Page
+    window.addEventListener('load', () => {
+      // Set date
+      document.getElementById('student-date').value = new Date().toLocaleDateString('es-MX', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+      
+      buildSidebar();
+      setActiveMission(1);
+      initCanvas();
+    });
+
+    window.addEventListener('resize', initCanvas);
+  </script>
+</body>
+</html>
