@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Energía en los Procesos de la Vida Diaria - Suite Integral de Aprendizaje Activo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        earth: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                        },
+                        bio: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen font-sans antialiased">
+
+    <!-- HEADER DE LA PLATAFORMA -->
+    <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-5 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-brand-600 p-2.5 rounded-xl shadow-inner text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">La Energía en los Procesos de la Vida Diaria</h1>
+                    <p class="text-xs sm:text-sm text-brand-100 opacity-90 font-medium">Bachillerato General • 5.° Semestre • Suite Completa de Progresiones</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-brand-800/60 px-4 py-2 rounded-full border border-brand-700 text-xs sm:text-sm">
+                <span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></span>
+                <span>Progresiones: <strong>1 a 5, 14, 15 y 16</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-1 py-2 overflow-x-auto scrollbar-thin">
+                <button onclick="switchTab('tab-dashboard')" id="nav-tab-dashboard" class="nav-btn active-tab px-4 py-2 text-sm font-semibold rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Inicio y Guía
+                </button>
+                <button onclick="switchTab('tab-progresiones')" id="nav-tab-progresiones" class="nav-btn px-4 py-2 text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    Desplegado de Progresiones
+                </button>
+                <button onclick="switchTab('tab-lecturas')" id="nav-tab-lecturas" class="nav-btn px-4 py-2 text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Lecturas Críticas (8)
+                </button>
+                <button onclick="switchTab('tab-videos')" id="nav-tab-videos" class="nav-btn px-4 py-2 text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Videoteca y Retos (6)
+                </button>
+                <button onclick="switchTab('tab-evidencias')" id="nav-tab-evidencias" class="nav-btn px-4 py-2 text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-2 relative">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Cuaderno de Evidencias
+                    <span id="ev-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- 1. TAB: DASHBOARD E INTRODUCCIÓN -->
+        <section id="tab-dashboard" class="tab-content block space-y-6">
+            
+            <div class="bg-gradient-to-br from-brand-50 to-white border border-brand-100 rounded-2xl p-6 shadow-sm">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="space-y-2">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-800">
+                            MCCEMS - Nueva Escuela Mexicana
+                        </span>
+                        <h2 class="text-2xl font-bold text-slate-900">¡Bienvenidos a la Suite de Aprendizaje Activo!</h2>
+                        <p class="text-slate-600 max-w-3xl">
+                            Esta versión de la plataforma cubre de manera exhaustiva todo el temario de <strong>La Energía en los Procesos de la Vida Diaria</strong>. Encontrarás explicaciones científicas integradas con actividades prácticas que conectan la física newtoniana, el metabolismo energético humano y el dinamismo térmico de nuestro planeta.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z'/><path d='M6 21a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v12a3 3 0 0 0 3 3z'/></svg>" alt="Icono Ciencia" class="w-20 h-20 opacity-90 hidden md:block" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUADROS DE GUÍA -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Guía Docente -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-brand-100 p-2 rounded-lg text-brand-700">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">Guía de Navegación Pedagógica (Docente)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Esta suite de recursos promueve un proceso formativo basado en indagación experimental. Los estudiantes pueden guardar sus trabajos en el cuaderno interactivo de manera local y generar un reporte PDF formal de evidencias.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600">
+                            <li><strong>• Totalidad temática:</strong> Desglosa los 8 temas fundamentales contenidos en las progresiones analizadas.</li>
+                            <li><strong>• Estilo no infantilizado:</strong> Se explican con rigor conceptos como celdas de convección, colisiones elásticas, ATP, momento lineal e inercia.</li>
+                            <li><strong>• Entrega dual:</strong> Se balancean entregables que requieren cálculo y bosquejos en la libreta con respuestas reflexivas de corte digital.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs text-brand-600 font-medium">Metodología de Aula Invertida</span>
+                        <button onclick="toggleDocenteGuide()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-semibold transition-colors">
+                            Ver rúbrica sugerida
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Guía Estudiante -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-green-100 p-2 rounded-lg text-green-700">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">Instrucciones de Trabajo (Estudiante)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Utiliza esta plataforma para complementar tus sesiones presenciales de laboratorio y aula. Sigue la ruta:
+                        </p>
+                        <ol class="list-decimal list-inside text-xs text-slate-600 space-y-1">
+                            <li>Estudia el <strong>Desplegado de Progresiones</strong> del tema correspondiente.</li>
+                            <li>Lee la <strong>Lectura Científica Crítica</strong> asociada al tema y responde su formulario.</li>
+                            <li>Visualiza el video explicativo y resuelve su <strong>Reto de Análisis</strong>.</li>
+                            <li>Genera tu reporte en la pestaña <strong>Cuaderno de Evidencias</strong> y entrégalo a tu docente.</li>
+                        </ol>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <button onclick="switchTab('tab-progresiones')" class="w-full text-center bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold py-2 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2">
+                            Comenzar el recorrido
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RÚBRICA -->
+            <div id="docente-guide-panel" class="hidden bg-slate-950 text-slate-200 border border-slate-800 rounded-2xl p-6 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-md font-bold text-white flex items-center gap-2">
+                        📋 Rúbrica Integradora (MCCEMS)
+                    </h4>
+                    <button onclick="toggleDocenteGuide()" class="text-slate-400 hover:text-white">&times; Cerrar</button>
+                </div>
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left border-collapse border border-slate-800">
+                        <thead>
+                            <tr class="bg-slate-900 text-slate-300">
+                                <th class="p-2 border border-slate-800">Elemento</th>
+                                <th class="p-2 border border-slate-800">Excelente (10)</th>
+                                <th class="p-2 border border-slate-800">Suficiente (8)</th>
+                                <th class="p-2 border border-slate-800">Insuficiente (6)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2 border border-slate-800 font-semibold text-slate-300">Evidencias Críticas (Lecturas)</td>
+                                <td class="p-2 border border-slate-800">Las 8 preguntas se responden integrando leyes físicas y procesos químicos de forma clara y coherente.</td>
+                                <td class="p-2 border border-slate-800">Responde la mayoría de las lecturas pero algunas respuestas carecen de profundidad explicativa.</td>
+                                <td class="p-2 border border-slate-800">Respuestas demasiado breves, vacías o sin relación con los textos recomendados.</td>
+                            </tr>
+                            <tr class="bg-slate-900/40">
+                                <td class="p-2 border border-slate-800 font-semibold text-slate-300">Retos de Análisis (Videos)</td>
+                                <td class="p-2 border border-slate-800">Explica con claridad la inercia, pérdida de calor, momento lineal y el flujo de convección del planeta.</td>
+                                <td class="p-2 border border-slate-800">Resuelve los retos de video de manera correcta, pero sin conectar con el entorno cotidiano.</td>
+                                <td class="p-2 border border-slate-800">No asocia los principios físicos descritos en los videos de la plataforma.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 2. TAB: DESPLEGADO DE PROGRESIONES -->
+        <section id="tab-progresiones" class="tab-content hidden space-y-6">
+            
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-950">Estructura Curricular del Curso</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                    Selecciona una progresión para desplegar la explicación teórica, la vinculación interdisciplinaria y los retos correspondientes para tu libreta.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                
+                <!-- Navegación lateral de progresiones -->
+                <div class="lg:col-span-1 space-y-1.5">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block px-2 mb-2">Progresiones Científicas</span>
+                    <button onclick="showProgression(1)" id="prog-btn-1" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs active-prog">
+                        <span>P1. Energía e Interacciones</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">Física</span>
+                    </button>
+                    <button onclick="showProgression(2)" id="prog-btn-2" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P2. Fuerzas y Masa (Inercia)</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">Física</span>
+                    </button>
+                    <button onclick="showProgression(3)" id="prog-btn-3" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P3. Momento Lineal ($p$)</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">Física</span>
+                    </button>
+                    <button onclick="showProgression(4)" id="prog-btn-4" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P4. Movimientos Macroscópicos</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">Física</span>
+                    </button>
+                    <button onclick="showProgression(5)" id="prog-btn-5" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P5. Colisiones e Impulso</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">Física</span>
+                    </button>
+                    <button onclick="showProgression(6)" id="prog-btn-14" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P14. Respiración Celular</span>
+                        <span class="text-[10px] bg-bio-100 text-bio-800 px-1.5 py-0.5 rounded">Biología</span>
+                    </button>
+                    <button onclick="showProgression(7)" id="prog-btn-15" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P15. Flujo de Energía Solar</span>
+                        <span class="text-[10px] bg-earth-100 text-earth-800 px-1.5 py-0.5 rounded">Tierra</span>
+                    </button>
+                    <button onclick="showProgression(8)" id="prog-btn-16" class="prog-btn w-full text-left px-3 py-2.5 rounded-lg font-semibold transition-all border flex items-center justify-between text-xs text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>P16. Convección y Tectónica</span>
+                        <span class="text-[10px] bg-earth-100 text-earth-800 px-1.5 py-0.5 rounded">Tierra</span>
+                    </button>
+                </div>
+
+                <!-- Contenido Dinámico de la Progresión -->
+                <div class="lg:col-span-3 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+                    
+                    <!-- PROG 1 -->
+                    <div id="prog-content-1" class="prog-content block space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-brand-600 uppercase">Progresión 1</span>
+                            <h3 class="text-lg font-bold text-slate-900">Relación entre energía y fuerzas</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Cuando dos objetos interactúan en el universo físico, cada uno ejerce una fuerza sobre el otro. Estas interacciones son las vías mediante las cuales se transfiere energía entre sistemas o se redistribuye dentro de ellos. Por ejemplo, al empujar un objeto, realizamos un trabajo que transfiere parte de nuestra energía metabólica en forma de energía cinética hacia dicho objeto.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Diseña un diagrama que represente un choque simple entre dos bolas de billar. Utiliza vectores (flechas) para ilustrar la fuerza que ejerce la bola A sobre la bola B y viceversa, anotando brevemente en qué forma se transfiere energía durante el contacto.
+                        </div>
+                    </div>
+
+                    <!-- PROG 2 -->
+                    <div id="prog-content-2" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-brand-600 uppercase">Progresión 2</span>
+                            <h3 class="text-lg font-bold text-slate-900">Suma de fuerzas e inercia (1ª y 2ª Ley)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            El movimiento macroscópico de un cuerpo está regido por la suma neta de fuerzas que actúan sobre él. Si el resultado de la suma vectorial de estas fuerzas no es cero, el objeto experimentará un cambio en su estado de movimiento (aceleración). Aquí interviene el concepto de <strong>masa</strong> como medida de la inercia (la resistencia del objeto a cambiar su estado de reposo o movimiento constante).
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Describe y resuelve el siguiente planteamiento matemático en tu libreta: ¿Cuánta fuerza requiere un motor de tracción para acelerar a un auto de 1200 kg a una tasa de $3 \text{ m/s}^2$ en una pista recta sin fricción? Muestra la fórmula ($F = m \cdot a$) y el despeje.
+                        </div>
+                    </div>
+
+                    <!-- PROG 3 -->
+                    <div id="prog-content-3" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-brand-600 uppercase">Progresión 3</span>
+                            <h3 class="text-lg font-bold text-slate-900">El Momento Lineal o Ímpetu y su Conservación</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            El momento lineal ($p$) es una propiedad física que describe la cantidad de movimiento de un objeto y está definida por el producto directo de su masa por su velocidad instantánea. La ley fundamental dicta que, ante la ausencia de fuerzas externas resultantes, el momento lineal total de un sistema cerrado permanece inalterable.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Redacta un texto reflexivo de media página sobre por qué es físicamente más peligroso chocar de frente contra un camión de carga pesada que se mueve a baja velocidad, que contra un auto deportivo liviano a la misma velocidad. Usa la ecuación del momento lineal ($p = m \cdot v$).
+                        </div>
+                    </div>
+
+                    <!-- PROG 4 -->
+                    <div id="prog-content-4" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-brand-600 uppercase">Progresión 4</span>
+                            <h3 class="text-lg font-bold text-slate-900">Segunda ley de Newton en el reino macroscópico</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            La mecánica clásica predice con precisión milimétrica la trayectoria y comportamiento dinámico de los cuerpos visibles a simple vista (cohetes, autos, proyectiles deportivos). La ecuación vectorial $F = \frac{dp}{dt}$ (o de manera simplificada $F = m \cdot a$) es la base para el diseño y construcción de toda la ingeniería civil, automotriz y astronómica de la actualidad.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Investiga y dibuja cómo se calculan las zonas de amortiguación o frenado de emergencia que existen en las carreteras federales de México (rampas de frenado). Explica de qué manera la segunda ley de Newton ayuda a diseñar su longitud.
+                        </div>
+                    </div>
+
+                    <!-- PROG 5 -->
+                    <div id="prog-content-5" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-brand-600 uppercase">Progresión 5</span>
+                            <h3 class="text-lg font-bold text-slate-900">Fuerzas de Colisión e Impulso</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            En un evento de colisión violenta (como un choque automovilístico), el cambio súbito en el momento lineal genera fuerzas destructivas muy grandes. El concepto de **impulso** ($\text{Impulso} = F \cdot \Delta t$) demuestra que si logramos prolongar el tiempo de impacto ($\Delta t$), la fuerza promedio ejercida disminuye de manera sustancial, salvando la vida de los ocupantes.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Dibuja un diagrama comparativo de dos colisiones: una donde un carro impacta de frente contra un muro de concreto sólido (tiempo de frenado bajísimo) y otra donde el auto choca contra un bloque protector deformable de barriles de agua (tiempo de frenado extendido). Explica las diferencias de fuerzas utilizando ecuaciones.
+                        </div>
+                    </div>
+
+                    <!-- PROG 14 -->
+                    <div id="prog-content-14" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-bio-600 uppercase">Progresión 14</span>
+                            <h3 class="text-lg font-bold text-slate-900">Respiración celular y energía térmica</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            La respiración celular aerobia rompe los enlaces energéticos de moléculas orgánicas como la glucosa ($C_6H_{12}O_6$) utilizando oxígeno. Este proceso mitocondrial produce ATP como energía disponible inmediata, pero una gran parte (aproximadamente el 60%) se libera como calor de entropía. Este calor metabólico es vital para mantener la temperatura basal corporal humana constante (homeostasis).
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Elabora un mapa mental sobre la digestión celular. Debe conectar: comida ingerida ➔ hidratos de carbono ➔ respiración mitocondrial ➔ energía útil (ATP) y calor disipado ➔ transpiración (sudor) como control homeostático.
+                        </div>
+                    </div>
+
+                    <!-- PROG 15 -->
+                    <div id="prog-content-15" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-earth-600 uppercase">Progresión 15</span>
+                            <h3 class="text-lg font-bold text-slate-900">Flujos globales terrestres y radiación solar</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            La Tierra funciona como un sistema dinámico cerrado en materia y abierto en energía. La luz solar incidente es el principal flujo energético que impulsa todos los sistemas dinámicos macroscópicos del planeta: desde las corrientes oceánicas y atmosféricas que estabilizan el clima, hasta las redes tróficas a través de la fotosíntesis.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Investiga y describe de forma escrita qué porcentaje de la radiación solar que llega al planeta es reflejada de inmediato por el efecto albedo (nubes, hielo, desiertos) y qué porcentaje es realmente absorbido por la biosfera.
+                        </div>
+                    </div>
+
+                    <!-- PROG 16 -->
+                    <div id="prog-content-16" class="prog-content hidden space-y-4">
+                        <div class="border-b pb-2">
+                            <span class="text-xs font-bold text-earth-600 uppercase">Progresión 16</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tectónica de placas y convección en el manto</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            El interior de la Tierra hierve debido al calor acumulado durante su formación primitiva y la descomposición radiogénica en su núcleo externo. Este gradiente de calor empuja celdas gigantescas de corrientes de convección térmica en el manto viscoso (astenosfera), provocando el desplazamiento constante de las placas litosféricas de la superficie.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+                            <strong class="text-slate-800 block mb-1">📖 Actividad obligatoria en Libreta:</strong>
+                            Dibuja de forma detallada un corte transversal de la Tierra. Ubica el núcleo (fuente calórica), el manto y señala con flechas el flujo circular de las celdas de convección térmica. Representa gráficamente una placa de subducción en el extremo superior.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 3. TAB: LECTURAS CRÍTICAS CON ACTIVIDADES -->
+        <section id="tab-lecturas" class="tab-content hidden space-y-6">
+            
+            <div class="border-b border-slate-200 pb-4 flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-950">Lecturas Científicas Críticas (8 Módulos de Lectura)</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Un artículo científico contextualizado por cada progresión del programa de bachillerato.
+                    </p>
+                </div>
+                <!-- Mini-menú de lectura -->
+                <div class="flex gap-1 overflow-x-auto py-1 max-w-full">
+                    <button onclick="showLectura(1)" id="l-tab-1" class="lectura-tab-btn active-l-tab px-3 py-1 bg-slate-200 text-xs font-bold rounded-lg transition-colors">L1</button>
+                    <button onclick="showLectura(2)" id="l-tab-2" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L2</button>
+                    <button onclick="showLectura(3)" id="l-tab-3" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L3</button>
+                    <button onclick="showLectura(4)" id="l-tab-4" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L4</button>
+                    <button onclick="showLectura(5)" id="l-tab-5" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L5</button>
+                    <button onclick="showLectura(6)" id="l-tab-6" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L6</button>
+                    <button onclick="showLectura(7)" id="l-tab-7" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L7</button>
+                    <button onclick="showLectura(8)" id="l-tab-8" class="lectura-tab-btn px-3 py-1 text-slate-600 text-xs font-bold rounded-lg transition-colors">L8</button>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DE LECTURAS -->
+            <div class="space-y-6">
+                
+                <!-- LECTURA 1 (P1) -->
+                <div id="lectura-block-1" class="lectura-block block bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-1 rounded">Lectura Científica 1: Fuerzas e Interacción Aeroespacial</span>
+                    <h3 class="text-lg font-bold text-slate-900">¿Cómo vuelan los propulsores Falcon 9 de SpaceX?</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: NASA / SpaceX Flight Physics Bulletin</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Para colocar un satélite en órbita, los motores Merlin del Falcon 9 queman queroseno refinado (RP-1) y oxígeno líquido, expulsando toneladas de gases calientes hacia el suelo a velocidades extremas. Por la Tercera Ley de Newton, la fuerza masiva dirigida hacia abajo genera una fuerza de reacción idéntica sobre la estructura física del cohete hacia el espacio, demostrando que la energía química liberada se transfiere instantáneamente en momento cinético ascendente.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: Explica cómo se aplica la tercera ley de Newton al despegar el cohete.</label>
+                        <textarea id="resp-l1" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Escribe tu análisis reflexivo sobre la acción y reacción en el combustible expulsado..."></textarea>
+                        <button onclick="guardarL(1)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 1</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 2 (P2) -->
+                <div id="lectura-block-2" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-1 rounded">Lectura Científica 2: Inercia y Seguridad en el Tránsito</span>
+                    <h3 class="text-lg font-bold text-slate-900">La Física del Frenado de Emergencia Autónomo (AEB)</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: Latin NCAP / Euro NCAP Safety Tech</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Los automóviles modernos incorporan sensores de radar y cámaras inteligentes de frenado automático. Al detectar un obstáculo, el sistema hidráulico aplica una fuerza de rozamiento inmensa a los rotores para vencer la inercia del vehículo (Primera Ley de Newton). Sin embargo, los pasajeros, que no están unidos mecánicamente al chasis sino asentados libremente, continúan con su vector de movimiento hacia adelante a velocidad constante, requiriendo de los cinturones de seguridad pretensados para amortiguar el impacto.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿Por qué la inercia impide que los cuerpos de los pasajeros se detengan exactamente al mismo tiempo que el auto?</label>
+                        <textarea id="resp-l2" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Relaciona la masa de los cuerpos con su tendencia a seguir en movimiento..."></textarea>
+                        <button onclick="guardarL(2)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 2</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 3 (P3) -->
+                <div id="lectura-block-3" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-1 rounded">Lectura Científica 3: Momento Lineal</span>
+                    <h3 class="text-lg font-bold text-slate-900">La Conservación de Momento en el Billar y Deportes de Contacto</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: World Professional Billiards Physics Association</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Cuando una bola blanca en movimiento lineal $p_1$ choca de frente contra otra idéntica que está detenida, ocurre una transferencia completa del vector de momento. La primera bola se detiene en seco, mientras que la segunda sale disparada con la velocidad idéntica que tenía la bola blanca original. En sistemas aislados, la masa por la velocidad permanece constante, permitiendo predecir perfectamente los resultados de colisión en física molecular y en deportes terrestres de alta velocidad.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿Qué sucede matemáticamente con el momento lineal de un sistema cerrado durante un rebote elástico?</label>
+                        <textarea id="resp-l3" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Describe el principio de conservación basándote en la ecuación m1*v1 = m2*v2..."></textarea>
+                        <button onclick="guardarL(3)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 3</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 4 (P4) -->
+                <div id="lectura-block-4" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-1 rounded">Lectura Científica 4: Predicción Macroscópica</span>
+                    <h3 class="text-lg font-bold text-slate-900">Crash Test Dummies: La Ciencia de Predecir Daños Corporales</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: Insurance Institute for Highway Safety (IIHS)</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        La segunda ley de Newton ($F = m \cdot a$) permite predecir los estragos mecánicos que sufrirá la caja torácica o el cráneo de una persona durante un accidente de tráfico. Los dummies de prueba de colisión están cargados de acelerómetros electrónicos de precisión. Si un cráneo rígido sufre una aceleración de $80G$ (80 veces la fuerza de la gravedad), las leyes físicas predicen de forma exacta fracturas y lesiones cerebrales graves, lo que guía el diseño de las bolsas de aire protectoras.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿Cómo ayuda la ecuación de Newton a calcular los límites físicos tolerables del cuerpo humano en colisiones?</label>
+                        <textarea id="resp-l4" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Explica la relación directa entre aceleración violenta y la fuerza de impacto resultante..."></textarea>
+                        <button onclick="guardarL(4)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 4</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 5 (P5) -->
+                <div id="lectura-block-5" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-1 rounded">Lectura Científica 5: Choques e Impulso</span>
+                    <h3 class="text-lg font-bold text-slate-900">Zonas de Deformación Programada: El Arte de Arrugar el Metal</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: SAE International Automotive Engineering</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Los automóviles del siglo pasado eran extremadamente rígidos; al chocar, el metal quedaba casi intacto pero los tripulantes fallecían por desaceleración súbita. Hoy en día, el chasis delantero se diseña para plegarse como un acordeón al impacto. Este plegado absorbe y disipa una cantidad colosal de energía térmica, y lo más importante: aumenta el tiempo transcurrido de la colisión ($\Delta t$) de 0.05 segundos a 0.2 segundos. Al aumentar el tiempo, la fuerza promedio del impacto ejercida sobre los pasajeros disminuye hasta en un 400%.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿De qué manera el concepto físico de "impulso" justifica el colapso destructivo del cofre de un carro nuevo?</label>
+                        <textarea id="resp-l5" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Usa la fórmula del impulso para describir por qué extender el intervalo de tiempo reduce la fuerza sobre la cabina..."></textarea>
+                        <button onclick="guardarL(5)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 5</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 6 (P14) -->
+                <div id="lectura-block-6" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded">Lectura Científica 6: Biología Celular y Energía</span>
+                    <h3 class="text-lg font-bold text-slate-900">Las Mitocondrias: Centrales Termodinámicas Celulares</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: Science / Nature Reviews Molecular Cell Biology</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Dentro de cada célula humana, las mitocondrias rompen la glucosa de la comida que ingeriste a través del proceso de fosforilación oxidativa. La eficiencia neta de conversión en ATP es del 40%; el resto (60%) se degrada al ambiente biológico circundante como energía calórica. Este calor "perdido" es el que permite que nuestra temperatura se mantenga fija en unos 37°C sin importar si afuera estamos bajo cero grados, sirviendo de calefactor metabólico autónomo.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿Qué papel bioquímico cumple el calor "perdido" durante el metabolismo mitocondrial para la vida diaria de los mamíferos?</label>
+                        <textarea id="resp-l6" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Explica cómo se utiliza esa ineficiencia de conversión energética en el mantenimiento térmico del cuerpo..."></textarea>
+                        <button onclick="guardarL(6)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 6</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 7 (P15) -->
+                <div id="lectura-block-7" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-1 rounded">Lectura Científica 7: Ciclos Planetarios y Energía Solar</span>
+                    <h3 class="text-lg font-bold text-slate-900">El Sol: La Turbina del Clima Terrestre</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: World Meteorological Organization (WMO)</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Toda la dinámica de la atmósfera, los huracanes, las sequías y las corrientes oceánicas globales son generadas por la radiación solar incidente. Al calentar de forma asimétrica la zona ecuatorial (donde los rayos impactan rectos) y los polos (donde llegan con un ángulo inclinado), el Sol crea enormes diferenciales de presión y densidad en el aire y el agua, poniendo en marcha las corrientes de convección planetarias que moderan la temperatura global.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: ¿Por qué la curvatura del planeta provoca diferencias energéticas que dan origen a los vientos globales?</label>
+                        <textarea id="resp-l7" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Analiza la distribución desigual de radiación solar sobre la superficie de una esfera..."></textarea>
+                        <button onclick="guardarL(7)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 7</button>
+                    </div>
+                </div>
+
+                <!-- LECTURA 8 (P16) -->
+                <div id="lectura-block-8" class="lectura-block hidden bg-white border rounded-2xl p-6 shadow-sm space-y-4">
+                    <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-1 rounded">Lectura Científica 8: Convección y Sismicidad</span>
+                    <h3 class="text-lg font-bold text-slate-900">La Brecha de Guerrero: Tensión Latente y Convección en el Manto</h3>
+                    <p class="text-xs text-slate-500 font-medium">Fuente adaptada: Servicio Sismológico Nacional (SSN)</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        El interior profundo de la Tierra almacena calor de compresión gravitacional. Este calor calienta las rocas profundas del manto terrestre haciéndolas ascender lentamente. Al llegar a la corteza se enfrían, viajan horizontalmente empujando las placas de Cocos y de Norteamérica, y vuelven a hundirse. Este movimiento genera zonas de roce o traba donde se acumula una tensión elástica descomunal, conocida en la costa guerrerense como una de las brechas con mayor potencial de liberar energía sísmica destructiva en el país.
+                    </p>
+                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Pregunta de análisis: Explica cómo el calor radiactivo del núcleo de la Tierra desencadena indirectamente las alertas sísmicas en la Ciudad de México.</label>
+                        <textarea id="resp-l8" class="w-full text-xs p-2.5 border rounded-lg" rows="2" placeholder="Vila la convección térmica del magma con la acumulación de tensión y liberación sísmica elástica..."></textarea>
+                        <button onclick="guardarL(8)" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-1.5 px-4 rounded-lg">Guardar respuesta 8</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 4. TAB: VIDEOTECA Y RETOS INTERACTIVOS -->
+        <section id="tab-videos" class="tab-content hidden space-y-6">
+            
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-950">Videoteca Académica de Consulta Obligatoria (6 Retos)</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                    Visualiza los videos recomendados buscando en la web oficial de YouTube y completa las actividades digitales de entrega.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- VIDEO 1 (P1-P2) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 1: Leyes de Newton</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"Leyes de Newton en la Vida Diaria"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Ciencia Express o Quantum Fracture</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 1: Si empujas un muro inmóvil, ¿por qué no logras transferirle energía de movimiento a pesar de que te cansas?</label>
+                        <textarea id="resp-v1" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="Aplica la 3ª Ley y el concepto físico de trabajo..."></textarea>
+                        <button onclick="guardarV(1)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 1</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO 2 (P3) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 2: Momento Lineal</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"La física de las colisiones en deportes"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Physics Girl / Khan Academy</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 2: Explica qué ocurre con la velocidad de un patinador de 60 kg que viaja a 3 m/s al atrapar a su compañero detenido de 60 kg.</label>
+                        <textarea id="resp-v2" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="Usa la conservación del momento lineal (choque inelástico)..."></textarea>
+                        <button onclick="guardarV(2)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 2</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO 3 (P14) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 3: Respiración Celular</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"El motor invisible de la célula"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Khan Academy Español</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 3: Al tiritar por frío, tu cuerpo aumenta la respiración celular. ¿Qué esperas que ocurra con tus emisiones de $CO_2$ exhaladas?</label>
+                        <textarea id="resp-v3" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="Relaciona el incremento de consumo de glucosa con la producción de gases residuales..."></textarea>
+                        <button onclick="guardarV(3)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 3</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO 4 (P15) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 4: Energía del Sol</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"Flujos de Radiación y el Efecto Albedo"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Minuto de Física / Kurzgesagt</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 4: Si se derrite el hielo polar del planeta debido al aumento térmico global, ¿cómo afecta esto al balance radiactivo por efecto albedo?</label>
+                        <textarea id="resp-v4" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="Explica qué sucede con la absorción calórica al cambiar el color blanco del hielo por el azul oscuro del mar..."></textarea>
+                        <button onclick="guardarV(4)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 4</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO 5 (P16) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 5: Manto y Convección</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"La Convección en el Interior de la Tierra"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Iris Earth Science</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 5: Describe brevemente cómo cambia la densidad física del material rocoso del manto cuando se calienta cerca del núcleo metálico terrestre.</label>
+                        <textarea id="resp-v5" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="¿Se vuelve más denso o menos denso? Explica su movimiento ascendente..."></textarea>
+                        <button onclick="guardarV(5)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 5</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO 6 (P4-P5) -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="p-4 bg-slate-900 text-white flex flex-col justify-center items-center h-40 text-center relative">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded">Video 6: Colisiones Modernas</span>
+                        <svg class="w-10 h-10 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        <span class="text-xs font-bold px-4">"La Física de las Bolsas de Aire (Airbags)"</span>
+                        <span class="text-[9px] text-slate-400 mt-1">Canal sugerido: Smarter Every Day</span>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <label class="text-xs font-bold text-slate-700 block">Reto 6: ¿Por qué resulta peligroso que un airbag se despliegue demasiado lento o demasiado rápido durante un impacto frontal?</label>
+                        <textarea id="resp-v6" class="w-full text-xs p-2 border rounded-lg" rows="2" placeholder="Relaciona la tasa de frenado del cráneo con la sincronización del dispositivo..."></textarea>
+                        <button onclick="guardarV(6)" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-1.5 rounded-lg">Guardar Reto 6</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 5. TAB: CUADERNO DE EVIDENCIAS -->
+        <section id="tab-evidencias" class="tab-content hidden space-y-6">
+            
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-950">Tu Cuaderno Digital de Evidencias Integrador</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                    Este panel compila de forma automatizada tus respuestas registradas de las 8 lecturas científicas y los 6 retos en video.
+                </p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                <div class="bg-slate-100 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="font-bold text-slate-900 text-sm">Carpeta Evaluativa de Aula</h3>
+                    <span class="text-xs text-brand-600 font-bold" id="badge-completado-total">0 de 14 actividades completadas</span>
+                </div>
+                <div class="p-6 space-y-6">
+                    
+                    <!-- LECTURAS RESUMEN -->
+                    <div class="border-b pb-4 space-y-4">
+                        <h4 class="font-bold text-sm text-slate-800 border-l-4 border-brand-600 pl-2">Respuestas de las Lecturas Críticas</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 1 (Falcon 9 / 3ª Ley)</span>
+                                <p id="ev-l1" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 2 (Inercia / Frenos AEB)</span>
+                                <p id="ev-l2" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 3 (Momento en Billar)</span>
+                                <p id="ev-l3" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 4 (Dummies / 2ª Ley)</span>
+                                <p id="ev-l4" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 5 (Deformación de Chasis)</span>
+                                <p id="ev-l5" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 6 (Mitocondria y 37°C)</span>
+                                <p id="ev-l6" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 7 (Clima y Radiación)</span>
+                                <p id="ev-l7" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Lectura 8 (Manto y Guerrero)</span>
+                                <p id="ev-l8" class="text-slate-600 italic mt-1 font-serif">No contestado aún.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIDEOS RESUMEN -->
+                    <div class="border-b pb-4 space-y-4">
+                        <h4 class="font-bold text-sm text-slate-800 border-l-4 border-slate-900 pl-2">Respuestas de los Retos en Video</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 1 (Empujar Muro)</span>
+                                <p id="ev-v1" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 2 (Choque Patinadores)</span>
+                                <p id="ev-v2" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 3 (Tiritar y Gases)</span>
+                                <p id="ev-v3" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 4 (Fusión Polar)</span>
+                                <p id="ev-v4" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 5 (Densidad de Magma)</span>
+                                <p id="ev-v5" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border text-xs">
+                                <span class="font-bold block text-slate-700">Reto 6 (Tiempo de Airbag)</span>
+                                <p id="ev-v6" class="text-slate-600 italic mt-1 font-serif">No contestado.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IDENTIFICACIÓN DEL ALUMNO -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
+                        <span class="text-xs font-bold text-slate-700 uppercase block">Identificación del Estudiante</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 block mb-1">Nombre Completo</label>
+                                <input type="text" id="alumno-nombre" class="w-full text-xs p-2.5 border rounded-lg bg-white" placeholder="Ana Karen Martínez">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 block mb-1">Semestre / Grupo</label>
+                                <input type="text" id="alumno-grupo" class="w-full text-xs p-2.5 border rounded-lg bg-white" placeholder="5.° Semestre, Grupo A">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 block mb-1">Docente Titular</label>
+                                <input type="text" id="alumno-docente" class="w-full text-xs p-2.5 border rounded-lg bg-white" placeholder="Prof. Luis Rivera">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <button onclick="generarReporte()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold py-2.5 px-6 rounded-xl shadow-sm transition-colors flex items-center gap-2">
+                            Generar Reporte Imprimible
+                        </button>
+                        <button onclick="limpiarCuaderno()" class="text-xs text-red-600 hover:text-red-700 px-3 py-2 font-semibold transition-colors">
+                            Borrar respuestas
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+            <p class="text-slate-300 font-semibold">
+                La Energía en los Procesos de la Vida Diaria - Bachillerato Tecnológico / General (MCCEMS)
+            </p>
+            <p>
+                Material de apoyo didáctico interactivo desarrollado para la implementación de metodologías activas en el aula de bachillerato de la Nueva Escuela Mexicana.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE REPORTE IMPRIMIBLE -->
+    <div id="modal-reporte" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
+            
+            <div class="bg-slate-900 text-white p-4 flex justify-between items-center">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    📄 Ficha Formal de Evidencias Ciencias Experimentales (MCCEMS)
+                </h3>
+                <button onclick="cerrarReporte()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+            </div>
+
+            <!-- CONTENIDO IMPRIMIBLE DEL REPORTE -->
+            <div id="reporte-print-area" class="p-8 overflow-y-auto space-y-6 text-slate-900 font-sans">
+                
+                <div class="border-b-2 border-slate-900 pb-4">
+                    <h2 class="text-lg font-bold uppercase tracking-tight text-center">Ficha de Evidencias Integradoras</h2>
+                    <p class="text-center text-xs text-slate-500 mt-1">Curso de Ciencias Naturales Experimentales y Tecnología - Quinto Semestre</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-4 text-xs bg-slate-100 p-4 rounded-xl border">
+                        <div>
+                            <p><strong>Estudiante:</strong> <span id="r-nombre"></span></p>
+                            <p class="mt-1"><strong>Semestre/Grupo:</strong> <span id="r-grupo"></span></p>
+                        </div>
+                        <div>
+                            <p><strong>Docente Evaluador:</strong> <span id="r-docente"></span></p>
+                            <p class="mt-1"><strong>Fecha de Emisión:</strong> <span id="r-fecha"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Respuestas de Lecturas -->
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400">Sección A: Carpeta de Lecturas Críticas</h3>
+                    <div class="space-y-3">
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 1: SpaceX y la Tercera Ley de Newton (Acción y Reacción)</p>
+                            <p id="r-l1" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 2: Seguridad Vial y Primera Ley de Newton (Inercia)</p>
+                            <p id="r-l2" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 3: Deportes e Impulso en Billar (Momento Lineal)</p>
+                            <p id="r-l3" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 4: Crash Tests de Ingeniería Mecánica (Segunda Ley)</p>
+                            <p id="r-l4" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 5: Absorción por Deformación de Cofres (Choques e Impulso)</p>
+                            <p id="r-l5" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 6: Termogénesis y Mitocondria (Respiración Celular)</p>
+                            <p id="r-l6" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 7: Convección Atmosférica y Climas (Energía Solar)</p>
+                            <p id="r-l7" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                        <div class="border-b pb-2 text-xs">
+                            <p class="font-bold text-brand-700">Módulo 8: Desplazamiento Continental y Brecha de Guerrero (Placas Tectónicas)</p>
+                            <p id="r-l8" class="mt-1 text-slate-700 italic bg-slate-50 p-2 rounded border"></p>
+                        </div>
+                    </div>
+
+                    <!-- Respuestas de Videos -->
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400 mt-6">Sección B: Carpeta de Retos de Videoteca</h3>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 1: Empujar Muro</p>
+                            <p id="r-v1" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 2: Choque Patinadores</p>
+                            <p id="r-v2" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 3: Tiritar y Gases</p>
+                            <p id="r-v3" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 4: Fusión Polar</p>
+                            <p id="r-v4" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 5: Densidad del Magma</p>
+                            <p id="r-v5" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                        <div class="border p-2 rounded">
+                            <p class="font-bold text-slate-700">Reto 6: Tiempo de Airbag</p>
+                            <p id="r-v6" class="mt-1 text-slate-600 italic bg-slate-50 p-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Firmas -->
+                <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
+                    <div>
+                        <div class="border-t border-slate-400 w-48 mx-auto pt-2"></div>
+                        <p class="font-bold text-slate-700">Firma del Alumno</p>
+                    </div>
+                    <div>
+                        <div class="border-t border-slate-400 w-48 mx-auto pt-2"></div>
+                        <p class="font-bold text-slate-700">Firma del Docente de Ciencias</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción del Modal -->
+            <div class="bg-slate-50 p-4 border-t flex justify-end gap-3">
+                <button onclick="copiarAlPortapapeles()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold py-2 px-4 rounded-lg transition-colors">
+                    Copiar Reporte al Portapapeles
+                </button>
+                <button onclick="window.print()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors">
+                    Imprimir / Descargar PDF 🖨️
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NOTIFICACIONES TEMPORALES (TOAST) -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-2 text-xs transition-all transform translate-y-20 opacity-0 z-50">
+        <span class="text-green-400">✓</span>
+        <span id="toast-text">Cambios guardados en tu cuaderno digital.</span>
+    </div>
+
+    <script>
+        // OBJETO GLOBAL DE RESPUESTAS
+        const state = {
+            resp_l1: "",
+            resp_l2: "",
+            resp_l3: "",
+            resp_l4: "",
+            resp_l5: "",
+            resp_l6: "",
+            resp_l7: "",
+            resp_l8: "",
+            resp_v1: "",
+            resp_v2: "",
+            resp_v3: "",
+            resp_v4: "",
+            resp_v5: "",
+            resp_v6: ""
+        };
+
+        // Cambiar pestañas principales
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            const target = document.getElementById(tabId);
+            target.classList.remove('hidden');
+            target.classList.add('block');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            activeBtn.classList.remove('text-slate-600');
+            activeBtn.classList.add('bg-brand-600', 'text-white');
+        }
+
+        // Navegación de progresiones lateral
+        function showProgression(index) {
+            document.querySelectorAll('.prog-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            
+            // Mapear índices a progresiones específicas
+            const pIds = [1, 2, 3, 4, 5, 14, 15, 16];
+            const realId = pIds[index - 1];
+            
+            document.getElementById('prog-content-' + realId).classList.remove('hidden');
+            document.getElementById('prog-content-' + realId).classList.add('block');
+
+            document.querySelectorAll('.prog-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-50', 'text-brand-700', 'border-brand-300', 'active-prog');
+                btn.classList.add('text-slate-700', 'border-slate-200');
+            });
+
+            const currentBtn = document.getElementById('prog-btn-' + realId);
+            if (currentBtn) {
+                currentBtn.classList.remove('text-slate-700', 'border-slate-200');
+                currentBtn.classList.add('bg-brand-50', 'text-brand-700', 'border-brand-300', 'active-prog');
+            }
+        }
+
+        // Navegación lateral de Lecturas
+        function showLectura(num) {
+            document.querySelectorAll('.lectura-block').forEach(b => {
+                b.classList.add('hidden');
+                b.classList.remove('block');
+            });
+            document.getElementById('lectura-block-' + num).classList.remove('hidden');
+            document.getElementById('lectura-block-' + num).classList.add('block');
+
+            document.querySelectorAll('.lectura-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'active-l-tab');
+                btn.classList.add('text-slate-600', 'bg-slate-200');
+            });
+            const activeBtn = document.getElementById('l-tab-' + num);
+            activeBtn.classList.remove('text-slate-600', 'bg-slate-200');
+            activeBtn.classList.add('bg-brand-600', 'text-white', 'active-l-tab');
+        }
+
+        // Mostrar Guía Docente Rúbrica
+        function toggleDocenteGuide() {
+            const panel = document.getElementById('docente-guide-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        // Mostrar Notificaciones Flotantes
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = text;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        // Recalcular contador global de actividades
+        function updateBadge() {
+            let completados = 0;
+            const keys = Object.keys(state);
+            keys.forEach(key => {
+                if (state[key] !== "") completados++;
+            });
+
+            const badge = document.getElementById('ev-badge');
+            const resText = document.getElementById('badge-completado-total');
+            
+            resText.innerText = completados + " de 14 actividades completadas";
+
+            if (completados > 0) {
+                badge.innerText = completados;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Guardar Respuestas de Lecturas
+        function guardarL(num) {
+            const val = document.getElementById('resp-l' + num).value.trim();
+            if (!val) {
+                showToast("Por favor redacta una respuesta válida antes de guardar.");
+                return;
+            }
+            state['resp_l' + num] = val;
+            document.getElementById('ev-l' + num).innerText = val;
+            updateBadge();
+            showToast("Lectura " + num + " guardada en tu cuaderno.");
+        }
+
+        // Guardar Respuestas de Videos
+        function guardarV(num) {
+            const val = document.getElementById('resp-v' + num).value.trim();
+            if (!val) {
+                showToast("Por favor redacta tu respuesta al reto antes de guardar.");
+                return;
+            }
+            state['resp_v' + num] = val;
+            document.getElementById('ev-v' + num).innerText = val;
+            updateBadge();
+            showToast("Reto de Video " + num + " guardado con éxito.");
+        }
+
+        // Limpiar cuaderno completo
+        function limpiarCuaderno() {
+            const keys = Object.keys(state);
+            keys.forEach(key => state[key] = "");
+
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById('resp-l' + i).value = "";
+                document.getElementById('ev-l' + i).innerText = "No contestado aún.";
+            }
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('resp-v' + i).value = "";
+                document.getElementById('ev-v' + i).innerText = "No contestado.";
+            }
+
+            updateBadge();
+            showToast("Se han borrado todos tus avances.");
+        }
+
+        // Generar Reporte Oficial
+        function generarReporte() {
+            const nombre = document.getElementById('alumno-nombre').value.trim();
+            const grupo = document.getElementById('alumno-grupo').value.trim();
+            const docente = document.getElementById('alumno-docente').value.trim();
+
+            if (!nombre || !grupo || !docente) {
+                showToast("Ingresa tus datos de identificación académica al final del panel.");
+                return;
+            }
+
+            document.getElementById('r-nombre').innerText = nombre;
+            document.getElementById('r-grupo').innerText = grupo;
+            document.getElementById('r-docente').innerText = docente;
+            document.getElementById('r-fecha').innerText = new Date().toLocaleDateString('es-MX', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            // Llenar respuestas de Lecturas
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById('r-l' + i).innerText = state['resp_l' + i] || "[Actividad no completada]";
+            }
+            // Llenar respuestas de Videos
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('r-v' + i).innerText = state['resp_v' + i] || "[Reto no resuelto]";
+            }
+
+            document.getElementById('modal-reporte').classList.remove('hidden');
+        }
+
+        function cerrarReporte() {
+            document.getElementById('modal-reporte').classList.add('hidden');
+        }
+
+        // Copiar reporte para entrega digital por portapapeles
+        function copiarAlPortapapeles() {
+            const area = document.getElementById('reporte-print-area');
+            const range = document.createRange();
+            range.selectNode(area);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                showToast("Ficha copiada al portapapeles. ¡Pégala en un documento de Word o correo electrónico!");
+            } catch (err) {
+                showToast("Tu navegador no soporta el copiado directo. Selecciona manualmente.");
+            }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+</body>
+</html>
