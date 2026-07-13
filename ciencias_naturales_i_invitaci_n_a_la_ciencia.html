@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciencias Naturales I: Invitación a la ciencia: Naturaleza de la materia</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos personalizados para simular el cuaderno */
+    .notebook-paper {
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(rgba(0, 150, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 150, 255, 0.08) 1px, transparent 1px);
+      background-size: 20px 20px;
+      position: relative;
+    }
+    .notebook-paper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 40px;
+      width: 2px;
+      height: 100%;
+      background-color: rgba(239, 68, 68, 0.3);
+    }
+    /* Custom Scrollbar for dark theme code/lists */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Encabezado Principal -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg border border-emerald-500/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+        </div>
+        <div>
+          <h1 class="text-sm md:text-base font-outfit font-bold tracking-tight text-white flex flex-wrap items-center gap-2">
+            Ciencias Naturales I: Invitación a la ciencia <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full font-medium">Naturaleza de la materia</span>
+          </h1>
+          <p class="text-xs text-slate-400">Diseñador Pedagógico Activo (Bachillerato • 14-15 años)</p>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center space-x-2">
+        <span class="text-xs text-slate-400">MCCEMS 2025</span>
+        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+    
+    <!-- Panel Izquierdo: Selector de Ejes y Lista de Contenidos -->
+    <aside class="w-full lg:w-96 flex-shrink-0 space-y-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-xs font-outfit font-bold text-slate-300 uppercase tracking-wider">Ejes de Aprendizaje</h2>
+          <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">Word Completo</span>
+        </div>
+        <nav class="space-y-1 overflow-y-auto max-h-[300px] lg:max-h-[360px]" id="proposito-menu">
+          <!-- Generado Dinámicamente por JS -->
+        </nav>
+      </div>
+
+      <!-- Lista de Contenidos Desplegados para el Eje Seleccionado -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
+        <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+          <h3 class="text-xs font-outfit font-bold text-emerald-400 uppercase tracking-wider">Contenidos Formativos</h3>
+          <span class="text-[10px] text-slate-400" id="contents-count">0 items</span>
+        </div>
+        <div class="space-y-1 overflow-y-auto max-h-[300px]" id="contenidos-lista">
+          <!-- Generado Dinámicamente por JS al seleccionar un Eje -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Panel Central/Derecho: Visualización de Actividades, Libreta e Interactivos -->
+    <section class="flex-1 space-y-6">
+      
+      <!-- Banner Informativo del Propósito Activo -->
+      <div id="banner-proposito" class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/20 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
+        <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none">
+          <svg class="w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+        </div>
+        <div class="relative z-10 space-y-2">
+          <span id="txt-num-proposito" class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 inline-block">Cargando...</span>
+          <h2 id="txt-titulo-proposito" class="text-xl font-outfit font-bold text-white leading-tight">Cargando...</h2>
+          <p id="txt-descripcion-proposito" class="text-xs text-slate-300 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- Selector de Secciones -->
+      <div class="border-b border-slate-800 flex space-x-1" id="tab-nav">
+        <button onclick="switchTab('actividades')" id="tab-btn-actividades" class="px-4 py-2.5 text-xs font-semibold border-b-2 border-emerald-500 text-emerald-400 transition-all">
+          🔥 Bitácora de Contenido & Recursos
+        </button>
+        <button onclick="switchTab('libreta')" id="tab-btn-libreta" class="px-4 py-2.5 text-xs font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all">
+          📖 Simulador de Libreta
+        </button>
+        <button onclick="switchTab('evaluacion')" id="tab-btn-evaluacion" class="px-4 py-2.5 text-xs font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all">
+          🎯 Rúbricas Curriculares
+        </button>
+      </div>
+
+      <!-- Contenedor de Vistas -->
+      <div id="view-container" class="space-y-6">
+        
+        <!-- VISTA: ACTIVIDADES (Doble columna: Contenido + Simulador Lúdico) -->
+        <div id="view-actividades" class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          
+          <!-- Columna Izquierda: Detalle Pedagógico del Contenido Formativo Activo -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                <span class="text-xs font-outfit font-bold text-emerald-400" id="selected-content-title">Tema Seleccionado</span>
+                <span class="text-[10px] text-slate-400 font-medium bg-slate-850 px-2 py-0.5 rounded border border-slate-850" id="selected-content-method">Método Activo</span>
+              </div>
+              
+              <!-- Recurso de Lectura -->
+              <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800 space-y-1.5">
+                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                  Lectura Digital de Referencia
+                </h4>
+                <p class="text-xs text-slate-400 leading-relaxed" id="selected-content-reading-desc">Selecciona un tema para cargar el vínculo bibliográfico certificado.</p>
+                <div class="pt-1 flex">
+                  <a id="selected-content-reading-link" href="#" target="_blank" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold underline flex items-center gap-1">
+                    Ver recurso externo de la UNAM / Khan Academy
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Reto de la Libreta -->
+              <div class="p-4 bg-emerald-950/20 border border-emerald-500/10 rounded-lg space-y-2">
+                <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                  📖 Reto Físico en la Libreta
+                </h4>
+                <p class="text-xs text-slate-200 leading-relaxed" id="selected-content-notebook-desc">Asigna este proyecto a los estudiantes para modelar y resolver en su cuaderno físico.</p>
+                <div class="p-2 bg-slate-950/50 rounded text-[11px] text-slate-400 border border-slate-900 leading-relaxed italic" id="selected-content-example">
+                  Ejemplo guía...
+                </div>
+              </div>
+            </div>
+
+            <!-- Sugerencias docentes rápidas -->
+            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 text-[11px] text-slate-400">
+              <span class="font-semibold text-slate-300 uppercase text-[10px] block mb-1">Para el Docente:</span>
+              <span id="selected-content-docente">Guía analítica de implementación curricular para el salón de clases.</span>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Simulador / Actividad Lúdica Digital Interactiva -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                <span class="text-xs font-outfit font-bold text-amber-400 flex items-center gap-1">
+                  🎮 Módulo Lúdico Interactivo en Pantalla
+                </span>
+                <span class="text-[10px] text-slate-500" id="sim-type-badge">SIMULADOR</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed mt-2" id="selected-content-game-desc">
+                Pon a prueba el conocimiento mediante este juego interactivo diseñado directamente para proyectar en el pizarrón o resolver en plenaria.
+              </p>
+            </div>
+
+            <!-- Contenedor dinámico de simulación/juego -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-4 min-h-[340px] flex flex-col justify-center items-center relative overflow-hidden" id="interactive-playground">
+              <!-- Cargado dinámicamente según el contenido activo -->
+              <p class="text-xs text-slate-500">Selecciona un tema para activar el simulador didáctico.</p>
+            </div>
+
+            <div class="text-[10px] text-slate-400 text-center italic">
+              * Nota: Estimula a los estudiantes a trasladar las conclusiones de esta simulación directamente a la sección de Metacognición de su cuaderno.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- VISTA: SIMULADOR DE LIBRETA -->
+        <div id="view-libreta" class="hidden space-y-6">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+            <h3 class="text-lg font-outfit font-semibold text-white mb-2">Simulador Digital: Organización de Doble Página</h3>
+            <p class="text-sm text-slate-300">
+              Usa este formato visual para enseñarle a tus alumnos de bachillerato cómo procesar información de forma no pasiva en su cuaderno. Esto evita la transcripción inútil de textos.
+            </p>
+          </div>
+
+          <!-- Maqueta de Libreta Física -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            
+            <!-- Página Izquierda (Procesamiento/Input) -->
+            <div class="rounded-lg shadow-2xl overflow-hidden border border-slate-200 notebook-paper min-h-[480px] p-6 text-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="border-b-2 border-red-400 pb-2 mb-4 flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider text-red-500 uppercase">PÁGINA IZQUIERDA: INPUT ACTIVO</span>
+                  <span class="text-xs text-slate-400">Fecha: DD/MM/AAAA</span>
+                </div>
+                
+                <div class="space-y-4">
+                  <div class="p-3 bg-blue-50/90 border border-blue-200 rounded">
+                    <h4 class="font-outfit font-bold text-blue-800 text-xs uppercase">1. Organizador Gráfico Conceptual</h4>
+                    <p class="text-xs text-slate-600 mt-1">El estudiante no copia texto; traduce el tema a un mapa mental, diagrama de flujo, o esquema atómico. Debe incluir mínimo 3 colores y conectores lógicos analizados en equipo.</p>
+                  </div>
+
+                  <div class="p-3 bg-amber-50/90 border border-amber-200 rounded">
+                    <h4 class="font-outfit font-bold text-amber-800 text-xs uppercase">2. Vocabulario Clave / Conceptos Críticos</h4>
+                    <p class="text-xs text-slate-600 mt-1">Glosario interactivo en un margen o recuadro especial. Se definen términos en palabras del alumno, no copias de diccionario.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="text-[10px] text-slate-400 text-center border-t border-slate-100 pt-2 italic">
+                Regla de Oro: Prohibido copiar párrafos completos. Todo se procesa gráficamente.
+              </div>
+            </div>
+
+            <!-- Página Derecha (Creación/Output) -->
+            <div class="rounded-lg shadow-2xl overflow-hidden border border-slate-200 notebook-paper min-h-[480px] p-6 text-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="border-b-2 border-red-400 pb-2 mb-4 flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider text-emerald-600 uppercase">PÁGINA DERECHA: DESAFÍO Y CREACIÓN</span>
+                  <span class="text-xs text-slate-400">Firma del Docente: ______</span>
+                </div>
+                
+                <div class="space-y-4">
+                  <div class="p-3 bg-emerald-50/90 border border-emerald-200 rounded">
+                    <h4 class="font-outfit font-bold text-emerald-800 text-xs uppercase">3. Solución del Reto Cotidiano</h4>
+                    <p class="text-xs text-slate-600 mt-1">Aquí es donde se responde el reto seleccionado en clase (Ej. Cálculos de densidad, perfiles de citas de átomos, el cómic atómico o el análisis crítico del problema).</p>
+                  </div>
+
+                  <div class="p-3 bg-purple-50/90 border border-purple-200 rounded">
+                    <h4 class="font-outfit font-bold text-purple-800 text-xs uppercase">4. Metacognición (Reflexión Semanal)</h4>
+                    <p class="text-xs text-slate-600 mt-1">El alumno responde: <em>¿Qué error cometí durante el reto y cómo lo corregí? ¿Cómo se aplica este tema para entender la tecnología que uso todos los días?</em></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-[10px] text-slate-400 text-center border-t border-slate-100 pt-2 italic">
+                Evaluación: El producto de esta página tiene un valor del 70% del entregable.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- VISTA: EVALUACIÓN -->
+        <div id="view-evaluacion" class="hidden space-y-6">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="text-lg font-outfit font-semibold text-white">Generador de Rúbricas para la Libreta</h3>
+                <p class="text-sm text-slate-400">Copia esta matriz de criterios para calificar los productos solicitados de manera transparente y formativa.</p>
+              </div>
+              <button onclick="copyRubric()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 transition-all rounded-lg text-xs font-medium text-white flex items-center gap-1.5 shadow-lg shadow-emerald-950/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
+                Copiar Rúbrica al Portapapeles
+              </button>
+            </div>
+
+            <!-- Tabla de Rúbrica -->
+            <div class="overflow-x-auto rounded-lg border border-slate-800">
+              <table class="w-full text-left border-collapse" id="table-rubric">
+                <thead>
+                  <tr class="bg-slate-800/80 text-xs font-outfit text-slate-300 border-b border-slate-700">
+                    <th class="p-4 font-semibold w-1/4">Criterio / Indicador</th>
+                    <th class="p-4 font-semibold text-emerald-400">Excelente (10)</th>
+                    <th class="p-4 font-semibold text-amber-400">Suficiente (8-7)</th>
+                    <th class="p-4 font-semibold text-red-400">Insuficiente (6-5)</th>
+                  </tr>
+                </thead>
+                <tbody class="text-xs text-slate-300 divide-y divide-slate-800">
+                  <tr class="hover:bg-slate-900/40">
+                    <td class="p-4 font-semibold text-white">Rigurosidad Científica y Conceptos</td>
+                    <td class="p-4">Identifica con precisión los términos, modelos o variables del tema y los aplica de forma lógica resolviendo el problema. El esquema científico es correcto.</td>
+                    <td class="p-4">Describe los conceptos principales pero presenta imprecisiones menores en fórmulas, cargas o teorías elementales.</td>
+                    <td class="p-4">Copió textualmente o tiene errores graves que demuestran una mala comprensión del comportamiento atómico o físico.</td>
+                  </tr>
+                  <tr class="hover:bg-slate-900/40">
+                    <td class="p-4 font-semibold text-white">Procesamiento Gráfico (Pág. Izquierda)</td>
+                    <td class="p-4">Crea un esquema propio (mapa, diagrama, tabla organizada) integrando colores que conectan o agrupan ideas lógicamente.</td>
+                    <td class="p-4">Crea un apunte ordenado pero básico. El organizador gráfico es lineal o contiene exceso de transcripción escrita.</td>
+                    <td class="p-4">No incluye organizador visual o es un resumen de texto continuo idéntico a una fuente digital.</td>
+                  </tr>
+                  <tr class="hover:bg-slate-900/40">
+                    <td class="p-4 font-semibold text-white">Pensamiento Crítico y Aplicación (Pág. Derecha)</td>
+                    <td class="p-4">Resuelve de manera asertiva el reto contextualizado y argumenta con base científica. Vincula de forma original el tema con tecnología real.</td>
+                    <td class="p-4">Intenta resolver el reto con procesos correctos pero sus argumentos carecen de profundidad o la conclusión de aplicación es genérica.</td>
+                    <td class="p-4">No completa el reto o sus respuestas no tienen fundamento en los temas abordados.</td>
+                  </tr>
+                  <tr class="hover:bg-slate-900/40">
+                    <td class="p-4 font-semibold text-white">Metacognición y Organización</td>
+                    <td class="p-4">Reflexiona claramente sobre su propio aprendizaje, identificando dificultades y estrategias de corrección. Entrega limpia, ordenada e identificable.</td>
+                    <td class="p-4">Contesta vagamente las preguntas de metacognición o entrega de manera descuidada pero a tiempo.</td>
+                    <td class="p-4">No incluye el cierre reflexivo y la organización de la libreta impide seguir el hilo conceptual.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Alerta informativa -->
+            <div id="copy-toast" class="hidden p-3 bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs rounded-lg text-center font-medium animate-pulse">
+              ✔ Rúbrica copiada correctamente en formato enriquecido para tu planificación docente o aula virtual.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Lógica y Base de Datos Integrada -->
+  <script>
+    // Base de datos de los 8 Ejes con todos sus Contenidos Formativos detallados de forma individual
+    const DB_ACADEMICA = [
+      {
+        id: 1,
+        num: "Propósito Formativo 1",
+        titulo: "La Ciencia como Actividad Creativa y Medición",
+        descripcion: "Reconoce la ciencia como actividad creativa, social y colectiva que involucra el planteamiento de preguntas y la búsqueda de explicaciones sobre fenómenos naturales de su entorno, a través de la experimentación y el análisis.",
+        contenidos: [
+          {
+            nombre: "Concepto de ciencia",
+            lectura_nombre: "El quehacer de la ciencia - Portal Académico CCH UNAM",
+            lectura_url: "https://portalacademico.cch.unam.mx/alumno/quimica1/unidad1/agua-compuesto-o-elemento/reacciones-quimicas",
+            metodo: "Indagación Crítica",
+            libreta_desc: "Escribe en tu libreta una definición de ciencia formulada con tus propias palabras. Posteriormente, busca dos situaciones en tu comunidad que dependan directamente del desarrollo de la ciencia y describe cómo influyen.",
+            ejemplo: "Ejemplo: Definir ciencia como la búsqueda constante de explicaciones contrastables mediante observaciones y pruebas ordenadas. Ejemplificar con el abasto de agua potable purificada mediante desinfección o las alertas sísmicas.",
+            docente_tips: "Propicie la reflexión acerca de que la ciencia no es estática, sino un proceso dinámico y autocorrectivo. Evite que copien definiciones literales de diccionarios.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "La rotación de la Tierra genera el ciclo día/noche", cat: "Hecho Científico" },
+                { text: "Un cometa en el cielo anuncia catástrofes nacionales", cat: "Creencia/Mito" },
+                { text: "Las vacunas estimulan anticuerpos mediante patógenos atenuados", cat: "Hecho Científico" },
+                { text: "Bañarse de noche produce parálisis facial por el sereno", cat: "Creencia/Mito" }
+              ]
+            }
+          },
+          {
+            nombre: "Relatos sobre la historia de los descubrimientos científicos y la ciencia en México",
+            lectura_nombre: "Capital Natural de México - Comisión Nacional para el Conocimiento y Uso de la Biodiversidad (CONABIO)",
+            lectura_url: "https://www.biodiversidad.gob.mx/pais/capitalnatmex.html",
+            metodo: "Estudio de Caso Histórico",
+            libreta_desc: "Elabora una línea del tiempo o historieta de tres viñetas sobre el descubrimiento de Mario Molina acerca de los compuestos clorofluorocarbonos (CFC) y su impacto en la capa de ozono.",
+            ejemplo: "Ejemplo: Dibujar la atmósfera reteniendo rayos UV. Primera viñeta: Emisión de CFC de aerosoles. Segunda viñeta: Reacción química molecular del cloro destruyendo ozono. Tercera viñeta: El acuerdo global para salvar la capa de ozono.",
+            docente_tips: "Destaque la relevancia internacional del trabajo científico desarrollado en laboratorios y universidades de México.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Qué científico mexicano obtuvo el Premio Nobel de Química por alertar sobre el daño de los aerosoles a la capa de ozono?", o: ["Mario Molina", "Luis Miramontes", "Rodolfo Neri Vela"], c: 0 },
+                { q: "¿Qué invento de gran impacto biológico global fue sintetizado por el químico mexicano Luis Miramontes?", o: ["La píldora anticonceptiva oral", "La vacuna contra la polio", "El convertidor catalítico"], c: 0 }
+              ]
+            }
+          },
+          {
+            nombre: "El método científico y el conocimiento empírico y tradicional, como formas de comprensión de la naturaleza",
+            lectura_nombre: "Métodos de Aproximación al Conocimiento - SEP Preparatoria Abierta (Universo Natural)",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Método Comparativo",
+            libreta_desc: "Divide la página izquierda en dos columnas. Compara la herbolaria medicinal mexicana tradicional (conocimiento empírico) con la extracción química de principios activos (método científico). Dibuja el árnica o la manzanilla.",
+            ejemplo: "Ejemplo: A la izquierda, el uso tradicional de infusiones de manzanilla para aliviar malestares estomacales leves. A la derecha, el aislamiento del bisabolol en laboratorio y las pruebas clínicas que validan sus dosis óptimas.",
+            docente_tips: "Muestre cómo ambos conocimientos son valiosos, pero se estructuran bajo diferentes métodos de validación.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Herbolaria basada en observación generacional", cat: "Conocimiento Empírico" },
+                { text: "Prueba clínica aleatorizada doble ciego", cat: "Método Científico" },
+                { text: "Uso de aloe vera para quemaduras menores en casa", cat: "Conocimiento Empírico" },
+                { text: "Formulación exacta del ácido acetilsalicílico", cat: "Método Científico" }
+              ]
+            }
+          },
+          {
+            nombre: "Medición: concepto de medición, magnitudes y unidad de medida, y su aplicación en las ciencias naturales",
+            lectura_nombre: "Sistemas de Medida y Magnitudes - NSTA Referencias Básicas",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Práctica Cuantitativa",
+            libreta_desc: "Registra en una tabla cinco objetos de tu hogar. Mide sus dimensiones utilizando dos unidades de medida distintas (una del sistema inglés y otra del sistema internacional) y calcula su conversión exacta.",
+            ejemplo: "Ejemplo: Pantalla del celular medida en pulgadas (6.1 in) y su conversión correspondiente a centímetros (15.49 cm), detallando el factor de multiplicación utilizado.",
+            docente_tips: "Inculque el rigor del redondeo numérico científico y la importancia de especificar siempre las unidades en toda cantidad física.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Cuál es la unidad patrón de masa en el Sistema Internacional de Unidades (SI)?", o: ["Gramo (g)", "Libra (lb)", "Kilogramo (kg)"], c: 2 },
+                { q: "Si un sensor mide un espesor de 2.54 centímetros, ¿a cuántas pulgadas equivale?", o: ["1 pulgada", "10 pulgadas", "0.5 pulgadas"], c: 0 }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 2,
+        num: "Propósito Formativo 2",
+        titulo: "Interdisciplinariedad y Tecnología",
+        descripcion: "Comprende que los fenómenos de la naturaleza están interrelacionados, y pueden estudiarse en su conjunto o de forma especializada, para la generación de conocimiento o innovación tecnológica.",
+        contenidos: [
+          {
+            nombre: "Objetivos de estudio de la física, la química y la biología; elementos en común y sus diferencias",
+            lectura_nombre: "Las Áreas de las Ciencias Experimentales - CCH UNAM",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/programas2024/QUIMICA_I_IV_.pdf",
+            metodo: "Diagramación de Venn",
+            libreta_desc: "Dibuja un diagrama de Venn de tres círculos gigantes en tu libreta. Representa los objetivos de estudio específicos de la Física, Química y Biología, y añade en las intersecciones temas donde colaboren juntas.",
+            ejemplo: "Ejemplo: Círculo de Física (movimiento, fuerzas). Círculo de Química (enlaces, reacciones). Círculo de Biología (organismos vivos). Intersección de los tres: Biofísica médica y bioquímica celular.",
+            docente_tips: "Enfatice que las fronteras entre estas disciplinas son artificiales; la naturaleza se rige bajo los mismos principios unificados.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Estudio de las fuerzas mecánicas en las articulaciones", cat: "Física" },
+                { text: "Reacciones de fotosíntesis en los cloroplastos", cat: "Química" },
+                { text: "Clasificación taxonómica de hongos microscópicos", cat: "Biología" },
+                { text: "Análisis espectroscópico de galaxias lejanas", cat: "Física" }
+              ]
+            }
+          },
+          {
+            nombre: "Ejemplos de ciencias naturales derivadas e interdisciplinares: ecología, ciencias de la Tierra, entre otros",
+            lectura_nombre: "Fundamentos de Ecología - Carabias y Meave / CONABIO",
+            lectura_url: "https://www.biodiversidad.gob.mx/pais/capitalnatmex.html",
+            metodo: "Mapeo Ecológico Sistémico",
+            libreta_desc: "Elabora un mapa del ecosistema de un parque o jardín local. Detalla con flechas cómo interactúan los factores abióticos (geología, luz, agua) con la diversidad biológica presente.",
+            ejemplo: "Ejemplo: Dibujar la incidencia de la radiación solar directa que evapora la humedad de un sustrato limoso, regulando la presencia de helechos y lombrices.",
+            docente_tips: "Promueva el pensamiento ecológico y la fragilidad de los ecosistemas ante las perturbaciones antropogénicas.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Qué ciencia interdisciplinaria se encarga de estudiar las interacciones entre los seres vivos y su medio ambiente?", o: ["Ecología", "Geología", "Meteorología"], c: 0 },
+                { q: "El estudio de la tectónica de placas e hidrósfera pertenece primordialmente a:", o: ["La astrofísica", "Las ciencias de la Tierra", "La bioquímica"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Concepto de tecnología y su vínculo con las ciencias naturales",
+            lectura_nombre: "Ciencia, Tecnología e Ingeniería - J.G. Dettmer",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Ingeniería Inversa Visual",
+            libreta_desc: "Dibuja un teléfono inteligente desglosado en sus componentes elementales. Identifica tres tecnologías del equipo y explica qué descubrimiento científico previo las hizo posibles.",
+            ejemplo: "Ejemplo: Baterías de iones de litio (permitidas por el estudio químico de las reacciones redox de inserción), pantalla táctil (física del electromagnetismo capacitivo).",
+            docente_tips: "Conecte los objetos tecnológicos más comunes de los jóvenes con el desarrollo abstracto de las ciencias naturales.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Cómo interactúan el descubrimiento de las leyes de refracción óptica y el desarrollo tecnológico de fibra óptica?", o: ["La física dio el fundamento y la ingeniería resolvió la transmisión de datos", "No hay relación directa", "La tecnología inventó la luz solar"], c: 0 },
+                { q: "Las pantallas táctiles de los celulares funcionan gracias a la propiedad física de:", o: ["La capilaridad del agua", "La conductividad y capacitancia eléctrica", "La fricción estática pura"], c: 1 }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 3,
+        num: "Propósito Formativo 3",
+        titulo: "Propiedades Macroscópicas: Masa, Volumen y Densidad",
+        descripcion: "Comprende los conceptos de materia, cuerpo, masa y densidad, a partir de los objetos del entorno perceptible, para describirlos y analizarlos.",
+        contenidos: [
+          {
+            nombre: "Concepto de materia y cuerpo",
+            lectura_nombre: "Propiedades Generales de la Materia - SEP Preparatoria Abierta",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Representación Concepto-Objeto",
+            libreta_desc: "Dibuja un vaso de vidrio con agua. Rotula con precisión cuál elemento representa la 'materia general', cuál representa el 'cuerpo' específico y cuáles son sus límites espaciales.",
+            ejemplo: "Ejemplo: Rotular que el silicato de sodio y calcio es la materia, mientras que la forma cilíndrica del recipiente de vidrio es el cuerpo delimitado.",
+            docente_tips: "Clarifique que el cuerpo es una porción limitada de materia que posee dimensiones geométricas definidas.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Una barra de hierro puro", cat: "Cuerpo" },
+                { text: "El sonido de una campana", cat: "No es Materia" },
+                { text: "El aire atrapado en un globo", cat: "Materia" },
+                { text: "El sentimiento de alegría", cat: "No es Materia" }
+              ]
+            }
+          },
+          {
+            nombre: "Concepto de masa como cantidad de materia, unidad de medida y su diferencia con el concepto de peso",
+            lectura_nombre: "Masa vs Peso - Guía Temática CNEyT",
+            lectura_url: "https://cbachilleres13.net/wp-content/uploads/2025/12/GT_CNEyT_I_16122025.pdf",
+            metodo: "Análisis de Gravedad",
+            libreta_desc: "Calcula tu propia masa en kilogramos. A la derecha, calcula tu peso correspondiente en la Tierra (g=9.81 m/s²) y en la Luna (g=1.62 m/s²), utilizando la fórmula P = m * g.",
+            ejemplo: "Ejemplo: Masa de 55 kg. Peso en la Tierra: 55 * 9.81 = 539.55 N (Newtons). Peso en la Luna: 55 * 1.62 = 89.1 N. Tu masa sigue intacta en ambos sitios.",
+            docente_tips: "Combata la confusión generalizada del lenguaje común que emplea incorrectamente el verbo pesar en lugar de medir masa.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Si un astronauta viaja al espacio exterior lejano donde no hay gravedad, ¿cuál de sus propiedades físicas se vuelve cero?", o: ["Su masa", "Su peso", "Ambas propiedades"], c: 1 },
+                { q: "¿En qué unidad física del SI debe medirse correctamente el Peso?", o: ["Kilogramos (kg)", "Gramos (g)", "Newtons (N)"], c: 2 }
+              ]
+            }
+          },
+          {
+            nombre: "Concepto de densidad",
+            lectura_nombre: "La Densidad y sus Propiedades - Portal Académico CCH",
+            lectura_url: "https://portalacademico.cch.unam.mx/alumno/quimica1/unidad1/agua-compuesto-o-elemento/reacciones-quimicas",
+            metodo: "Análisis de Variable Intensiva",
+            libreta_desc: "Explica a nivel molecular por qué 1 kilogramo de unicel ocupa un volumen masivo, mientras que 1 kilogramo de plomo cabe en la palma de tu mano.",
+            ejemplo: "Ejemplo: Dibujar las partículas de unicel muy separadas con grandes vacíos de aire (baja densidad) frente a las partículas metálicas densamente empaquetadas (alta densidad).",
+            docente_tips: "Introduzca el concepto de propiedad intensiva: la densidad no varía sin importar la masa total de la muestra.",
+            juego_tipo: "density_sim",
+            juego_data: {}
+          },
+          {
+            nombre: "Cálculo de volumen y densidad",
+            lectura_nombre: "Cálculo de Densidad - Guía Temática CNEyT I",
+            lectura_url: "https://cbachilleres13.net/wp-content/uploads/2025/12/GT_CNEyT_I_16122025.pdf",
+            metodo: "Resolución de Problemas Matemáticos",
+            libreta_desc: "Resuelve: Un bloque metálico tiene una masa de 270g y un volumen medido por desplazamiento de agua de 100 mL. Determina su densidad (ρ = m/v) y consulta la tabla de elementos para identificar de qué metal se trata.",
+            ejemplo: "Ejemplo: ρ = 270g / 100 cm³ = 2.7 g/cm³. Corresponde al Aluminio puro.",
+            docente_tips: "Fomente el uso correcto del despeje algebraico y el análisis de unidades compuestas.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Si duplicas la masa de un trozo de hierro puro, ¿qué sucede con su densidad?", o: ["Se duplica", "Se reduce a la mitad", "Permanece exactamente igual"], c: 2 },
+                { q: "Un objeto tiene una densidad de 0.8 g/cm³. ¿Qué hará al colocarse en un vaso lleno de agua pura (densidad 1.0 g/cm³)?", o: ["Se hundirá rápidamente", "Flotará en la superficie", "Se disolverá de inmediato"], c: 1 }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 4,
+        num: "Propósito Formativo 4",
+        titulo: "Clasificación de la Materia, Propiedades y Mezclas",
+        descripcion: "Comprende los conceptos de sustancia, sustancia pura, elemento compuesto y mezcla, y los aplica para clasificar de forma práctica o analítica distintos tipos de materia y reconocer sus propiedades físicas y químicas.",
+        contenidos: [
+          {
+            nombre: "Clasificación de la materia",
+            lectura_nombre: "Sustancias puras y mezclas - Portal CCH",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/promociones/XLI/GUIA_EXAMEN_PROMOCION_XLI_Qu%C3%ADmica_I_IV.pdf",
+            metodo: "Mapa Cognitivo Algorítmico",
+            libreta_desc: "Trazar un mapa de flujo que clasifique cualquier muestra en: Sustancia Pura (Elemento o Compuesto) o Mezcla (Homogénea o Heterogénea), dando ejemplos comunes.",
+            ejemplo: "Ejemplo: Ramificaciones que partan del refresco (mezcla), el azúcar de mesa (compuesto: sacarosa) y un anillo de oro de 24 quilates (elemento).",
+            docente_tips: "Enfatice que las sustancias puras tienen composición química fija, mientras que las mezclas son de composición variable.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "El agua destilada (H₂O)", cat: "Sustancia Pura" },
+                { text: "El agua salada del mar", cat: "Mezcla" },
+                { text: "Un clavo de hierro puro", cat: "Sustancia Pura" },
+                { text: "El aire de la habitación", cat: "Mezcla" }
+              ]
+            }
+          },
+          {
+            nombre: "Propiedades físicas y químicas de la materia",
+            lectura_nombre: "Propiedades Físicas y Químicas - Mi EVA SEP",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Tabla de Propiedades",
+            libreta_desc: "Elabora en tu libreta una tabla comparando propiedades físicas (punto de ebullición, ductilidad) y químicas (inflamabilidad, oxidación) del cobre.",
+            ejemplo: "Ejemplo: Propiedad física: Ductilidad para cables, brillo rojizo, funde a 1085°C. Propiedad química: Se oxida formando un polvillo verdoso de carbonato de cobre al contacto húmedo.",
+            docente_tips: "Diferencie entre cambios físicos (sin cambio de identidad química) y reacciones químicas verdaderas.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Combustión del gas de cocina", cat: "Propiedad Química" },
+                { text: "Maleabilidad del aluminio para hacer láminas", cat: "Propiedad Física" },
+                { text: "Capacidad de reaccionar con ácidos", cat: "Propiedad Química" },
+                { text: "Punto de fusión del hielo a 0°C", cat: "Propiedad Física" }
+              ]
+            }
+          },
+          {
+            nombre: "Tipos y características de las mezclas; métodos de separación",
+            lectura_nombre: "Métodos de separación de mezclas - CCH UNAM",
+            lectura_url: "https://portalacademico.cch.unam.mx/alumno/quimica1/unidad1/agua-compuesto-o-elemento/reacciones-quimicas",
+            metodo: "Diagrama de Procesos Químicos",
+            libreta_desc: "Dibuja un proceso industrial o casero para purificar agua contaminada con arena fina, aceite de motor y sal de mesa disuelta. Indica qué métodos mecánicos y térmicos empleas.",
+            ejemplo: "Ejemplo: 1) Decantación para retirar el aceite. 2) Filtración por arena para retener sólidos gruesos. 3) Destilación térmica para separar el agua pura de la sal.",
+            docente_tips: "Aproveche para discutir sobre el problema del desabasto hídrico en la comunidad y su purificación física.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Qué método es óptimo para separar dos líquidos solubles con diferentes puntos de ebullición (ej. agua y alcohol)?", o: ["Filtración", "Destilación", "Decantación"], c: 1 },
+                { q: "La fuerza centrífuga se utiliza habitualmente en laboratorios para acelerar el proceso de:", o: ["Ebullición", "Sedimentación de sólidos", "Fusión"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Cálculo de concentración de disoluciones: masa-masa, masa-volumen, volumen-volumen y partes por millón",
+            lectura_nombre: "Cálculos cuantitativos de disoluciones - SEP Preparatoria",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Práctica Matemática Aplicada",
+            libreta_desc: "Calcula en tu cuaderno: Un estudiante mezcla 15g de sal en 135g de agua pura. Calcula el porcentaje en masa (% m/m) de esta disolución salina de uso médico.",
+            ejemplo: "Ejemplo: Masa de soluto = 15g. Masa de disolución = 15g + 135g = 150g. % m/m = (15 / 150) * 100 = 10.0%.",
+            docente_tips: "Insista en que la masa de la disolución siempre es la suma de la masa del soluto más la del disolvente.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Si disuelves 5 mL de desinfectante en agua hasta aforar 100 mL de volumen total, ¿cuál es su concentración % v/v?", o: ["5.0%", "0.5%", "50.0%"], c: 0 },
+                { q: "¿Qué significa la unidad 'partes por millón' (ppm) usada para evaluar contaminantes en el agua?", o: ["1 gramo de soluto en un millón de litros", "1 miligramo de soluto en 1 litro de disolución", "1 átomo de cloro por cada millón de moléculas de agua"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Clasificación periódica de los elementos",
+            lectura_nombre: "La Tabla Periódica y sus Propiedades - CCH UNAM",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/programas2024/QUIMICA_I_IV_.pdf",
+            metodo: "Análisis de Bloques y Perfiles",
+            libreta_desc: "Dibuja un croquis simplificado de la tabla periódica. Señala con colores de contraste la ubicación general de metales reactivos, metaloides y no metales gaseosos.",
+            ejemplo: "Ejemplo: Colorear la izquierda de azul (Metales alcalinos y de transición), la franja diagonal en amarillo (Metaloides) y la extrema derecha en rojo (No metales y Gases nobles).",
+            docente_tips: "Evite la memorización inútil de toda la tabla; en su lugar, enfatice la comprensión de los patrones y familias periódicas.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Helio (Gas inerte reactivo)", cat: "No Metales/Gases" },
+                { text: "Hierro (Conductor de calor)", cat: "Metales" },
+                { text: "Silicio (Semiconductor crítico)", cat: "Metaloides" },
+                { text: "Potasio (Reacciona violentamente con agua)", cat: "Metales" }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 5,
+        num: "Propósito Formativo 5",
+        titulo: "La Teoría Atómica y su Estructura",
+        descripcion: "Comprende el átomo y su composición eléctrica como la partícula microscópica que estructura la materia.",
+        contenidos: [
+          {
+            nombre: "Teoría Atómica: Dalton, Thomson, Rutherford, Bohr y Schrödinger",
+            lectura_nombre: "Modelos Atómicos - Portal Académico CCH UNAM",
+            lectura_url: "https://portalacademico.cch.unam.mx/alumno/quimica1/unidad1/agua-compuesto-o-elemento/reacciones-quimicas",
+            metodo: "Historieta o Cómic de Batalla de Ideas",
+            libreta_desc: "Crea una tira cómica corta donde Rutherford discuta con Thomson sobre los resultados de su experimento de la lámina de oro. ¿Por qué el budín de pasas resultó incorrecto?",
+            ejemplo: "Ejemplo: Dibujar a Rutherford asombrado porque las partículas alfa rebotaron en lugar de pasar de largo, deduciendo que hay un núcleo positivo concentrado.",
+            docente_tips: "Enfoque el tema como un ejemplo de cómo los modelos cambian a medida que la tecnología de experimentación mejora.",
+            juego_tipo: "atomic_builder",
+            juego_data: {}
+          },
+          {
+            nombre: "Modelos atómicos y carga eléctrica",
+            lectura_nombre: "El átomo y la Carga Eléctrica - SEP Preparatoria",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Esquema de Cargas Balanceadas",
+            libreta_desc: "Dibuja un átomo neutro de Helio y un ion de Helio con carga +1. Rotula protones (+), electrones (-) y neutrones, mostrando sus posiciones espaciales.",
+            ejemplo: "Ejemplo: El átomo neutro tiene 2 protones y 2 electrones. El ion He+ tiene 2 protones y solo 1 electrón, resultando en una carga neta positiva.",
+            docente_tips: "Asegure que comprendan que los protones están fijos en el núcleo y la ionización solo ocurre por intercambio de electrones.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Qué partícula subatómica descubrió Thomson que posee carga eléctrica negativa?", o: ["Protón", "Neutrón", "Electrón"], c: 2 },
+                { q: "El núcleo atómico concentrado descubierto por Rutherford contiene:", o: ["Electrones y protones", "Protones y neutrones", "Solo electrones orbitales"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Número y masa atómica",
+            lectura_nombre: "Número Atómico y Masa - Guía de Regularización",
+            lectura_url: "https://cbachilleres13.net/wp-content/uploads/2025/12/GT_CNEyT_I_16122025.pdf",
+            metodo: "Cálculo de Partículas Subatómicas",
+            libreta_desc: "Para el elemento Carbono (Z=6, A=12) y el Sodio (Z=11, A=23), determina el número exacto de protones, electrones y neutrones (N = A - Z).",
+            ejemplo: "Ejemplo: Para el Sodio (Na): Protones = 11, Electrones = 11, Neutrones = 23 - 11 = 12 neutrones.",
+            docente_tips: "Utilice la masa atómica para repasar conceptos aritméticos básicos de resta y redondeo.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Si un átomo neutro tiene número atómico Z=17, ¿cuántos electrones orbitan su núcleo?", o: ["17 electrones", "35 electrones", "8 electrones"], c: 0 },
+                { q: "El número de masa (A) de un átomo se calcula sumando cuantitativamente:", o: ["Protones y electrones", "Protones y neutrones", "Neutrones y electrones"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Isótopos",
+            lectura_nombre: "Naturaleza de los Isótopos - Universo Natural SEP",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Cuadro Comparativo Subatómico",
+            libreta_desc: "Dibuja los núcleos de los tres isótopos conocidos del Hidrógeno: Protio, Deuterio y Tritio. Rotula qué tienen en común y en qué difieren estructuralmente.",
+            ejemplo: "Ejemplo: Protio (1 p+, 0 n°), Deuterio (1 p+, 1 n°), Tritio (1 p+, 2 n°). Todos poseen exactamente 1 protón, pero su peso y estabilidad varían.",
+            docente_tips: "Conecte este tema con el uso médico de isótopos radiactivos o la datación de restos fósiles arqueológicos con Carbono-14.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Dos átomos son isótopos de un mismo elemento químico si poseen:", o: ["Diferente número de protones", "Mismo número de protones pero diferente número de neutrones", "Misma masa pero diferente número de electrones"], c: 1 },
+                { q: "¿Cuál de estos isótopos se emplea en arqueología para determinar la antigüedad de fósiles orgánicos?", o: ["Carbono-12", "Uranio-235", "Carbono-14"], c: 2 }
+              ]
+            }
+          },
+          {
+            nombre: "Concepto de configuración electrónica y valencia",
+            lectura_nombre: "Configuraciones y Electrones de Valencia - CCH",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/programas2024/QUIMICA_I_IV_.pdf",
+            metodo: "Trazado de Configuración por Regla de las Diagonales",
+            libreta_desc: "Determina la configuración electrónica del Oxígeno (Z=8) y representa su modelo de niveles energéticos de Bohr. Identifica cuántos electrones de valencia tiene.",
+            ejemplo: "Ejemplo: Configuración: 1s² 2s² 2p⁴. Nivel externo n=2 con 2+4=6 electrones de valencia. Representación de los dos niveles orbitales.",
+            docente_tips: "Explique que los electrones del último nivel de energía o capa de valencia son los únicos que forman enlaces químicos.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Cuál es el número máximo de electrones que caben en el orbital tipo s?", o: ["2 electrones", "6 electrones", "10 electrones"], c: 0 },
+                { q: "El Cloro posee configuración 1s² 2s² 2p⁶ 3s² 3p⁵. ¿Cuántos electrones de valencia tiene en su última capa?", o: ["5 electrones", "2 electrones", "7 electrones"], c: 2 }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 6,
+        num: "Propósito Formativo 6",
+        titulo: "La Formación de Enlaces y Fuerzas Químicas",
+        descripcion: "Analiza la formación de iones, moléculas y sustancias, a partir de la unión de dos o más átomos que tienden a la estabilidad energética, para explicar la formación de enlaces químicos.",
+        contenidos: [
+          {
+            nombre: "Enlace químico",
+            lectura_nombre: "Enlaces químicos y estabilidad - Khan Academy",
+            lectura_url: "https://es.khanacademy.org/science/biology/chemistry--of-life/chemical-bonds-and-reactions/a/chemical-bonds-article",
+            metodo: "Estructura de Puntos de Lewis",
+            libreta_desc: "Trazar en tu libreta el proceso de formación del enlace iónico entre el Cloro (7 electrones de valencia) y el Sodio (1 electrón de valencia). Usa la regla del octeto.",
+            ejemplo: "Ejemplo: Representar al Sodio perdiendo un electrón convirtiéndose en catión Na+, y al Cloro ganándolo para formar el anión Cl-, unidos por atracción electrostática.",
+            docente_tips: "Muestre cómo los compuestos formados tienen propiedades totalmente diferentes a los elementos puros que los originaron.",
+            juego_tipo: "tinder_quimico",
+            juego_data: {}
+          },
+          {
+            nombre: "Electronegatividad y fuerzas intramoleculares",
+            lectura_nombre: "Fuerzas intramoleculares y electronegatividad - CCH",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/promociones/XLI/GUIA_EXAMEN_PROMOCION_XLI_Qu%C3%ADmica_I_IV.pdf",
+            metodo: "Cálculo de Diferencia de Electronegatividad",
+            libreta_desc: "Dados los valores de electronegatividad (H = 2.1, O = 3.5, Na = 0.9, Cl = 3.0), calcula la diferencia (ΔEN) y clasifica si los enlaces en H₂O y NaCl son iónicos, covalentes polares o no polares.",
+            ejemplo: "Ejemplo: Para H₂O: ΔEN = 3.5 - 2.1 = 1.4 (Covalente Polar). Para NaCl: ΔEN = 3.0 - 0.9 = 2.1 (Enlace Iónico).",
+            docente_tips: "Enfatice que la electronegatividad determina la distribución simétrica o asimétrica de la nube electrónica compartida.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Si la diferencia de electronegatividad entre dos átomos enlazados es muy grande (mayor a 1.7), el enlace formado es:", o: ["Covalente No Polar", "Iónico", "Metálico"], c: 1 },
+                { q: "¿Cuál es el elemento más electronegativo de toda la tabla periódica?", o: ["Oxígeno (O)", "Flúor (F)", "Francio (Fr)"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Iones y moléculas",
+            lectura_nombre: "Moléculas e Iones - SEP Universo Natural",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Cuadro Comparativo Estructural",
+            libreta_desc: "Elabora una tabla comparando las características físicas macroscópicas de los compuestos iónicos (cristalinos, solubles, conducen electricidad fundidos) con los moleculares.",
+            ejemplo: "Ejemplo: Sal común (iónico, alto punto de fusión) comparada con azúcar común (molecular, funde fácilmente y no conduce electricidad disuelto).",
+            docente_tips: "Aproveche este tema para repasar el comportamiento eléctrico y estructural de los electrolitos.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Carbonato de calcio de las tizas escolares", cat: "Compuesto Iónico" },
+                { text: "Dióxido de carbono (CO₂) de la respiración", cat: "Molécula Covalente" },
+                { text: "Metano (CH₄) del gas natural", cat: "Molécula Covalente" },
+                { text: "Sulfato de cobre en solución acuosa", cat: "Compuesto Iónico" }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 7,
+        num: "Propósito Formativo 7",
+        titulo: "Estados de Agregación y Teoría Cinética",
+        descripcion: "Explica las propiedades físicas de los estados de agregación de la materia en función del movimiento, separación y fuerzas de atracción o repulsión de las partículas internas, y las vinculas con los conceptos de energía cinética, potencial e interna.",
+        contenidos: [
+          {
+            nombre: "Concepto de energía",
+            lectura_nombre: "La Energía y sus Cambios - CCH UNAM",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/promociones/XLI/GUIA_EXAMEN_PROMOCION_XLI_Qu%C3%ADmica_I_IV.pdf",
+            metodo: "Estudio de Transferencia de Energía",
+            libreta_desc: "Describe en tu cuaderno cómo se transforma la energía desde que un panel solar captura radiación hasta que enciendes una bombilla LED en tu cuarto.",
+            ejemplo: "Ejemplo: Energía radiante solar se convierte en energía eléctrica (flujo de electrones) y finalmente en energía lumínica y térmica residual en el diodo LED.",
+            docente_tips: "Consolide la ley de conservación de la energía de forma empírica y evite definiciones tautológicas.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "La ley fundamental de conservación de la energía postula que la energía:", o: ["Se destruye al realizar trabajo físico", "No se crea ni se destruye, solo se transforma", "Se multiplica continuamente en el universo"], c: 1 },
+                { q: "La unidad de medida de la energía y el trabajo en el Sistema Internacional es:", o: ["Watt (W)", "Newton (N)", "Joules (J)"], c: 2 }
+              ]
+            }
+          },
+          {
+            nombre: "Noción intuitiva de movimiento y conceptos de energía cinética, potencial e interna",
+            lectura_nombre: "Energía Cinética y Potencial - SEP Preparatoria",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Análisis de Montaña Rusa",
+            libreta_desc: "Dibuja el recorrido de un carro en una montaña rusa. Rotula los puntos donde la energía potencial (gravitacional) es máxima y donde la energía cinética es máxima.",
+            ejemplo: "Ejemplo: En la cima más alta, la energía potencial es máxima debido a la altura. Al caer y llegar al punto más bajo, la velocidad es máxima, por ende la energía cinética es máxima.",
+            docente_tips: "Aclare que la energía interna se refiere a la agitación molecular microscópica que compone al cuerpo.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Un objeto suspendido inmóvil a 10 metros de altura posee principalmente energía:", o: ["Cinética", "Potencial gravitacional", "Eléctrica"], c: 1 },
+                { q: "Si duplicas la velocidad de avance de un móvil, su energía cinética se incrementará:", o: ["Al doble", "Al triple", "Cuatro veces (al cuadrado)"], c: 2 }
+              ]
+            }
+          },
+          {
+            nombre: "Teoría cinética de la materia",
+            lectura_nombre: "El Modelo Corpuscular - CCH UNAM",
+            lectura_url: "https://portalacademico.cch.unam.mx/alumno/quimica1/unidad1/agua-compuesto-o-elemento/reacciones-quimicas",
+            metodo: "Modelación de Partículas",
+            libreta_desc: "Dibuja el comportamiento de las partículas según la teoría cinética en un trozo de hierro, un vaso con agua y el aire atrapado en tu habitación.",
+            ejemplo: "Ejemplo: Dibujar partículas de hierro ordenadas en red vibrando, de agua juntas deslizándose desordenadamente y de aire con grandes separaciones y alta velocidad.",
+            docente_tips: "Utilice la teoría corpuscular para explicar por qué la materia es en su gran mayoría espacio vacío.",
+            juego_tipo: "particulas_sim",
+            juego_data: {}
+          },
+          {
+            nombre: "Estados de agregación de la materia y sus cambios (sólidos, líquidos, gases y plasma)",
+            lectura_nombre: "Estados de Agregación de la Materia - Mi EVA SEP",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Ciclo de Cambios de Estado",
+            libreta_desc: "Dibuja un diagrama circular con flechas que conecten los estados Sólido, Líquido y Gas. Rotula correctamente los nombres de los 6 cambios de fase correspondientes.",
+            ejemplo: "Ejemplo: Flechas de Sólido a Líquido (Fusión), Líquido a Gas (Vaporización), Gas a Sólido (Deposición o sublimación inversa), etc.",
+            docente_tips: "Explique detalladamente el plasma como un gas altamente ionizado con excelente conductividad, visible en lámparas de neón y rayos.",
+            juego_tipo: "sorting",
+            juego_data: {
+              items: [
+                { text: "Paso de hielo directamente a vapor de agua", cat: "Sublimación" },
+                { text: "Formación de rocío en las plantas por la mañana", cat: "Condensación" },
+                { text: "Fundición de metales en hornos a alta temperatura", cat: "Fusión" },
+                { text: "Secado de ropa mojada bajo el sol", cat: "Evaporación" }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        id: 8,
+        num: "Propósito Formativo 8",
+        titulo: "Naturaleza Corpuscular, Electricidad y Tecnología",
+        descripcion: "Construye explicaciones sobre la naturaleza energética y corpuscular de la materia, y explora aplicaciones tecnológicas relacionadas.",
+        contenidos: [
+          {
+            nombre: "Fenómenos naturales donde participa la actividad eléctrica de la materia",
+            lectura_nombre: "La electricidad en la Materia - SEP Universo Natural",
+            lectura_url: "https://mievaprepaabierta.sep.gob.mx/storage/recursos/2025/05/fd7AEOwloB-Universo_natural.pdf",
+            metodo: "Análisis Físico de Tormentas",
+            libreta_desc: "Dibuja una nube de tormenta (cumulonimbo). Explica mediante signos de carga (+ y -) cómo se polariza la nube y el suelo para generar la chispa eléctrica de un rayo.",
+            ejemplo: "Ejemplo: Cargas negativas acumuladas en la base de la nube repelen a los electrones del suelo, cargándolo positivamente e induciendo una descarga destructiva.",
+            docente_tips: "Utilice la ley de conservación de la carga para explicar la electricidad estática y la frotación de materiales.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "Cuando frotas un globo en tu cabello y éste atrae pequeños trozos de papel neutros, ¿qué fenómeno de inducción ocurre?", o: ["Las cargas del papel se reorganizan temporalmente", "El papel se derrite térmicamente", "El globo se vuelve magnético de por vida"], c: 0 },
+                { q: "La chispa de un rayo representa un estado de la materia denominado:", o: ["Gas sobrecalentado", "Plasma de alta conductividad", "Líquido incandescente"], c: 1 }
+              ]
+            }
+          },
+          {
+            nombre: "Aplicaciones tecnológicas vinculadas con la materia",
+            lectura_nombre: "Nuevas Aplicaciones de la Materia - CCH UNAM",
+            lectura_url: "https://www.cch.unam.mx/sites/default/files/promociones/XLI/GUIA_EXAMEN_PROMOCION_XLI_Qu%C3%ADmica_I_IV.pdf",
+            metodo: "Ficha de Tecnología de Punta",
+            libreta_desc: "Investiga y elabora una ficha técnica en tu libreta sobre los materiales superconductores de alta temperatura o el grafeno. ¿Cuáles son sus usos futuros?",
+            ejemplo: "Ejemplo: Grafeno: red bidimensional de carbono, conductor térmico y eléctrico insuperable, súper resistente y flexible. Futuro: microprocesadores y sensores corporales.",
+            docente_tips: "Estimule la curiosidad científica mostrando el potencial de los materiales inteligentes y la nanotecnología.",
+            juego_tipo: "trivia",
+            juego_data: {
+              preguntas: [
+                { q: "¿Qué propiedad atómica del Silicio lo convierte en el material básico para la fabricación de microchips?", o: ["Es un metal maleable", "Es un semiconductor intrínseco", "Es el elemento más pesado"], c: 1 },
+                { q: "Los superconductores de alta tecnología permiten que la corriente eléctrica fluya:", o: ["Con resistencia eléctrica igual a cero", "Generando un calor destructivo inmenso", "Solo cuando se exponen a la luz solar"], c: 0 }
+              ]
+            }
+          }
+        ]
+      }
+    ];
+
+    let activeEjeIndex = 0;
+    let activeContenidoIndex = 0;
+    let activeTab = "actividades";
+
+    window.onload = function() {
+      renderEjesMenu();
+      loadEje(0);
+    };
+
+    // Renderizar menú lateral de Ejes
+    function renderEjesMenu() {
+      const menu = document.getElementById("proposito-menu");
+      menu.innerHTML = "";
+      
+      DB_ACADEMICA.forEach((eje, idx) => {
+        const btn = document.createElement("button");
+        btn.id = `eje-btn-${idx}`;
+        btn.onclick = () => loadEje(idx);
+        btn.className = `w-full text-left px-3 py-2 rounded-lg text-xs font-semibold flex items-start gap-2.5 transition-all duration-200 ${
+          idx === 0 
+            ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
+            : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent"
+        }`;
+        
+        btn.innerHTML = `
+          <span class="mt-0.5 w-4 h-4 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 border border-slate-700 select-none flex-shrink-0">
+            ${eje.id}
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="font-outfit text-slate-200 leading-tight truncate">${eje.titulo}</p>
+            <p class="text-[9px] text-slate-500">${eje.num}</p>
+          </div>
+        `;
+        menu.appendChild(btn);
+      });
+    }
+
+    // Cargar un Eje específico
+    function loadEje(index) {
+      activeEjeIndex = index;
+      const eje = DB_ACADEMICA[index];
+
+      // Actualizar estado activo visual en el menú lateral
+      DB_ACADEMICA.forEach((_, idx) => {
+        const btn = document.getElementById(`eje-btn-${idx}`);
+        if (btn) {
+          if (idx === index) {
+            btn.className = "w-full text-left px-3 py-2 rounded-lg text-xs font-semibold flex items-start gap-2.5 transition-all duration-200 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+          } else {
+            btn.className = "w-full text-left px-3 py-2 rounded-lg text-xs font-semibold flex items-start gap-2.5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent";
+          }
+        }
+      });
+
+      // Actualizar Banner de cabecera
+      document.getElementById("txt-num-proposito").innerText = eje.num;
+      document.getElementById("txt-titulo-proposito").innerText = eje.titulo;
+      document.getElementById("txt-descripcion-proposito").innerText = eje.descripcion;
+
+      // Renderizar listado de Contenidos Formativos del Eje
+      renderContenidosList();
+      loadContenido(0);
+    }
+
+    // Renderizar la lista de Contenidos Formativos en el panel
+    function renderContenidosList() {
+      const container = document.getElementById("contenidos-lista");
+      container.innerHTML = "";
+      const eje = DB_ACADEMICA[activeEjeIndex];
+      
+      document.getElementById("contents-count").innerText = `${eje.contenidos.length} temas`;
+
+      eje.contenidos.forEach((content, idx) => {
+        const btn = document.createElement("button");
+        btn.id = `content-btn-${idx}`;
+        btn.onclick = () => loadContenido(idx);
+        btn.className = `w-full text-left p-2.5 rounded-lg text-xs font-medium flex items-center justify-between transition-all border ${
+          idx === 0 
+            ? "bg-slate-850 text-white border-emerald-500/30" 
+            : "text-slate-400 hover:text-slate-200 hover:bg-slate-900 border-transparent"
+        }`;
+        btn.innerHTML = `
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+            <p class="truncate leading-tight">${content.nombre}</p>
+          </div>
+          <svg class="w-3 h-3 text-slate-500 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    // Cargar detalles de un Contenido Formativo
+    function loadContenido(index) {
+      activeContenidoIndex = index;
+      const eje = DB_ACADEMICA[activeEjeIndex];
+      const content = eje.contenidos[index];
+
+      // Actualizar botones de contenido activos
+      eje.contenidos.forEach((_, idx) => {
+        const btn = document.getElementById(`content-btn-${idx}`);
+        if (btn) {
+          if (idx === index) {
+            btn.className = "w-full text-left p-2.5 rounded-lg text-xs font-medium flex items-center justify-between transition-all border bg-slate-850 text-white border-emerald-500/30";
+          } else {
+            btn.className = "w-full text-left p-2.5 rounded-lg text-xs font-medium flex items-center justify-between transition-all border text-slate-400 hover:text-slate-200 hover:bg-slate-900 border-transparent";
+          }
+        }
+      });
+
+      // Actualizar panel izquierdo pedagógico
+      document.getElementById("selected-content-title").innerText = content.nombre;
+      document.getElementById("selected-content-method").innerText = content.metodo;
+      document.getElementById("selected-content-reading-desc").innerText = `Bibliografía recomendada oficial: "${content.lectura_nombre}".`;
+      document.getElementById("selected-content-reading-link").href = content.lectura_url;
+      document.getElementById("selected-content-notebook-desc").innerText = content.libreta_desc;
+      document.getElementById("selected-content-example").innerText = content.ejemplo;
+      document.getElementById("selected-content-docente").innerText = content.docente_tips;
+
+      // Configurar y renderizar la actividad lúdica interactiva
+      setupInteractivePlayground(content);
+    }
+
+    // Control de Pestañas generales
+    function switchTab(tabId) {
+      activeTab = tabId;
+      const views = ["actividades", "libreta", "evaluacion"];
+      
+      views.forEach(v => {
+        const viewEl = document.getElementById(`view-${v}`);
+        const btnEl = document.getElementById(`tab-btn-${v}`);
+        
+        if (v === tabId) {
+          viewEl.classList.remove("hidden");
+          btnEl.className = "px-4 py-2.5 text-xs font-semibold border-b-2 border-emerald-500 text-emerald-400 transition-all";
+        } else {
+          viewEl.classList.add("hidden");
+          btnEl.className = "px-4 py-2.5 text-xs font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all";
+        }
+      });
+    }
+
+    // Inicializar el espacio lúdico interactivo en pantalla
+    function setupInteractivePlayground(content) {
+      const playground = document.getElementById("interactive-playground");
+      playground.innerHTML = ""; // Limpiar contenido previo
+      
+      const badge = document.getElementById("sim-type-badge");
+      badge.innerText = content.juego_tipo.toUpperCase();
+
+      if (content.juego_tipo === "sorting") {
+        badge.className = "text-[9px] font-bold bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded border border-purple-500/30";
+        renderSortingGame(playground, content.juego_data);
+      } else if (content.juego_tipo === "trivia") {
+        badge.className = "text-[9px] font-bold bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30";
+        renderTriviaGame(playground, content.juego_data);
+      } else if (content.juego_tipo === "density_sim") {
+        badge.className = "text-[9px] font-bold bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded border border-teal-500/30";
+        renderDensitySimulator(playground);
+      } else if (content.juego_tipo === "atomic_builder") {
+        badge.className = "text-[9px] font-bold bg-pink-500/20 text-pink-400 px-2 py-0.5 rounded border border-pink-500/30";
+        renderAtomicBuilder(playground);
+      } else if (content.juego_tipo === "tinder_quimico") {
+        badge.className = "text-[9px] font-bold bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded border border-rose-500/30";
+        renderTinderQuimico(playground);
+      } else if (content.juego_tipo === "particulas_sim") {
+        badge.className = "text-[9px] font-bold bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded border border-orange-500/30";
+        renderParticlesSimulator(playground);
+      } else {
+        playground.innerHTML = `<p class="text-xs text-slate-500">Módulo lúdico no programado.</p>`;
+      }
+    }
+
+    // JUEGO 1: Clasificador Dinámico (Sorting Game)
+    function renderSortingGame(parent, data) {
+      let score = 0;
+      let currentIndex = 0;
+
+      const card = document.createElement("div");
+      card.className = "w-full max-w-sm text-center space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg";
+      
+      const header = document.createElement("div");
+      header.className = "flex justify-between items-center text-xs pb-2 border-b border-slate-800 text-slate-400";
+      header.innerHTML = `<span>Reactivo: <strong id="sort-step">1/${data.items.length}</strong></span> <span>Puntaje: <strong id="sort-score" class="text-emerald-400">0</strong></span>`;
+      card.appendChild(header);
+
+      const questionText = document.createElement("div");
+      questionText.id = "sort-item-text";
+      questionText.className = "text-sm font-outfit font-semibold text-white bg-slate-950 p-4 rounded-md border border-slate-800 min-h-[64px] flex items-center justify-center";
+      questionText.innerText = data.items[currentIndex].text;
+      card.appendChild(questionText);
+
+      // Determinar categorías únicas
+      const categories = [...new Set(data.items.map(item => item.cat))];
+      const buttonsDiv = document.createElement("div");
+      buttonsDiv.className = "grid grid-cols-2 gap-3";
+
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "px-3 py-2 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded text-xs font-semibold text-slate-300 transition-all";
+        btn.innerText = cat;
+        btn.onclick = () => {
+          if (data.items[currentIndex].cat === cat) {
+            score++;
+            btn.className = "px-3 py-2 bg-emerald-600 text-white rounded text-xs font-semibold transition-all";
+          } else {
+            btn.className = "px-3 py-2 bg-red-600 text-white rounded text-xs font-semibold transition-all";
+          }
+          setTimeout(() => {
+            currentIndex++;
+            if (currentIndex < data.items.length) {
+              document.getElementById("sort-step").innerText = `${currentIndex + 1}/${data.items.length}`;
+              document.getElementById("sort-score").innerText = score;
+              document.getElementById("sort-item-text").innerText = data.items[currentIndex].text;
+              btn.className = "px-3 py-2 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded text-xs font-semibold text-slate-300 transition-all";
+            } else {
+              questionText.innerHTML = `<span class="text-emerald-400 font-bold">¡Juego Completado! 🎉 <br><span class="text-xs text-slate-300">Puntaje Final: ${score}/${data.items.length}</span></span>`;
+              buttonsDiv.classList.add("hidden");
+            }
+          }, 600);
+        };
+        buttonsDiv.appendChild(btn);
+      });
+
+      card.appendChild(buttonsDiv);
+      parent.appendChild(card);
+    }
+
+    // JUEGO 2: Trivia Dinámica
+    function renderTriviaGame(parent, data) {
+      let currentIdx = 0;
+      let score = 0;
+
+      const card = document.createElement("div");
+      card.className = "w-full max-w-sm text-center space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg";
+
+      const header = document.createElement("div");
+      header.className = "flex justify-between items-center text-xs pb-2 border-b border-slate-800 text-slate-400";
+      header.innerHTML = `<span>Pregunta: <strong id="triv-step">1/${data.preguntas.length}</strong></span> <span>Puntaje: <strong id="triv-score" class="text-emerald-400">0</strong></span>`;
+      card.appendChild(header);
+
+      const qText = document.createElement("div");
+      qText.id = "triv-question";
+      qText.className = "text-xs font-outfit font-semibold text-white bg-slate-950 p-4 rounded-md border border-slate-800 min-h-[64px] flex items-center justify-center";
+      qText.innerText = data.preguntas[currentIdx].q;
+      card.appendChild(qText);
+
+      const optsDiv = document.createElement("div");
+      optsDiv.id = "triv-options";
+      optsDiv.className = "space-y-2";
+
+      function loadQuestion() {
+        optsDiv.innerHTML = "";
+        const q = data.preguntas[currentIdx];
+        document.getElementById("triv-step").innerText = `${currentIdx + 1}/${data.preguntas.length}`;
+        qText.innerText = q.q;
+
+        q.o.forEach((opt, idx) => {
+          const btn = document.createElement("button");
+          btn.className = "w-full text-left px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 rounded border border-slate-750 transition-all duration-200";
+          btn.innerText = opt;
+          btn.onclick = () => {
+            // Deshabilitar todos
+            Array.from(optsDiv.children).forEach(b => b.disabled = true);
+            if (idx === q.c) {
+              score++;
+              document.getElementById("triv-score").innerText = score;
+              btn.className = "w-full text-left px-3 py-2 bg-emerald-600 text-white text-xs rounded border border-emerald-500 transition-all";
+            } else {
+              btn.className = "w-full text-left px-3 py-2 bg-red-600 text-white text-xs rounded border border-red-500 transition-all";
+            }
+            setTimeout(() => {
+              currentIdx++;
+              if (currentIdx < data.preguntas.length) {
+                loadQuestion();
+              } else {
+                qText.innerHTML = `<span class="text-emerald-400 font-bold">¡Trivia Terminada! 🏆<br><span class="text-xs text-slate-300">Respondiste correctamente: ${score}/${data.preguntas.length}</span></span>`;
+                optsDiv.innerHTML = "";
+              }
+            }, 800);
+          };
+          optsDiv.appendChild(btn);
+        });
+      }
+
+      card.appendChild(optsDiv);
+      parent.appendChild(card);
+      loadQuestion();
+    }
+
+    // SIMULADOR 3: Densidad en Líquidos
+    function renderDensitySimulator(parent) {
+      const container = document.createElement("div");
+      container.className = "w-full max-w-sm space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300";
+
+      const previewBox = document.createElement("div");
+      previewBox.className = "w-full h-32 bg-sky-950/20 border border-slate-800 rounded relative overflow-hidden flex items-end justify-center";
+      
+      const liquid = document.createElement("div");
+      liquid.id = "sim-liquid";
+      liquid.className = "absolute inset-x-0 bottom-0 bg-sky-400/40 transition-all duration-300";
+      liquid.style.height = "70%";
+      previewBox.appendChild(liquid);
+
+      const cube = document.createElement("div");
+      cube.id = "sim-cube";
+      cube.className = "w-10 h-10 bg-amber-500 border border-amber-600 rounded-md absolute transition-all duration-1000 z-10 flex items-center justify-center text-[9px] font-bold text-white shadow-lg";
+      cube.innerText = "1.0";
+      cube.style.bottom = "30%"; // Flotando inicial
+      previewBox.appendChild(cube);
+
+      container.appendChild(previewBox);
+
+      // Sliders
+      const controlMass = document.createElement("div");
+      controlMass.className = "space-y-1";
+      controlMass.innerHTML = `<div class="flex justify-between text-xs"><span>Masa del objeto:</span> <strong id="val-mass">100 g</strong></div>
+        <input type="range" id="input-mass" min="20" max="300" value="100" class="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400">`;
+      container.appendChild(controlMass);
+
+      const controlVol = document.createElement("div");
+      controlVol.className = "space-y-1";
+      controlVol.innerHTML = `<div class="flex justify-between text-xs"><span>Volumen del objeto:</span> <strong id="val-vol">100 cm³</strong></div>
+        <input type="range" id="input-vol" min="20" max="300" value="100" class="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400">`;
+      container.appendChild(controlVol);
+
+      const status = document.createElement("div");
+      status.className = "text-xs text-center font-outfit p-2 bg-slate-950 rounded border border-slate-800";
+      status.innerHTML = `Densidad del cubo: <strong id="val-dens" class="text-emerald-400">1.00 g/cm³</strong> <span id="status-text" class="block text-[10px] text-slate-400 mt-1">Flota (Densidad Agua = 1.0)</span>`;
+      container.appendChild(status);
+
+      parent.appendChild(container);
+
+      // Lógica de actualización
+      const iMass = container.querySelector("#input-mass");
+      const iVol = container.querySelector("#input-vol");
+      
+      function update() {
+        const mass = parseFloat(iMass.value);
+        const vol = parseFloat(iVol.value);
+        const dens = mass / vol;
+
+        container.querySelector("#val-mass").innerText = `${mass} g`;
+        container.querySelector("#val-vol").innerText = `${vol} cm³`;
+        container.querySelector("#val-dens").innerText = `${dens.toFixed(2)} g/cm³`;
+
+        // Modificar tamaño del cubo basándose en el volumen de forma matemática (escala)
+        const size = Math.max(24, Math.min(64, Math.cbrt(vol) * 10));
+        cube.style.width = `${size}px`;
+        cube.style.height = `${size}px`;
+        cube.innerText = dens.toFixed(1);
+
+        // Posicionamiento de flotabilidad
+        if (dens > 1.0) {
+          cube.style.bottom = "0%";
+          container.querySelector("#status-text").innerHTML = "🔴 Se Hunde (Densidad mayor a 1.0 g/cm³ del agua)";
+          cube.className = "bg-red-500 border border-red-600 rounded-md absolute transition-all duration-1000 z-10 flex items-center justify-center text-[9px] font-bold text-white shadow-lg";
+        } else if (dens === 1.0) {
+          cube.style.bottom = "30%";
+          container.querySelector("#status-text").innerHTML = "🟡 Equilibrio Neutro (Flotabilidad neutra)";
+          cube.className = "bg-amber-500 border border-amber-600 rounded-md absolute transition-all duration-1000 z-10 flex items-center justify-center text-[9px] font-bold text-white shadow-lg";
+        } else {
+          // Flota parcialmente arriba
+          const pct = 70 - (dens * 30);
+          cube.style.bottom = `${pct}%`;
+          container.querySelector("#status-text").innerHTML = "🟢 Flota en la superficie (Densidad menor a 1.0 g/cm³ del agua)";
+          cube.className = "bg-emerald-500 border border-emerald-600 rounded-md absolute transition-all duration-1000 z-10 flex items-center justify-center text-[9px] font-bold text-white shadow-lg";
+        }
+      }
+
+      iMass.oninput = update;
+      iVol.oninput = update;
+      update();
+    }
+
+    // SIMULADOR 4: Bohr Atomic Builder
+    function renderAtomicBuilder(parent) {
+      const container = document.createElement("div");
+      container.className = "w-full max-w-sm space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 text-center";
+
+      let protons = 1;
+      let electrons = 1;
+
+      const orbitalView = document.createElement("div");
+      orbitalView.className = "w-full h-40 bg-slate-950 border border-slate-800 rounded relative flex items-center justify-center";
+      
+      // Dibujar núcleo central y niveles
+      orbitalView.innerHTML = `
+        <!-- Órbita 1 -->
+        <div class="absolute w-24 h-24 rounded-full border border-dashed border-slate-800"></div>
+        <!-- Órbita 2 -->
+        <div class="absolute w-36 h-36 rounded-full border border-dashed border-slate-700"></div>
+        <!-- Núcleo -->
+        <div id="atom-core" class="w-8 h-8 rounded-full bg-red-500 border border-red-600 flex items-center justify-center text-[10px] font-bold text-white shadow-lg z-15">H</div>
+      `;
+      container.appendChild(orbitalView);
+
+      // Controles
+      const ctrlDiv = document.createElement("div");
+      ctrlDiv.className = "grid grid-cols-2 gap-4 text-xs";
+      ctrlDiv.innerHTML = `
+        <div class="space-y-1.5 p-2 bg-slate-950 rounded border border-slate-800">
+          <span>Protones: <strong id="p-count" class="text-red-400">1</strong></span>
+          <div class="flex gap-2 justify-center">
+            <button id="p-minus" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded font-bold">-</button>
+            <button id="p-plus" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded font-bold">+</button>
+          </div>
+        </div>
+        <div class="space-y-1.5 p-2 bg-slate-950 rounded border border-slate-800">
+          <span>Electrones: <strong id="e-count" class="text-blue-400">1</strong></span>
+          <div class="flex gap-2 justify-center">
+            <button id="e-minus" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded font-bold">-</button>
+            <button id="e-plus" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded font-bold">+</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(ctrlDiv);
+
+      const feedback = document.createElement("div");
+      feedback.className = "text-[11px] bg-slate-950 p-2 rounded border border-slate-800";
+      feedback.innerHTML = `Carga Neta: <strong id="atom-charge" class="text-emerald-400">Neutro (0)</strong> <br>Elemento: <strong id="atom-name" class="text-slate-300">Hidrógeno (H)</strong>`;
+      container.appendChild(feedback);
+
+      parent.appendChild(container);
+
+      // Lógica de cálculo
+      const elementsList = ["Neutrón", "Hidrógeno", "Helio", "Litio", "Berilio", "Boro", "Carbono", "Nitrógeno", "Oxígeno", "Flúor", "Neón"];
+      const symbolsList = ["n", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne"];
+
+      function updateAtom() {
+        document.getElementById("p-count").innerText = protons;
+        document.getElementById("e-count").innerText = electrons;
+
+        const charge = protons - electrons;
+        const chargeText = charge === 0 ? "Neutro (0)" : charge > 0 ? `Ion Positivo (+${charge})` : `Ion Negativo (${charge})`;
+        document.getElementById("atom-charge").innerText = chargeText;
+
+        const elemName = elementsList[protons] || "Elemento Desconocido (Sintético)";
+        const elemSym = symbolsList[protons] || "?";
+        document.getElementById("atom-name").innerText = `${elemName} (${elemSym})`;
+        document.getElementById("atom-core").innerText = elemSym;
+
+        // Renderizar electrones visuales dinámicos
+        // Limpiar electrones viejos
+        Array.from(orbitalView.querySelectorAll(".electron-node")).forEach(el => el.remove());
+
+        // Dibujar electrones en órbita 1 (máx 2) y órbita 2 (el resto)
+        const eOrbit1 = Math.min(2, electrons);
+        const eOrbit2 = Math.max(0, electrons - 2);
+
+        for (let i = 0; i < eOrbit1; i++) {
+          const angle = (i * Math.PI) + (Math.PI / 4);
+          const el = document.createElement("div");
+          el.className = "electron-node absolute w-2.5 h-2.5 rounded-full bg-blue-500 shadow-md border border-blue-600";
+          el.style.left = `calc(50% + ${Math.cos(angle) * 48}px - 5px)`;
+          el.style.top = `calc(50% + ${Math.sin(angle) * 48}px - 5px)`;
+          orbitalView.appendChild(el);
+        }
+
+        for (let i = 0; i < eOrbit2; i++) {
+          const angle = (i * (2 * Math.PI / eOrbit2)) + (Math.PI / 6);
+          const el = document.createElement("div");
+          el.className = "electron-node absolute w-2.5 h-2.5 rounded-full bg-blue-400 shadow-md border border-blue-500";
+          el.style.left = `calc(50% + ${Math.cos(angle) * 72}px - 5px)`;
+          el.style.top = `calc(50% + ${Math.sin(angle) * 72}px - 5px)`;
+          orbitalView.appendChild(el);
+        }
+      }
+
+      container.querySelector("#p-plus").onclick = () => { if (protons < 10) protons++; updateAtom(); };
+      container.querySelector("#p-minus").onclick = () => { if (protons > 1) protons--; updateAtom(); };
+      container.querySelector("#e-plus").onclick = () => { if (electrons < 10) electrons++; updateAtom(); };
+      container.querySelector("#e-minus").onclick = () => { if (electrons > 0) electrons--; updateAtom(); };
+
+      updateAtom();
+    }
+
+    // JUEGO 5: Tinder Químico
+    function renderTinderQuimico(parent) {
+      let cardIdx = 0;
+      let score = 0;
+
+      const database = [
+        { name1: "Sodio (Na)", desc1: "Metal alcalino altamente reactivo. Electronegatividad 0.9. Posee 1 electrón de valencia en su última capa.", name2: "Cloro (Cl)", desc2: "Halógeno altamente hambriento. Electronegatividad 3.0. Posee 7 electrones de valencia.", result: "match_ionic", label: "Match de Enlace Iónico" },
+        { name1: "Carbono (C)", desc1: "El rey de los enlaces estables. Electronegatividad 2.5. Posee 4 electrones de valencia.", name2: "Hidrógeno (H)", desc2: "Átomo simple y versátil. Electronegatividad 2.1. Desea completar su única capa con 2 electrones.", result: "match_covalent", label: "Match de Enlace Covalente" },
+        { name1: "Helio (He)", desc1: "Gas noble químicamente autosuficiente. Configuración electrónica cerrada de 1s².", name2: "Oxígeno (O)", desc2: "No metal muy oxidante. Electronegatividad 3.5. Busca desesperadamente 2 electrones.", result: "no_match", label: "Sin Match (Incompatible)" }
+      ];
+
+      const container = document.createElement("div");
+      container.className = "w-full max-w-sm space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300";
+
+      const interfaceCard = document.createElement("div");
+      interfaceCard.className = "p-4 bg-slate-950 border border-slate-800 rounded-lg space-y-3 relative overflow-hidden text-center";
+      
+      function renderCard() {
+        interfaceCard.innerHTML = "";
+        if (cardIdx >= database.length) {
+          interfaceCard.innerHTML = `<h4 class="text-emerald-400 font-bold text-sm">Tinder Químico Terminado 💖</h4><p class="text-xs text-slate-400 mt-2">Puntaje de química lograda: ${score}/${database.length}</p>`;
+          return;
+        }
+
+        const match = database[cardIdx];
+        interfaceCard.innerHTML = `
+          <div class="flex justify-between items-center text-[10px] text-slate-500 pb-2 border-b border-slate-900">
+            <span>Perfil de Afinidad ${cardIdx + 1}/${database.length}</span>
+            <span class="text-emerald-400 font-bold">Puntaje: ${score}</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-left pt-2">
+            <div class="p-2 bg-slate-900 rounded border border-slate-850">
+              <h5 class="text-xs font-bold text-white">${match.name1}</h5>
+              <p class="text-[9px] text-slate-400 leading-tight mt-1">${match.desc1}</p>
+            </div>
+            <div class="p-2 bg-slate-900 rounded border border-slate-850">
+              <h5 class="text-xs font-bold text-emerald-400">${match.name2}</h5>
+              <p class="text-[9px] text-slate-400 leading-tight mt-1">${match.desc2}</p>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 pt-2 italic">¿Cómo clasificarías su unión química para lograr estabilidad?</div>
+          
+          <div class="grid grid-cols-3 gap-2 pt-2">
+            <button onclick="checkMatch('match_ionic')" class="px-2 py-1.5 bg-blue-900/60 hover:bg-blue-600 rounded text-[10px] font-bold transition-all text-white border border-blue-800">Iónico</button>
+            <button onclick="checkMatch('match_covalent')" class="px-2 py-1.5 bg-emerald-900/60 hover:bg-emerald-600 rounded text-[10px] font-bold transition-all text-white border border-emerald-800">Covalente</button>
+            <button onclick="checkMatch('no_match')" class="px-2 py-1.5 bg-red-900/60 hover:bg-red-600 rounded text-[10px] font-bold transition-all text-white border border-red-800">No Match</button>
+          </div>
+        `;
+      }
+
+      window.checkMatch = function(selection) {
+        const correct = database[cardIdx].result;
+        if (selection === correct) {
+          score++;
+          interfaceCard.innerHTML = `<div class="p-4"><h4 class="text-emerald-400 font-bold text-sm">¡Match Perfecto! 💖</h4><p class="text-xs text-slate-300 mt-2">Enlace correcto: ${database[cardIdx].label}</p></div>`;
+        } else {
+          interfaceCard.innerHTML = `<div class="p-4"><h4 class="text-red-500 font-bold text-sm">Error de Afinidad 💔</h4><p class="text-xs text-slate-300 mt-2">La respuesta correcta era: ${database[cardIdx].label}</p></div>`;
+        }
+        setTimeout(() => {
+          cardIdx++;
+          renderCard();
+        }, 1500);
+      };
+
+      container.appendChild(interfaceCard);
+      parent.appendChild(container);
+      renderCard();
+    }
+
+    // SIMULADOR 6: Caja de Estados Termodinámicos de Partículas
+    function renderParticlesSimulator(parent) {
+      const container = document.createElement("div");
+      container.className = "w-full max-w-sm space-y-4 p-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 text-center";
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 240;
+      canvas.height = 140;
+      canvas.className = "mx-auto bg-slate-950 border border-slate-850 rounded-lg";
+      container.appendChild(canvas);
+
+      const controls = document.createElement("div");
+      controls.className = "flex justify-center gap-2";
+      controls.innerHTML = `
+        <button id="state-solid" class="px-2 py-1 bg-blue-800 text-white rounded text-[10px] font-semibold">Sólido</button>
+        <button id="state-liquid" class="px-2 py-1 bg-teal-800 text-white rounded text-[10px] font-semibold">Líquido</button>
+        <button id="state-gas" class="px-2 py-1 bg-amber-800 text-white rounded text-[10px] font-semibold">Gas</button>
+        <button id="state-plasma" class="px-2 py-1 bg-purple-800 text-white rounded text-[10px] font-semibold">Plasma</button>
+      `;
+      container.appendChild(controls);
+
+      const status = document.createElement("div");
+      status.className = "text-[10px] text-slate-400 bg-slate-950 p-2 rounded border border-slate-800 leading-normal";
+      status.innerHTML = `<span id="particle-status">Cargando partículas cinéticas de agua...</span>`;
+      container.appendChild(status);
+
+      parent.appendChild(container);
+
+      // Física de Partículas Simple en Canvas
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      let activeState = "solid"; // solid, liquid, gas, plasma
+
+      function initParticles() {
+        particles = [];
+        if (activeState === "solid") {
+          document.getElementById("particle-status").innerHTML = "❄ **SÓLIDO**: Partículas muy juntas en red ordenada, energía cinética mínima (solo vibración). Fuerza de atracción máxima.";
+          // Generar cuadrícula ordenada
+          for (let x = 60; x <= 180; x += 15) {
+            for (let y = 40; y <= 110; y += 15) {
+              particles.push({ x, y, ox: x, oy: y, vx: 0, vy: 0, color: "#60a5fa" });
+            }
+          }
+        } else if (activeState === "liquid") {
+          document.getElementById("particle-status").innerHTML = "💧 **LÍQUIDO**: Partículas juntas pero con libertad de movimiento y rotación. Fuerza de atracción moderada.";
+          for (let i = 0; i < 60; i++) {
+            particles.push({
+              x: Math.random() * 200 + 20,
+              y: Math.random() * 40 + 90,
+              vx: (Math.random() - 0.5) * 1.5,
+              vy: (Math.random() - 0.5) * 0.5,
+              color: "#2dd4bf"
+            });
+          }
+        } else if (activeState === "gas") {
+          document.getElementById("particle-status").innerHTML = "💨 **GAS**: Partículas muy separadas que ocupan todo el volumen disponible. Choques elásticos con alta energía cinética.";
+          for (let i = 0; i < 25; i++) {
+            particles.push({
+              x: Math.random() * 220 + 10,
+              y: Math.random() * 120 + 10,
+              vx: (Math.random() - 0.5) * 4,
+              vy: (Math.random() - 0.5) * 4,
+              color: "#fbbf24"
+            });
+          }
+        } else if (activeState === "plasma") {
+          document.getElementById("particle-status").innerHTML = "⚡ **PLASMA**: Gas a temperaturas extremas. Los electrones se separan de los núcleos generando iones cargados.";
+          for (let i = 0; i < 30; i++) {
+            particles.push({
+              x: Math.random() * 220 + 10,
+              y: Math.random() * 120 + 10,
+              vx: (Math.random() - 0.5) * 6,
+              vy: (Math.random() - 0.5) * 6,
+              color: i % 2 === 0 ? "#ec4899" : "#a855f7" // Iones y electrones brillantes
+            });
+          }
+        }
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+          if (activeState === "solid") {
+            // Vibrar alrededor del origen (ox, oy)
+            p.x = p.ox + (Math.random() - 0.5) * 1.5;
+            p.y = p.oy + (Math.random() - 0.5) * 1.5;
+          } else {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Rebotar contra las paredes
+            if (p.x < 6 || p.x > canvas.width - 6) p.vx *= -1;
+            if (p.y < 6 || p.y > canvas.height - 6) p.vy *= -1;
+
+            // En el líquido contenerlas principalmente abajo
+            if (activeState === "liquid" && p.y < 80) p.vy = Math.abs(p.vy) * 0.5;
+          }
+
+          // Dibujar partícula
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, activeState === "plasma" && p.color === "#ec4899" ? 3 : 5, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(update);
+      }
+
+      container.querySelector("#state-solid").onclick = () => { activeState = "solid"; initParticles(); };
+      container.querySelector("#state-liquid").onclick = () => { activeState = "liquid"; initParticles(); };
+      container.querySelector("#state-gas").onclick = () => { activeState = "gas"; initParticles(); };
+      container.querySelector("#state-plasma").onclick = () => { activeState = "plasma"; initParticles(); };
+
+      initParticles();
+      update();
+    }
+
+    // Copiar la rúbrica al portapapeles en formato Markdown de alta legibilidad
+    function copyRubric() {
+      const eje = DB_ACADEMICA[activeEjeIndex];
+      const text = `RÚBRICA DE EVALUACIÓN PARA LIBRETA CIENTÍFICA
+Asignatura: Ciencias Naturales I: Invitación a la ciencia: Naturaleza de la materia
+Tema o Eje: ${eje.titulo}
+
+| CRITERIO / INDICADOR | EXCELENTE (10) | SUFICIENTE (8-7) | INSUFICIENTE (6-5) |
+| --- | --- | --- | --- |
+| Rigurosidad Científica y Conceptos | Identifica con precisión los términos, modelos o variables del tema y los aplica de forma lógica resolviendo el problema. El esquema científico es correcto. | Describe los conceptos principales pero presenta imprecisiones menores en fórmulas, cargas o teorías elementales. | Copió textualmente o tiene errores graves que demuestran una mala comprensión del comportamiento atómico o físico. |
+| Procesamiento Gráfico (Pág. Izquierda) | Crea un esquema propio (mapa, diagrama, tabla organizada) integrando colores que conectan o agrupan ideas lógicamente. | Crea un apunte ordenado pero básico. El organizador gráfico es lineal o contiene exceso de transcripción escrita. | No incluye organizador visual o es un resumen de texto continuo idéntico a una fuente digital. |
+| Pensamiento Crítico y Aplicación (Pág. Derecha) | Resuelve de manera asertiva el reto contextualizado y argumenta con base científica. Vincula de forma original el tema con tecnología real. | Intenta resolver el reto con procesos correctos pero sus argumentos carecen de profundidad o la conclusión de aplicación es genérica. | No completa el reto o sus respuestas no tienen fundamento en los temas abordados. |
+| Metacognición y Organización | Reflexiona claramente sobre su propio aprendizaje, identificando dificultades y estrategias de corrección. Entrega limpia, ordenada e identificable. | Contesta vagamente las preguntas de metacognición o entrega de manera descuidada pero a tiempo. | No incluye el cierre reflexivo y la organización de la libreta impide seguir el hilo conceptual. |
+
+Sugerencia de Evaluación Formativa:
+Revisar el producto del cuaderno de manera periódica, utilizando la libreta como herramienta de autoevaluación y coevaluación en el aula.`;
+
+      // Simular copiado usando API tradicional y segura para iFrames
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        
+        // Mostrar alerta (Toast) temporal
+        const toast = document.getElementById("copy-toast");
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 4000);
+      } catch (err) {
+        console.error("No se pudo copiar el texto", err);
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
+</body>
+</html>
