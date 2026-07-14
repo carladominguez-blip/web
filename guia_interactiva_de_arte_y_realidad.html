@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte como Aproximación a la Realidad - Guía Activa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header Principal -->
+    <header class="bg-gradient-to-r from-indigo-950 via-slate-900 to-emerald-950 text-white shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 mb-3">
+                        Nivel Medio Superior · Actividades Artísticas y Culturales III
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-bold heading-font tracking-tight">
+                        El Arte como forma de aproximación a la realidad
+                    </h1>
+                    <p class="mt-2 text-slate-300 text-sm sm:text-base max-w-3xl">
+                        Unidad de Aprendizaje Activo orientada al disfrute estético, la sensibilidad ética y la expresión política frente a problemáticas comunitarias.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm self-start md:self-auto">
+                    <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">UAC III</div>
+                        <div class="text-sm font-bold text-white">3° Semestre de Bachillerato</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegación -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex space-x-1 sm:space-x-4 overflow-x-auto py-2">
+                    <button onclick="switchTab('docente')" id="btn-docente" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        Espacio del Docente
+                    </button>
+                    <button onclick="switchTab('lecturas')" id="btn-lecturas" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Lecturas Académicas y Críticas (10)
+                    </button>
+                    <button onclick="switchTab('videoteca')" id="btn-videoteca" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        Videoteca y Retos YouTube (7)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 w-full">
+
+        <!-- ================= SECCIÓN: DOCENTE ================= -->
+        <section id="sec-docente" class="space-y-8">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <h2 class="text-2xl font-bold heading-font text-slate-900 mb-6 flex items-center gap-2">
+                    <span class="h-8 w-2 bg-indigo-600 rounded-full"></span>
+                    Fundamentos Pedagógicos para el Docente (NEM 2025)
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                        <div class="text-indigo-900 font-bold text-base mb-2 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-indigo-600"></span> Meta Educativa
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Desarrollar la sensibilidad estética y ética mediante el disfrute y goce del arte como forma de comunicar ideas, experiencias, emociones and necesidades, reconociéndose colectivamente dentro de un contexto compartido.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100">
+                        <div class="text-emerald-900 font-bold text-base mb-2 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Propósito Formativo
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Generar manifestaciones artísticas variadas como formas de expresión política frente a los problemas que afectan a la comunidad y al entorno social inmediato de los estudiantes.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-100">
+                        <div class="text-amber-900 font-bold text-base mb-2 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-600"></span> Conceptos Clave
+                        </div>
+                        <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-4">
+                            <li><strong>Sentipensar:</strong> (Damasio / Palomino) Sentir y pensar el territorio para transformarlo.</li>
+                            <li><strong>Cartografía Social Artística:</strong> El mapa como herramienta de diagnóstico estético.</li>
+                            <li><strong>Arte Comunitario:</strong> Interacción colectiva horizontal y co-creación.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planeación de Dinámicas de Clase Activas -->
+            <div class="space-y-6">
+                <h3 class="text-xl font-bold heading-font text-slate-900 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Banco de Actividades Prácticas de Aula
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">Actividad 1 · Aula</span>
+                            <h4 class="text-base font-bold text-slate-900 heading-font mt-3 mb-2">Cartografía Emocional del Plantel</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Los estudiantes mapean de forma colaborativa los flujos estéticos de la preparatoria para detectar dinámicas invisibilizadas de convivencia.
+                            </p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-xs space-y-2">
+                                <div><strong class="text-slate-800">Docente:</strong> Organiza equipos de 4 personas. Entrega papelotes y marcadores de 3 colores diferentes.</div>
+                                <div><strong class="text-slate-800">Estudiante:</strong> Dibuja en su libreta un croquis del aula marcando zonas rojas (tensión), azules (calma) y grises (olvidadas).</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded">Actividad 2 · Comunidad</span>
+                            <h4 class="text-base font-bold text-slate-900 heading-font mt-3 mb-2">Artivismo Urbano Efímero</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Utilizando gises lavables o cartulinas recicladas, los alumnos intervienen de forma temporal un muro abandonado o el patio escolar con mensajes estéticos de cambio social.
+                            </p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-xs space-y-2">
+                                <div><strong class="text-slate-800">Docente:</strong> Guía en la delimitación ética y el respeto al mobiliario escolar.</div>
+                                <div><strong class="text-slate-800">Estudiante:</strong> Desarrolla el boceto cuadriculado a escala de la propuesta artística en su libreta.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded">Actividad 3 · Disrupción</span>
+                            <h4 class="text-base font-bold text-slate-900 heading-font mt-3 mb-2">Museo del Objeto Recontextualizado</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Inspirados en el Readymade de Duchamp, los estudiantes re-significan un objeto de consumo diario para protestar contra el hiperconsumo.
+                            </p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-xs space-y-2">
+                                <div><strong class="text-slate-800">Docente:</strong> Introduce el concepto de disrupción estética e institucional.</div>
+                                <div><strong class="text-slate-800">Estudiante:</strong> Escribe la "cédula de museo conceptual" del objeto intervenido en su libreta.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: LECTURAS Y RETROALIMENTACIÓN ================= -->
+        <section id="sec-lecturas" class="space-y-8 hidden">
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold heading-font text-indigo-300 mb-2">Lecturas Académicas y Críticas</h2>
+                <p class="text-sm text-slate-300">
+                    Textos de apoyo teóricos para profundizar en el programa escolar de Actividades Artísticas y Culturales III. Explora cada lectura del índice, realiza la comprobación interactiva en pantalla y copia la actividad correspondiente en tu libreta física.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Índice Izquierdo (Lecturas 1 a 10) -->
+                <div class="lg:col-span-4 space-y-2">
+                    <span class="block text-xs font-mono text-slate-500 uppercase tracking-wider mb-2">Índice de Lecturas:</span>
+                    <div id="readings-menu" class="space-y-1">
+                        <button onclick="selectReading(1)" id="btn-read-1" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-emerald-600 text-white shadow-md transition-all">
+                            1. El Sentipensar y la Cartografía Social
+                        </button>
+                        <button onclick="selectReading(2)" id="btn-read-2" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            2. El Arte Disruptivo vs El Canon
+                        </button>
+                        <button onclick="selectReading(3)" id="btn-read-3" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            3. El Performance como Acción Corporal
+                        </button>
+                        <button onclick="selectReading(4)" id="btn-read-4" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            4. Arte Comunitario y Co-creación
+                        </button>
+                        <button onclick="selectReading(5)" id="btn-read-5" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            5. Street Art y Espacio Público
+                        </button>
+                        <button onclick="selectReading(6)" id="btn-read-6" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            6. El Fanzine y la Prensa Autogestiva
+                        </button>
+                        <button onclick="selectReading(7)" id="btn-read-7" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            7. Paisajes Sonoros y Acústica Social
+                        </button>
+                        <button onclick="selectReading(8)" id="btn-read-8" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            8. El Readymade y Objeto Encontrado
+                        </button>
+                        <button onclick="selectReading(9)" id="btn-read-9" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            9. Arte Digital y Hacktivismo
+                        </button>
+                        <button onclick="selectReading(10)" id="btn-read-10" class="read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">
+                            10. Estética Feminista y Artivismo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bloques de Contenido de Lecturas -->
+                <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                    
+                    <!-- LECTURA 1 -->
+                    <div id="read-panel-1" class="read-panel space-y-6">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #1</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Sentipensar y la Cartografía Social: Habitar el Territorio</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: O. Palomino / A. Damasio</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>Para entender la realidad no basta con medirla métricamente con un mapa tradicional. El concepto de <strong>"sentipensar"</strong>, recuperado por el trabajador social Olver Palomino (2024), nos invita a integrar la razón y la emoción para interpretar el territorio. Sentipensar es entender que el espacio físico que habitamos a diario está cargado de memorias, miedos, afectos, conflictos y esperanzas colectivas.</p>
+                            <p>Desde la perspectiva de las neurociencias de Antonio Damasio, las emociones no son distracciones de la mente, sino herramientas biológicas cruciales que nos permiten evaluar nuestro entorno para tomar decisiones éticas. La <strong>Cartografía Social Artística</strong> es un ejercicio donde la comunidad dibuja mapas para ubicar focos de tensión o refugios emocionales, convirtiendo los datos abstractos en sentimientos compartidos.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué busca integrar de forma primordial el concepto de "sentipensar"?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(1, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) El mapeo satelital por GPS y el análisis puramente numérico.</button>
+                                <button onclick="evalAnswer(1, 'B', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) La razón y la sensibilidad para decodificar las cargas emocionales y sociales del territorio.</button>
+                                <button onclick="evalAnswer(1, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) El descarte de la ciencia en favor de la pura especulación mística.</button>
+                            </div>
+                            <div id="read-feed-1" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Realiza un organizador visual sobre la relación entre el <strong>sentipensar</strong> y las <strong>emociones biológicas</strong> de Damasio. Identifica un área conflictiva en tu escuela y describe cómo se siente transitar por ella.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 2 -->
+                    <div id="read-panel-2" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #2</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Arte Disruptivo frente al Canon Tradicional</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría del Arte y Expresión Política</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>El <strong>"arte canónico"</strong> representa un conjunto de reglas institucionales y técnicas legitimadas por el museo tradicional para la contemplación estética pasiva. La obra tradicional busca la exaltación de la belleza hegemónica y asume al espectador como un receptor silencioso de un producto estático y terminado.</p>
+                            <p>En contraposición, el <strong>arte disruptivo</strong> rompe con las convenciones académicas de exhibición y técnica. Traslada el hecho estético del museo al espacio público utilizando materiales no convencionales (graffiti, esténcil, desechos). Su propósito no es complacer el sentido visual, sino sacudir la pasividad ética del espectador frente a problemas urgentes como la desigualdad social o la salud mental.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Cuál es la función del arte disruptivo frente al espectador?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(2, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) Invitar a la contemplación pasiva y silenciosa de la belleza clásica.</button>
+                                <button onclick="evalAnswer(2, 'B', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Servir como mercancía decorativa de lujo para subastas privadas.</button>
+                                <button onclick="evalAnswer(2, 'C', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Despertar la conciencia política, confrontándolo activamente con sus problemáticas cotidianas.</button>
+                            </div>
+                            <div id="read-feed-2" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Elabora un cuadro comparativo de dos columnas (Arte Canónico vs. Arte Disruptivo) evaluando: Espacio de exhibición, actitud del espectador y tipo de materiales.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 3 -->
+                    <div id="read-panel-3" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #3</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Performance y la Presencia Corporal como Acción Política</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Judith Butler / Marina Abramović</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>En el arte contemporáneo, el cuerpo no es solo un soporte de representación pasiva (como en el óleo o la escultura tradicional); el cuerpo del propio artista se convierte en la <strong>obra de arte viva</strong>. El <strong>Performance Art</strong> traslada el foco de la obra comercial y estática al acto efímero que ocurre en un tiempo y espacio específicos.</p>
+                            <p>Como señala la filósofa Judith Butler, el cuerpo tiene una dimensión política ineludible en el espacio público. Cuando los cuerpos se congregan en resistencia o realizan gestos disruptivos en la cotidianidad, subvierten las narrativas del poder del Estado o de las corporaciones. El performance usa la fatiga, el silencio, el dolor o la inmovilidad física para denunciar la represión y la desatención ética.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">En el Performance Art, ¿cómo es interpretado el cuerpo del artista?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(3, 'A', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) Como el lienzo y el instrumento activo de la propuesta política y reflexiva.</button>
+                                <button onclick="evalAnswer(3, 'B', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Como un adorno secundario cuya única función es captar la atención comercial.</button>
+                                <button onclick="evalAnswer(3, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Como un molde para crear estatuas de yeso de tipo clásico.</button>
+                            </div>
+                            <div id="read-feed-3" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Diseña un guion para un performance escolar de 3 minutos orientado a concientizar sobre el acoso escolar. Describe la postura del cuerpo, el vestuario, el uso del silencio y el espacio.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 4 -->
+                    <div id="read-panel-4" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #4</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Arte Comunitario y la Co-creación Social</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Enfoque de Capacidades de Martha Nussbaum</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>El <strong>Arte Comunitario</strong> rompe radicalmente con el mito romántico del "artista-genio" que trabaja en solitario en su taller para luego vender su obra al mejor postor. En esta práctica, el artista funciona como un mediador horizontal o facilitador estético cuyo propósito es incentivar la capacidad colectiva para formular significados compartidos.</p>
+                            <p>Alineándose con la filósofa Martha Nussbaum, el goce estético y la imaginación son capacidades humanas básicas que garantizan una vida digna. El arte comunitario empodera a sectores marginados de la sociedad para que usen la pintura colectiva, el teatro espontáneo o la música para diagnosticar, debatir y sanar fracturas del tejido social del vecindario.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué rol asume el artista profesional dentro de las metodologías del arte comunitario?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(4, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) Un autoritario director técnico que decide todo de forma vertical.</button>
+                                <button onclick="evalAnswer(4, 'B', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Un mediador o facilitador que cataliza la expresión simbólica colectiva del barrio.</button>
+                                <button onclick="evalAnswer(4, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Un comerciante de obras que busca maximizar el valor de la subasta.</button>
+                            </div>
+                            <div id="read-feed-4" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Escribe una propuesta de 3 reglas éticas que un artista externo debería acatar al entrar a trabajar un proyecto en tu colonia para evitar imponer sus propias ideas estéticas.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 5 -->
+                    <div id="read-panel-5" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #5</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Street Art y la Reclamación del Espacio Público</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría de la Ciudad y Resistencia Estética</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>Las metrópolis modernas están plagadas de publicidad corporativa diseñada para fomentar el consumo masivo y pasivo. El <strong>Street Art (Arte Callejero)</strong> irrumpe en este ecosistema saturado para cuestionar el uso y la propiedad del espacio por el que transitamos todos los días. Al pintar muros grises sin fines de lucro, los artistas urbanos reclaman la barda pública como una galería colectiva.</p>
+                            <p>El Street Art no se limita al graffiti clásico; abarca el uso de esténciles complejos, carteles de trigo (wheatpasting) y calcomanías políticas (sticker art). Es un movimiento descentralizado que disputa de forma directa qué mensajes merecen ser vistos en la cotidianidad, dando voz a minorías y luchas vecinales invisibilizadas por los medios tradicionales.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Cuál es el fin social y ético del Street Art en las ciudades modernas?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(5, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) Promover el consumo de marcas y patrocinadores comerciales internacionales.</button>
+                                <button onclick="evalAnswer(5, 'B', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Disputar democráticamente el espacio público urbano, visibilizando luchas vecinales.</button>
+                                <button onclick="evalAnswer(5, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Acelerar el proceso de gentrificación de la colonia para encarecer la renta.</button>
+                            </div>
+                            <div id="read-feed-5" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Diseña un dibujo para un sticker con un mensaje social de crítica ambiental en el barrio. Elige una barda perimetral escolar hipotética y describe cómo dialogaría estéticamente la pegatina con el entorno.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 6 -->
+                    <div id="read-panel-6" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #6</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Fanzine y la Prensa Autogestiva</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría de Medios y Contra-narrativas</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>Los <strong>fanzines</strong> (contracción de "fan" y "magazine") son publicaciones amateurs e independientes nacidas en los márgenes de la industria de la impresión comercial. Caracterizados por la filosofía contracultural del <strong>"hazlo tú mismo" (Do It Yourself)</strong>, los fanzines han servido históricamente como el megáfono predilecto de colectivos punks, activistas, feministas y minorías sexuales.</p>
+                            <p>Al saltarse los filtros económicos, editoriales y políticos de las grandes editoriales comerciales, el creador del fanzine tiene total libertad de expresión. Con materiales elementales —tijeras, recortes de revistas, fotocopiadoras locales y hojas plegadas— un estudiante puede masificar un discurso estético y de denuncia política sin depender de infraestructura corporativa.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué define principalmente la práctica de producir un fanzine?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(6, 'A', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) La autogestión, la independencia editorial y el bajo costo de copiado descentralizado.</button>
+                                <button onclick="evalAnswer(6, 'B', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) El uso obligatorio de tintas digitales caras y acabados brillantes de lujo.</button>
+                                <button onclick="evalAnswer(6, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) La sujeción y obediencia editorial a las directrices de los grandes emporios informativos.</button>
+                            </div>
+                            <div id="read-feed-6" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Describe un esquema de distribución alternativo para fanzines que no use tiendas tradicionales. ¿Cómo harías llegar tus panfletos estudiantiles de mano en mano en la escuela?</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 7 -->
+                    <div id="read-panel-7" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #7</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">Paisajes Sonoros y Acústica Social</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Raymond Murray Schafer</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>El compositor y ambientalista Raymond Murray Schafer acuñó el término <strong>"Paisaje Sonoro" (Soundscape)</strong> para referirse al entorno acústico total que habitamos. El sonido no es neutro; define dinámicas de dominación o refugio en la vida cotidiana. Una fábrica ruidosa junto a una casa humilde, o el estruendo de camiones, representan formas sutiles de violencia acústica.</p>
+                            <p>A través del registro sonoro y de composiciones experimentales de ruido cotidiano, los artistas acústicos buscan concientizar sobre la contaminación sonora urbana y proteger la memoria sónica local. La escucha atenta de nuestra colonia revela patrones sobre quiénes trabajan, dónde se divierten las personas y qué desigualdades de infraestructura se manifiestan en el ruido.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">Según la ecología acústica, ¿cómo se interpreta la contaminación por ruido?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(7, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) Como una señal indiscutible y agradable de progreso industrial y felicidad vecinal.</button>
+                                <button onclick="evalAnswer(7, 'B', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Como una forma física e invisible de violencia ambiental que afecta desproporcionadamente a zonas marginadas.</button>
+                                <button onclick="evalAnswer(7, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Como una distracción teórica que no influye en absoluto en la salud mental comunitaria.</button>
+                            </div>
+                            <div id="read-feed-7" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Cierra los ojos en tu escuela durante 3 minutos en el receso. Registra en tu libreta los sonidos dividiéndolos en: Naturales, Humanos y Tecnológicos, evaluando cuál predomina.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 8 -->
+                    <div id="read-panel-8" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #8</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">El Readymade y el Objeto Encontrado</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Marcel Duchamp / Desmitificación Artística</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>En 1917, Marcel Duchamp colocó un urinario de porcelana común en una exposición y lo firmó con un pseudónimo. Este acto fundacional del arte conceptual inventó el <strong>"Readymade" (Objeto Encontrado)</strong>. Duchamp demostró que lo relevante del arte no es la destreza manual o técnica de tallado del artista, sino el proceso de asignación mental y contextual.</p>
+                            <p>Al retirar un objeto utilitario manufacturado de su cadena original de consumo diario y colocarlo en un entorno de reflexión estética, el artista desvela su dimensión política implícita. El readymade contemporáneo desmitifica la idea elitista del arte clásico y permite a cualquiera criticar la alienación de las cosas y la sobreproducción capitalista.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué premisa fundamental sostiene el concepto de Readymade?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(8, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) El valor absoluto de una obra depende únicamente de la habilidad manual del pintor.</button>
+                                <button onclick="evalAnswer(8, 'B', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Que cualquier objeto industrial puede ser arte si es recontextualizado para generar un nuevo significado crítico.</button>
+                                <button onclick="evalAnswer(8, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Que solo los objetos de porcelana fina merecen ingresar a las exposiciones de un museo.</button>
+                            </div>
+                            <div id="read-feed-8" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Elige un desecho tecnológico inútil (un cable viejo, un disco rayado, una pila muerta). Asígnale un título conceptual de protesta estética contra la obsolescencia y redacta su justificación.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 9 -->
+                    <div id="read-panel-9" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #9</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">Arte Digital, Hacktivismo y Net Art</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Resistencia en la Era de la Algoritmia</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>En el siglo XXI, las interfaces digitales, las redes sociales y los algoritmos moldean la percepción de lo que es real. El <strong>Net Art (Arte de Red)</strong> y el <strong>Hacktivismo Estético</strong> nacen para intervenir críticamente esta capa digital de nuestra existencia, desvelando cómo la recolección de metadatos, los sesgos y el control tecnológico operan en la invisibilidad.</p>
+                            <p>Utilizando fallos del sistema (Glitch Art), apropiación indebida de plataformas o alteración estético-política de algoritmos de inteligencia artificial, estos artistas denuncian la vigilancia algorítmica constante de los ciudadanos. La pantalla se asume no como una ventana comercial de consumo de likes, sino como un dinámico frente de resistencia informativa.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué busca deconstruir el Hacktivismo Estético?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(9, 'A', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) La dominación invisible de los algoritmos de control de datos y los sesgos tecnológicos.</button>
+                                <button onclick="evalAnswer(9, 'B', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) Las bases de datos de los bancos locales para beneficio financiero individual.</button>
+                                <button onclick="evalAnswer(9, 'C', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) Las normas de seguridad de hardware para vender piezas de refacción baratas.</button>
+                            </div>
+                            <div id="read-feed-9" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Analiza el feed de tu red social favorita. Diseña un boceto de un cartel analógico a lápiz en tu libreta de actividades donde critiques la adicción al "scrolleo" infinito o la búsqueda pasiva de likes.</p>
+                        </div>
+                    </div>
+
+                    <!-- LECTURA 10 -->
+                    <div id="read-panel-10" class="read-panel space-y-6 hidden">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Lectura Académica #10</span>
+                            <h3 class="text-xl font-bold text-slate-900 heading-font mt-1">Estética Feminista y Artivismo de Género</h3>
+                            <span class="text-xs text-slate-500 font-mono">Teoría: Guerrilla Girls / Descolonización Visual</span>
+                        </div>
+                        <div class="text-sm text-slate-700 leading-relaxed space-y-3">
+                            <p>La historia del arte clásico ha invisibilizado a las creadoras femeninas, relegando su cuerpo al rol pasivo del desnudo estético contemplado por hombres. La <strong>Estética Feminista</strong> deconstruye de manera radical este canon patriarcal, asumiendo la representación y la mirada visual como espacios de disputa de poder real.</p>
+                            <p>El colectivo anónimo estadounidense <strong>Guerrilla Girls</strong>, vistiendo máscaras de gorila y utilizando el lenguaje publicitario, denunció que menos del 5% de los artistas en las secciones de arte moderno del Museo Metropolitano de Nueva York eran mujeres, pero el 85% de los desnudos eran femeninos. El artivismo de género usa las estadísticas, la ironía y el desmontaje de discursos hegemónicos para democratizar la mirada de la realidad.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase">Comprobación de Comprensión:</h4>
+                            <p class="text-xs text-slate-600">¿Qué busca subvertir primordialmente la Estética Feminista en los museos tradicionales?</p>
+                            <div class="space-y-2 text-xs">
+                                <button onclick="evalAnswer(10, 'A', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">A) La preservación de marcos de oro barrocos alrededor de las pinturas.</button>
+                                <button onclick="evalAnswer(10, 'B', false, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">B) El cobro excesivo de boletos en la entrada del museo los domingos por la tarde.</button>
+                                <button onclick="evalAnswer(10, 'C', true, this)" class="w-full text-left p-2.5 bg-white border rounded hover:bg-slate-50 transition">C) La invisibilización de las mujeres creadoras y la objetualización erótica del cuerpo femenino.</button>
+                            </div>
+                            <div id="read-feed-10" class="hidden p-2.5 rounded text-xs font-bold"></div>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs">
+                            <strong class="block text-emerald-950 font-bold mb-1">📓 Actividad para tu Libreta:</strong>
+                            <p class="text-emerald-900 leading-relaxed">Investiga y anota en tu libreta la biografía simplificada de una mujer artista mexicana contemporánea. Redacta cómo su obra aborda la equidad de género o la resistencia social.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: VIDEOTECA Y RETOS YOUTUBE ================= -->
+        <section id="sec-videoteca" class="space-y-8 hidden">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold heading-font text-emerald-400 mb-2">Videoteca de Arte, Sociedad y Protesta</h2>
+                <p class="text-sm text-slate-300">
+                    Soporte de análisis audiovisual interactivo. Haz clic en el botón de acceso para abrir y reproducir los videos en **youtube.com**, responde los retos interactivos de análisis en pantalla y realiza la actividad propuesta en tu libreta física.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjeta Video 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Arte Comunitario</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">¿Qué es el Arte Comunitario?</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">Canal y debate sobre el rol de las agendas comunitarias latinoamericanas.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Analiza los principios éticos, políticos y de integración social en América Latina bajo el concepto de "cultura viva comunitaria" y la deconstrucción de dominaciones.
+                        </p>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=Ef0yk2b4qS8" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 1 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿Qué deconstruye el concepto de "escultura social" de Joseph Beuys citado en el video?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v1', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) Que solo las personas ricas tienen talento para moldear plastilina.</button>
+                            <button onclick="evalVideoAnswer('v1', 'B', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) Que la capacidad creativa humana de moldear la sociedad reside en todos.</button>
+                            <button onclick="evalVideoAnswer('v1', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) Que el arte debe ser controlado de forma rígida por los ministerios nacionales.</button>
+                        </div>
+                        <div id="v1-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Anota en tu libreta 3 ideas clave que vinculen el arte comunitario con la "mejora social" de la que habla el material analizado.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Muralismo Político</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Muralismo y Artivismo Mexicano</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">Historia postrevolucionaria de José Vasconcelos y los tres grandes.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Explora cómo los pintores del siglo XX revistieron los edificios oficiales en un movimiento con fines pedagógicos masivos y de identidad nacional.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=Sbz-lqjIk5U" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 2 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿Qué justificación impulsó originalmente el muralismo nacional en el México de 1920?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v2', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) Una necesidad meramente comercial de vender obras estéticas a Europa.</button>
+                            <button onclick="evalVideoAnswer('v2', 'B', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) Decorar pasillos gubernamentales de forma elegante y elitista.</button>
+                            <button onclick="evalVideoAnswer('v2', 'C', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) Educar estéticamente e integrar políticamente a una población analfabeta.</button>
+                        </div>
+                        <div id="v2-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Identifica los nombres de los denominados "tres grandes" de la plástica mural mexicana e investiga el nombre de una obra que retrate la justicia agraria.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Medios de Resistencia</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Cómo hacer un Fanzine de una sola Hoja</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">Tutorial didáctico de dobleces y cortes estructurales.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Tutorial paso a paso que enseña cómo de forma barata y libre se puede estructurar un librito de 8 páginas utilizando solo un pliego de papel bond.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=hh9xyL6jfsA" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 3 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿Qué ventaja técnica y comunicativa aporta el fanzine de una hoja según el tutorial?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v3', 'A', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) Permite duplicar información libremente de forma barata y sin encuadernadoras.</button>
+                            <button onclick="evalVideoAnswer('v3', 'B', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) Sustituye el uso de computadoras en toda la escuela.</button>
+                            <button onclick="evalVideoAnswer('v3', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) Funciona como una plantilla rígida para caligrafía obligatoria.</button>
+                        </div>
+                        <div id="v3-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Corta y dobla un borrador físico de fanzine siguiendo los pasos del video. Pégalo centrado en la página de actividades de tu libreta.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 4 (NUEVO URL: Paisajes Sonoros) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Ecología Acústica</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Paisajes Sonoros y Entorno Social</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">La teoría acústica y social de Raymond Murray Schafer.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Descubre cómo los sonidos de nuestro entorno no son neutrales: reflejan dinámicas de dominación, memoria y nos ayudan a diagnosticar las tensiones del territorio.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=O6VwXI8IHHU" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 4 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿Qué registra principalmente un mapa o paisaje sonoro comunitario?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v4', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) El volumen exacto en decibelios con fines comerciales.</button>
+                            <button onclick="evalVideoAnswer('v4', 'B', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) Los ruidos cotidianos para comprender cómo se vive y qué desigualdades acústicas existen.</button>
+                            <button onclick="evalVideoAnswer('v4', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) Las partituras musicales académicas interpretadas en teatros locales.</button>
+                        </div>
+                        <div id="v4-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Describe acústicamente tu salón de clases durante un receso y evalúa en 5 líneas qué tipo de sonidos dominan (sociales, tecnológicos o ambientales).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 5 (NUEVO URL: Readymade Duchamp) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Arte Conceptual</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Marcel Duchamp y el Readymade</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">¿Cómo un urinario cambió el rumbo de la historia del arte?</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Explora cómo Marcel Duchamp desmitificó el virtuosismo técnico al proponer que el arte reside en el contexto y la idea mental de recontextualizar un objeto común.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=l0jefz5Drso" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 5 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿En qué radica la disrupción de "La Fuente" de Duchamp en 1917?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v5', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) En demostrar que los pintores clásicos no sabían de fontanería.</button>
+                            <button onclick="evalVideoAnswer('v5', 'B', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) En desplazar el valor de la técnica física hacia la idea y la asignación contextual.</button>
+                            <button onclick="evalVideoAnswer('v5', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) En elevar el precio de la loza sanitaria en las galerías de Nueva York.</button>
+                        </div>
+                        <div id="v5-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Selecciona un desecho en tu hogar (un cable viejo, un envase vacío). Asígnale un título de protesta y redacta su ficha o cédula de museo conceptual.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 6 (NUEVO URL: Guerrilla Girls) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Estética de Género</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Guerrilla Girls y el Artivismo Feminista</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">Denuncia, ironía y estadísticas de género en el arte.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Analiza cómo este colectivo anónimo utilizó máscaras de gorila, carteles y datos reales de exclusión para denunciar la discriminación de mujeres en el arte.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=eDecVRUw7Y8" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 6 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">¿Qué herramienta primordial usaban las Guerrilla Girls para su artivismo?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v6', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) Manifestaciones violentas en plazas públicas.</button>
+                            <button onclick="evalVideoAnswer('v6', 'B', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) Máscaras de gorila, sátira, lenguaje publicitario y datos estadísticos reales.</button>
+                            <button onclick="evalVideoAnswer('v6', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) Cuadros abstractos firmados de manera anónima.</button>
+                        </div>
+                        <div id="v6-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Diseña un boceto de cartel en tu libreta que critique de forma irónica, utilizando algún dato estadístico o porcentaje, la inequidad de género en las escuelas o redes sociales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Video 7 (NUEVO URL: Marina Abramović) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded">Materia: Performance Art</span>
+                        <h3 class="text-base font-bold text-slate-900 heading-font mt-3 mb-1">Marina Abramović: La Presencia Viva</h3>
+                        <p class="text-xs text-slate-500 italic mb-2">El arte efímero donde el cuerpo y la presencia son la obra.</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Examina la mítica obra de Marina Abramović en el MoMA y reflexiona sobre el papel del silencio, la mirada mutua y el cansancio corporal extremo como catalizadores estéticos y de catarsis.
+                        </p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.youtube.com/watch?v=dUfMB6SFsKE" target="_blank" class="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Ver Video en YouTube ↗
+                        </a>
+                    </div>
+
+                    <!-- Retroalimentación interactiva del Video 7 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h4 class="text-[11px] font-bold text-red-800 uppercase">Comprobación del Video:</h4>
+                        <p class="text-[11px] text-slate-700">En "El artista está presente", ¿en qué consistía la acción de Marina Abramović?</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <button onclick="evalVideoAnswer('v7', 'A', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">A) En pintar retratos rápidos a lápiz de los visitantes.</button>
+                            <button onclick="evalVideoAnswer('v7', 'B', true, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">B) En sentarse en silencio absoluto a mirar fijamente a los ojos a extraños que se sentaran frente a ella.</button>
+                            <button onclick="evalVideoAnswer('v7', 'C', false, this)" class="w-full text-left p-2 bg-white border rounded hover:bg-slate-100 transition">C) En dar discursos diarios continuos sobre el dolor físico.</button>
+                        </div>
+                        <div id="v7-feed" class="hidden p-2 rounded text-[11px] font-bold"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-xl text-xs border border-indigo-100">
+                        <strong class="text-indigo-950 font-bold block mb-1">📓 Reto de Libreta:</strong>
+                        <p class="text-indigo-900 leading-relaxed">
+                            Escribe una propuesta de performance de 1 minuto para realizar en el patio de tu preparatoria. Explica cómo utilizarías el silencio y tu postura corporal para denunciar la desconexión social o la falta de empatía entre compañeros.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div>
+                © 2026 Planificador de Actividades Artísticas III. Currículum Ampliado - Nueva Escuela Mexicana.
+            </div>
+            <div class="flex gap-4">
+                <span class="hover:text-slate-800 cursor-pointer" onclick="switchTab('docente')">Manual Docente</span>
+                <span>·</span>
+                <span class="hover:text-slate-800 cursor-pointer" onclick="switchTab('lecturas')">Lecturas</span>
+                <span>·</span>
+                <span class="hover:text-slate-800 cursor-pointer" onclick="switchTab('videoteca')">Videoteca</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para cambiar de pestañas principales
+        function switchTab(tabId) {
+            document.getElementById('sec-docente').classList.add('hidden');
+            document.getElementById('sec-lecturas').classList.add('hidden');
+            document.getElementById('sec-videoteca').classList.add('hidden');
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100";
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (tabId === 'docente') {
+                activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-100";
+            } else if (tabId === 'lecturas') {
+                activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 bg-emerald-600 text-white shadow-md shadow-emerald-100";
+            } else {
+                activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 bg-slate-900 text-white shadow-md shadow-slate-800";
+            }
+        }
+
+        // Navegación dentro del panel de lecturas
+        function selectReading(index) {
+            const panels = document.querySelectorAll('.read-panel');
+            panels.forEach(p => p.classList.add('hidden'));
+
+            document.getElementById(`read-panel-${index}`).classList.remove('hidden');
+
+            const menuBtns = document.querySelectorAll('.read-menu-btn');
+            menuBtns.forEach(btn => {
+                btn.className = "read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all";
+            });
+
+            document.getElementById(`btn-read-${index}`).className = "read-menu-btn w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-emerald-600 text-white shadow-md transition-all";
+        }
+
+        // Evaluar respuestas de lecturas de forma interactiva
+        function evalAnswer(readingId, chosenOption, isCorrect, btnElement) {
+            const container = btnElement.parentElement;
+            const buttons = container.querySelectorAll('button');
+            const feedbackDiv = document.getElementById(`read-feed-${readingId}`);
+
+            buttons.forEach(btn => btn.setAttribute('disabled', 'true'));
+
+            if (isCorrect) {
+                btnElement.classList.add('bg-emerald-950', 'border-emerald-500', 'text-emerald-200', 'font-semibold');
+                feedbackDiv.innerText = "✓ ¡Correcto! Has interpretado perfectamente las premisas del autor y las problemáticas abordadas.";
+                feedbackDiv.className = "p-2.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 mt-3";
+            } else {
+                btnElement.classList.add('bg-red-950', 'border-red-500', 'text-red-200');
+                feedbackDiv.innerText = "✗ Respuesta incorrecta. Vuelve a examinar el texto de la lectura para corregir tu enfoque conceptual.";
+                feedbackDiv.className = "p-2.5 rounded text-xs font-bold bg-red-100 text-red-800 border border-red-200 mt-3";
+            }
+            feedbackDiv.classList.remove('hidden');
+        }
+
+        // Evaluar respuestas de la videoteca de YouTube de forma interactiva
+        function evalVideoAnswer(videoId, chosenOption, isCorrect, btnElement) {
+            const container = btnElement.parentElement;
+            const buttons = container.querySelectorAll('button');
+            const feedbackDiv = document.getElementById(`${videoId}-feed`);
+
+            buttons.forEach(btn => btn.setAttribute('disabled', 'true'));
+
+            if (isCorrect) {
+                btnElement.classList.add('bg-emerald-950', 'border-emerald-500', 'text-emerald-200', 'font-semibold');
+                feedbackDiv.innerText = "✓ ¡Correcto! Tus notas coinciden plenamente con el contenido conceptual del video.";
+                feedbackDiv.className = "p-2 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 mt-2";
+            } else {
+                btnElement.classList.add('bg-red-950', 'border-red-500', 'text-red-200');
+                feedbackDiv.innerText = "✗ Incorrecto. Te recomendamos repasar detenidamente el video en YouTube.";
+                feedbackDiv.className = "p-2 rounded text-[11px] font-bold bg-red-100 text-red-800 border border-red-200 mt-2";
+            }
+            feedbackDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
