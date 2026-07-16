@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conciencia Histórica II - Plataforma de Aprendizaje Activo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            burgundy: {
+              50: '#fdf2f4',
+              100: '#fbe5ea',
+              200: '#f7ccd7',
+              300: '#f0a3b8',
+              400: '#e57191',
+              500: '#d4436b',
+              600: '#be2b53',
+              700: '#a01e3f',
+              800: '#851c37',
+              900: '#711a30',
+              950: '#400916',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5 {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col text-slate-800">
+
+  <!-- HEADER PRINCIPAL -->
+  <header class="bg-burgundy-900 text-white shadow-lg border-b border-burgundy-800 flex-shrink-0">
+    <div class="max-w-7xl mx-auto px-4 py-5 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-burgundy-700 text-burgundy-100 mb-2">
+          5° Semestre - Bachillerato • Conciencia Histórica II
+        </span>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight">México durante el expansionismo capitalista</h1>
+        <p class="text-burgundy-200 text-xs sm:text-sm mt-1">
+          Recurso Sociocognitivo del Marco Curricular Común (MCCEMS) • Nueva Escuela Mexicana
+        </p>
+      </div>
+      <!-- Selector de Modo: Estudiante / Docente -->
+      <div class="flex bg-burgundy-950/60 p-1.5 rounded-xl border border-burgundy-700/50 self-start lg:self-center">
+        <button id="btn-estudiante" onclick="switchMode('estudiante')" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all duration-200 bg-burgundy-600 text-white shadow-md">
+          Portal del Estudiante
+        </button>
+        <button id="btn-docente" onclick="switchMode('docente')" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all duration-200 text-burgundy-300 hover:text-white">
+          Guía del Docente
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL EN FORMATO DASHBOARD (SIDEBAR + MAIN CONTENT) -->
+  <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+    
+    <!-- NOTIFICACIONES INTERNAS -->
+    <div id="custom-alert" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700 max-w-sm transition-all duration-300">
+      <span class="text-amber-400">💡</span>
+      <p id="alert-text" class="text-sm font-medium"></p>
+    </div>
+
+    <!-- NAVEGACIÓN LATERAL DE LAS 10 PROGRESIONES -->
+    <aside class="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex-shrink-0 flex flex-col overflow-y-auto max-h-48 lg:max-h-none">
+      <div class="p-4 bg-slate-150 border-b border-slate-200 hidden lg:block">
+        <span class="text-2xs font-extrabold text-slate-400 uppercase tracking-wider block">Ruta de Aprendizaje</span>
+        <h2 class="text-xs font-bold text-slate-700 mt-1">Progreso Modular de las 10 Progresiones</h2>
+      </div>
+      <nav class="flex-1 p-2 space-y-1" id="sidebar-navigation">
+        <button onclick="selectProgression(1)" id="nav-prog-1" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left bg-burgundy-50 text-burgundy-900 font-semibold border-l-4 border-burgundy-600">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-burgundy-600 text-white text-2xs font-bold mt-0.5">I</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-burgundy-500 font-bold">Progresión I</span>
+            La Lucha Insurgente
+          </div>
+        </button>
+        <button onclick="selectProgression(2)" id="nav-prog-2" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">II</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión II</span>
+            El Liberalismo Mexicano
+          </div>
+        </button>
+        <button onclick="selectProgression(3)" id="nav-prog-3" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">III</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión III</span>
+            Invasiones e Imperialismo
+          </div>
+        </button>
+        <button onclick="selectProgression(4)" id="nav-prog-4" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">IV</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión IV</span>
+            Luchas Obreras, Campesinas y Femeniles
+          </div>
+        </button>
+        <button onclick="selectProgression(5)" id="nav-prog-5" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">V</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión V</span>
+            Vertientes Conservadoras
+          </div>
+        </button>
+        <button onclick="selectProgression(6)" id="nav-prog-6" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">VI</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión VI</span>
+            Desamortización e Indígenas
+          </div>
+        </button>
+        <button onclick="selectProgression(7)" id="nav-prog-7" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">VII</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión VII</span>
+            El Porfiriato y Contradicciones
+          </div>
+        </button>
+        <button onclick="selectProgression(8)" id="nav-prog-8" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">VIII</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión VIII</span>
+            La Revolución Mexicana
+          </div>
+        </button>
+        <button onclick="selectProgression(9)" id="nav-prog-9" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">IX</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión IX</span>
+            El Contexto Global de 1910
+          </div>
+        </button>
+        <button onclick="selectProgression(10)" id="nav-prog-10" class="nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50">
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5">X</span>
+          <div class="text-xs">
+            <span class="block text-[10px] uppercase text-slate-400 font-bold">Progresión X</span>
+            Posrevolución y Cardenismo
+          </div>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ÁREA DE CONTENIDO DINÁMICO -->
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8 bg-slate-50">
+
+      <!-- PORTAL DOCENTE: GUÍA Y SECUENCIA DIDÁCTICA -->
+      <section id="seccion-docente" class="hidden space-y-8">
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-2xl shadow-sm">
+          <h2 class="text-xl font-bold text-amber-900 flex items-center gap-2">
+            ⚙️ Guía Metodológica para el Docente • Conciencia Histórica II
+          </h2>
+          <p class="text-amber-800 text-sm mt-2 leading-relaxed">
+            Estimado/a profesor/a: Esta sección te proporciona orientaciones precisas alineadas con las progresiones del programa. Al promover el uso de lecturas académicas oficiales y material audiovisual analítico, buscamos generar experiencias donde el estudiante no asuma el rol de espectador pasivo, sino de analizador activo que construirá su libreta como portafolio de evidencias.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-150 p-6 space-y-4">
+          <h3 class="font-bold text-lg text-slate-900 border-b border-slate-100 pb-2">Estrategias Didácticas con Medios Activos</h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Las lecturas seleccionadas están alojadas conceptualmente en plataformas de la UNAM, INAH e INEHRM. Para los videos de YouTube, se han seleccionado materiales analíticos verificados del Canal de la SEP, Canal Once, INAH y el INEHRM.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <span class="font-bold text-burgundy-800 uppercase block mb-1">Estrategia de Aula Invertida (Flipped Classroom)</span>
+              Propón a los alumnos explorar individualmente la lectura sugerida de cada módulo en la sección de estudiantes, responder las preguntas interactivas, y llegar al aula preparados para realizar la actividad física de libreta basada en el video respectivo.
+            </div>
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <span class="font-bold text-burgundy-800 uppercase block mb-1">Mecanismo de Evaluación Formativa</span>
+              Pide a tus estudiantes descargar el archivo estructurado **TXT (Dossier Integrador)** al final del recorrido. Este archivo contendrá de manera limpia sus respuestas analíticas, que podrás cotejar contra las evidencias plasmadas en su libreta.
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-150 p-6">
+          <h3 class="font-bold text-lg text-slate-900 mb-4">Orientación Pedagógica Específica por Progresión</h3>
+          <div class="space-y-4 text-xs" id="docente-guia-progresiones">
+            <!-- Se inserta dinámicamente con JS de acuerdo a la progresión activa -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PORTAL DEL ESTUDIANTE -->
+      <section id="seccion-estudiante" class="space-y-8">
+        
+        <!-- ENCABEZADO DE LA PROGRESIÓN SELECCIONADA -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
+            <div>
+              <span id="label-num-progresion" class="text-xs font-bold text-burgundy-600 uppercase tracking-widest block">Progresión I</span>
+              <h2 id="titulo-progresion" class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Cargando Título de la Progresión...</h2>
+            </div>
+            <div id="badge-tema" class="bg-burgundy-50 text-burgundy-800 px-3 py-1 rounded-lg text-xs font-semibold self-start md:self-center">
+              Tema Principal
+            </div>
+          </div>
+
+          <!-- LECTURA RECOMENDADA (UNAM / INAH / MEMÓRICA) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+            <div class="lg:col-span-7 space-y-4">
+              <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                <span class="text-2xs font-extrabold text-slate-400 uppercase tracking-wider block mb-2">📚 Lectura Recomendada</span>
+                <h4 id="lectura-titulo" class="font-bold text-slate-900 text-sm mb-1">Cargando Lectura...</h4>
+                <p id="lectura-fuente" class="text-2xs text-slate-500 font-semibold mb-3">Fuente: UNAM / INAH / INEHRM</p>
+                <div id="lectura-resumen" class="text-xs text-slate-600 leading-relaxed space-y-2 max-h-48 overflow-y-auto pr-2 bg-white p-3 rounded-xl border border-slate-100">
+                  Cargando resumen académico...
+                </div>
+              </div>
+
+              <!-- ACTIVIDAD INTERACTIVA DE COMPRENSIÓN LECTORA -->
+              <div class="bg-burgundy-50/40 p-5 rounded-2xl border border-burgundy-100">
+                <span class="text-2xs font-bold text-burgundy-800 uppercase tracking-wider block mb-1">⚡ Reto Interactivo de Comprensión</span>
+                <p id="interactiva-pregunta" class="text-xs font-semibold text-slate-700 mb-3">Cargando pregunta de la lectura...</p>
+                <div class="space-y-2" id="interactiva-opciones">
+                  <!-- Inyectado por JS -->
+                </div>
+                <div id="interactiva-feedback" class="hidden mt-3 p-3 bg-white text-xs rounded-xl border border-burgundy-200/50 text-slate-700">
+                  <!-- Mensaje de respuesta -->
+                </div>
+              </div>
+            </div>
+
+            <!-- VIDEO SUGERIDO DE YOUTUBE Y TAREAS EN LA LIBRETA -->
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+              <div class="bg-slate-900 text-slate-100 rounded-2xl p-5 shadow-inner">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+                  <span class="text-2xs font-bold text-amber-400 uppercase tracking-wider block">📺 Video Académico en YouTube</span>
+                  <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                </div>
+                <h4 id="video-titulo" class="font-bold text-xs text-white mb-2">Cargando Video Recomendado...</h4>
+                
+                <!-- Caja para simular el reproductor y proveer el enlace de Youtube -->
+                <div class="relative bg-slate-950 aspect-video rounded-xl overflow-hidden flex flex-col justify-between p-3 border border-slate-800">
+                  <div class="flex justify-between items-start">
+                    <span id="video-canal" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Cargando Canal</span>
+                    <span class="text-[10px] text-slate-400">Educación Media Superior</span>
+                  </div>
+                  <div class="text-center space-y-2 my-auto">
+                    <p class="text-2xs text-slate-300 px-4">Este video contiene el material complementario para tu actividad a mano en la libreta.</p>
+                    <a id="video-link" href="#" target="_blank" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-750 text-white font-bold text-xs px-4 py-2 rounded-lg transition-all mx-auto shadow-md">
+                      ▶️ Ver Video en YouTube
+                    </a>
+                  </div>
+                  <div class="text-[9px] text-slate-500 text-right">Materia: Conciencia Histórica II</div>
+                </div>
+              </div>
+
+              <!-- ACTIVIDADES CONCRETAS EN LA LIBRETA -->
+              <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/60 rounded-2xl p-5">
+                <h4 class="text-amber-900 font-bold text-xs sm:text-sm flex items-center gap-2">
+                  📓 Tarea para tu Libreta (A mano sobre el Video)
+                </h4>
+                <p id="libreta-instruccion" class="text-slate-700 text-2xs sm:text-xs mt-2 leading-relaxed font-medium">
+                  Cargando instrucción detallada para trabajar en tu libreta...
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAJA DE ANÁLISIS CRÍTICO DEL ESTUDIANTE (CONEXIÓN CON EL PRESENTE) -->
+          <div class="border-t border-slate-100 pt-6">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">💡 Reflexión del Pensamiento Crítico (Conexión con tu Presente)</label>
+            <p class="text-2xs text-slate-500 mb-3">
+              Los conceptos históricos aislados no tienen sentido si no logran explicar tu realidad del hoy. Escribe un análisis argumentado de cómo este tema se refleja o influye en tu vida familiar, comunitaria o nacional en la actualidad.
+            </p>
+            <textarea id="estudiante-input-reflexion" rows="4" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-burgundy-600 focus:border-burgundy-600" placeholder="Redacta aquí tu análisis crítico para integrar tu bitácora..."></textarea>
+            
+            <div class="mt-3 flex justify-between items-center">
+              <span class="text-[10px] text-slate-400">Guarda tus reflexiones para poder exportar tu dossier final al final de tus clases.</span>
+              <button onclick="saveProgressionReflection()" class="bg-burgundy-700 hover:bg-burgundy-800 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all shadow-sm">
+                💾 Guardar Reflexión en Bitácora
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPORTADOR GLOBAL DE LA BITÁCORA DEL ALUMNO (EVALUACIÓN FORMATIVA) -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="max-w-xl">
+            <span class="text-amber-400 text-xs font-bold uppercase tracking-wider">Evaluación Formativa y Portafolio Digital</span>
+            <h3 class="text-xl sm:text-2xl font-bold mt-1">Descarga tu Dossier de Conciencia Histórica</h3>
+            <p class="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">
+              Exporta tu bitácora integrada con todas tus reflexiones completas de las 10 progresiones. Podrás imprimir este reporte, mostrarlo a tu docente o integrarlo a tu portafolio de evidencias.
+            </p>
+          </div>
+          <button onclick="exportReport()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-md self-start md:self-center">
+            📥 Descargar Reporte (.txt)
+          </button>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT DE CONTROL, DATOS DE LECTURAS, VIDEOS Y TAREAS -->
+  <script>
+    // BASE DE DATOS DE LAS 10 PROGRESIONES ACADÉMICAS CON SUS VIDEOS ESPECÍFICOS DE YOUTUBE
+    const progresionesData = {
+      1: {
+        num: "I",
+        titulo: "La Lucha Insurgente y los diversos proyectos de emancipación",
+        tema: "Independencia e Insurgencia",
+        lectura: {
+          titulo: "Sentimientos de la Nación de José María Morelos y Pavón (1813)",
+          fuente: "INEHRM / Archivo General de la Nación",
+          resumen: "En este histórico documento, redactado por Morelos para la instalación del Congreso de Anáhuac, se sientan las bases de una soberanía nacional de corte popular. No solo se declara la independencia absoluta de España, sino que se ordena abolir formalmente la esclavitud y el tributo que pesaba sobre las castas e indígenas. Su contenido propone romper la estructura virreinal donde el capital extranjero y peninsular dominaba a los grupos desposeídos."
+        },
+        interactiva: {
+          pregunta: "¿Cuál de las siguientes propuestas de Morelos en los Sentimientos de la Nación ataca directamente la desigualdad socioeconómica heredada de la colonia?",
+          opciones: [
+            { texto: "La abolición absoluta de la esclavitud y de la distinción de castas.", esCorrecta: true },
+            { texto: "El sostenimiento exclusivo de la religión católica.", esCorrecta: false },
+            { texto: "La instauración del 16 de septiembre como fiesta cívica nacional.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Excelente análisis! Al abolir la esclavitud y la distinción de castas, Morelos atacó los pilares legales de la servidumbre y la explotación laboral bajo el capital colonial.",
+          feedbackIncorrecto: "Analiza con más detalle. Esa propuesta responde al ámbito identitario o religioso, pero no subvierte el orden de propiedad o estatus social de explotación."
+        },
+        video: {
+          titulo: "Sentimientos de la Nación | Y hablando de Historia",
+          canal: "SEP - Y hablando de Historia",
+          link: "https://www.youtube.com/watch?v=HGprFRzm2X8"
+        },
+        libreta: "Observa el video recomendado sobre los Sentimientos de la Nación y responde en tu libreta: 1) ¿Por qué la abolición del tributo indígena representaba una pérdida de capital inmensa para la Corona? 2) ¿Cuál es la diferencia sustancial entre la emancipación popular propuesta por Morelos frente al proyecto monárquico de Iturbide?",
+        docente: "En esta progresión, guíe al estudiante a deconstruir la noción de 'Independencia' como un proceso militar homogéneo. Fomente el contraste entre el proyecto popular-insurgente (Morelos/Guerrero) y el proyecto criollo elitista (Iturbide), vinculándolos con quién mantenía el control económico."
+      },
+      2: {
+        num: "II",
+        titulo: "El Liberalismo Mexicano, sus rasgos políticos y expresiones jurídicas",
+        tema: "El Estado Laico",
+        lectura: {
+          titulo: "El origen del Estado-nación mexicano: Las Leyes de Reforma",
+          fuente: "Portal Académico del CCH / UNAM",
+          resumen: "El liberalismo mexicano decimonónico buscó destruir la estructura corporativa heredada del virreinato. Mediante la Constitución de 1857 y las Leyes de Reforma expedidas por el gobierno de Benito Juárez, se eliminaron los fueros eclesiásticos y militares, se creó el registro civil y se estableció la separación Iglesia-Estado. Su propósito económico fundamental era insertar a México en el circuito de comercio capitalista internacional."
+        },
+        interactiva: {
+          pregunta: "¿Qué implicación tuvo la separación de la Iglesia y el Estado para la conformación de la ciudadanía moderna?",
+          opciones: [
+            { texto: "Permitió que el Estado controlara de manera exclusiva los registros de nacimiento, matrimonio y defunción.", esCorrecta: true },
+            { texto: "Garantizó que toda la población mexicana fuera obligada a comprar propiedades individuales.", esCorrecta: false },
+            { texto: "Estableció un sistema monárquico parlamentario regido por leyes religiosas.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Correcto! El control secular de la vida civil arrebató a la Iglesia el control social e ideológico de la población, naciendo la ciudadanía legal.",
+          feedbackIncorrecto: "Vuelve a leer el resumen. El liberalismo buscaba secularizar la sociedad, no obligar por la fuerza a la adquisición inmediata de bienes particulares."
+        },
+        video: {
+          titulo: "Historia es Presente | Juárez y las Leyes de Reforma, proyecto de nación",
+          canal: "Canal Catorce",
+          link: "https://www.youtube.com/watch?v=HEKU4CREFrA"
+        },
+        libreta: "Observa el video de 'Juárez y las Leyes de Reforma' y redacta en tu libreta un análisis de media cuartilla respondiendo: ¿De qué manera la secularización de los bienes y registros impulsó la entrada de México al libre mercado y cómo se refleja la separación Iglesia-Estado en tu vida escolar hoy?",
+        docente: "Invite a la discusión sobre la secularización. Es importante que los alumnos entiendan que el liberalismo no odiaba la fe personal, sino que buscaba restarle poder político y de acumulación de tierras a la Iglesia para dinamizar la circulación de riqueza monetaria."
+      },
+      3: {
+        num: "III",
+        titulo: "Procesos de invasión de Francia y EE. UU. como parte del capitalismo global",
+        tema: "Invasiones e Imperialismo",
+        lectura: {
+          titulo: "La intervención extranjera y el expansionismo imperialista europeo",
+          fuente: "INEHRM / Colección Histórica de México",
+          resumen: "Las agresiones militares de Francia e Inglaterra en el siglo XIX no fueron guerras fortuitas. En pleno apogeo de la Revolución Industrial, las potencias capitalistas buscaron afianzar materias primas, nuevos mercados y asegurar el pago de deudas externas mediante coerción armada. México, devastado fiscalmente, se convirtió en un escenario estratégico para frenar también la hegemonía comercial estadounidense en el continente."
+        },
+        interactiva: {
+          pregunta: "¿Cuál era la motivación económica subyacente de la Intervención Francesa de 1862?",
+          opciones: [
+            { texto: "Cobrar deudas financieras mediante el control de aduanas y frenar la influencia geopolítica de Estados Unidos.", esCorrecta: true },
+            { texto: "Civilizar a la población indígena mediante misiones netamente de corte religioso.", esCorrecta: false },
+            { texto: "Establecer colonias agrarias donde los ciudadanos franceses se dedicaran a la siembra de maíz.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Exacto! El imperialismo financiero del siglo XIX utilizaba las deudas soberanas como excusa de agresión territorial para asegurar recursos y rutas comerciales.",
+          feedbackIncorrecto: "Incorrecto. Las potencias capitalistas no movilizaban flotas de guerra transatlánticas con el fin primario de civilizar o sembrar cultivos de subsistencia."
+        },
+        video: {
+          titulo: "La intervención francesa. Primera parte: el escenario mexicano",
+          canal: "José Manuel Villalpando / Historia de México",
+          link: "https://www.youtube.com/watch?v=U1IUDLtmgvg"
+        },
+        libreta: "Visualiza el video sobre el escenario mexicano de la Intervención Francesa y responde: 1) ¿Qué papel jugó la suspensión del pago de la deuda externa decretado por Juárez en el estallido del conflicto? 2) Explica en un párrafo cómo se relaciona la deuda externa del siglo XIX con el concepto actual de pérdida de soberanía nacional.",
+        docente: "Aborde el tema desde la historia mundial. Explique que la invasión norteamericana o la intervención francesa no fueron problemas de desierto baldío, sino la necesidad geopolítica europea y estadounidense de dominar materias primas, aduanas y rutas comerciales transoceánicas."
+      },
+      4: {
+        num: "IV",
+        titulo: "Luchas obreras, campesinas y femeninas por derechos y sufragio en el siglo XIX",
+        tema: "Movimientos Sociales",
+        lectura: {
+          titulo: "El mundo del trabajo: Orígenes de la huelga obrera y la lucha femenina",
+          fuente: "INAH / Memoria de las Huelgas Mexicanas",
+          resumen: "Durante el siglo XIX, los campesinos de la República Mexicana despojados de sus tierras, los obreros fabriles sometidos a jornadas inhumanas, y las mujeres marginadas legalmente comenzaron su organización. Nacen periódicos feministas locales en Yucatán como 'La Siempreviva' liderado por Rita Cetina Gutiérrez, y los primeros gremios de apoyo mutuo que combatieron la desprotección laboral de la burguesía."
+        },
+        interactiva: {
+          pregunta: "Por qué las primeras publicaciones de mujeres a finales del siglo XIX exigían con tanto fervor la educación científica e industrial?",
+          options: [], // fallback structured below in options
+          opciones: [
+            { texto: "Para lograr la emancipación económica de la mujer y su salida del tutelaje masculino.", esCorrecta: true },
+            { texto: "Para poder dedicarse únicamente a las tareas domésticas bajo un enfoque científico.", esCorrecta: false },
+            { texto: "Para defender que las mujeres no debían participar en la vida política del país.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Impecable! La educación profesional e industrial dotaba de independencia laboral a las mujeres, permitiéndoles sustentarse y salir de la subordinación legal patriarcal.",
+          feedbackIncorrecto: "No, las escritoras y pensadoras como Rita Cetina luchaban contra la exclusión y el aislamiento doméstico imperante en las leyes civiles."
+        },
+        video: {
+          titulo: "JóvenesEnTv | Bachillerato | Conciencia histórica | Exclusión femenina",
+          canal: "SEP / Jóvenes en TV",
+          link: "https://www.youtube.com/watch?v=M-vsbEzXbJU"
+        },
+        libreta: "Mira el video oficial recomendado de 'Exclusión femenina' y escribe una reflexión crítica en tu libreta: ¿De qué manera la huelga laboral y el derecho constitucional al voto femenino transformaron la participación democrática real de las mujeres en tu propia comunidad?",
+        docente: "Ponga énfasis en el rescate de fuentes documentales hechas por mujeres periodistas del siglo XIX. Evite centrar la historia laboral únicamente en figuras masculinas, destacando el rol organizativo y sufragista de las intelectuales mexicanas de la época."
+      },
+      5: {
+        num: "V",
+        titulo: "Vertientes conservadoras del siglo XIX: Monarquía, Centralismo y Tradición",
+        tema: "Pensamiento Conservador",
+        lectura: {
+          titulo: "El ideario político de Lucas Alamán y el centralismo mexicano",
+          fuente: "Biblioteca Jurídica de la UNAM / Historiografía Mexicana",
+          resumen: "Lucas Alamán planteó que el orden institucional era prerrequisito indispensable para el florecimiento económico. Las vertientes conservadoras rechazaban la imitación ciega de las leyes estadounidenses. Abogaban por una organización centralizada y fuerte, que mantuviera la cohesión social mediante la moral de la fe católica y el respeto estricto a las jerarquías frente al individualismo liberal que atomizaba a las comunidades."
+        },
+        interactiva: {
+          pregunta: "¿Cuál era el principal argumento conservador en favor del centralismo político sobre el federalismo?",
+          opciones: [
+            { texto: "La herencia cultural novohispana y la fragilidad institucional requerían un control unificado y centralizado para evitar el desmembramiento nacional.", esCorrecta: true },
+            { texto: "El deseo de que los estados se anexaran a la corona británica de inmediato.", esCorrecta: false },
+            { texto: "La abolición completa del comercio marítimo y de la banca de desarrollo.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Correcto! Alamán y la corriente centralista veían en el desorden federalista el riesgo de la anarquía y la anexión del territorio nacional ante el expansionismo extranjero.",
+          feedbackIncorrecto: "Los conservadores mexicanos no abogaban por someterse a Inglaterra, sino que buscaban un modelo central robusto capaz de consolidar la soberanía frente al caos reinante."
+        },
+        video: {
+          titulo: "Los primeros gobiernos de México: Federalistas y Centralistas",
+          canal: "Los Textos de la Escuela / Historia de México",
+          link: "https://www.youtube.com/watch?v=F8fBjmjwDDI"
+        },
+        libreta: "Mira el video sobre Federalistas y Centralistas, y dibuja en tu libreta una tabla comparativa sobre: 1) Las diferencias de poder entre el Presidente de la República y los Gobernadores en ambos modelos. 2) Da tu opinión crítica sobre si consideras que hoy en día México funciona de forma realmente Federalista o si el poder económico sigue centralizado.",
+        docente: "Es crucial analizar críticamente el proyecto conservador. Evite caricaturizarlos como 'traidores de la patria'. Muestre que Lucas Alamán fomentó la industria nacional (Banco de Avío), y que su debate con los liberales sobre la viabilidad del libre mercado sigue vigente."
+      },
+      6: {
+        num: "VI",
+        titulo: "Desamortización de bienes de comunidades originarias y el deslinde de tierras",
+        tema: "Despojo Agrario",
+        lectura: {
+          titulo: "La tribu yaqui y la defensa de sus derechos territoriales",
+          fuente: "Instituto Nacional de Antropología e Historia (INAH)",
+          resumen: "La Ley Lerdo desamortizó las corporaciones civiles y eclesiásticas. Para los pueblos indígenas, esto significó la prohibición de poseer tierras de manera colectiva o ejidal. Bajo el Porfiriato, el deslinde efectuado por Compañías Deslindadoras aliadas al capital transnacional estadounidense declaró 'baldíos' millones de hectáreas colectivas en Sonora y Chihuahua, provocando cruentas guerras de resistencia (Guerra del Yaqui) y deportaciones masivas que rayaron en el genocidio."
+        },
+        interactiva: {
+          pregunta: "¿Cómo afectó de manera práctica e histórica la desamortización a la tenencia comunal indígena de la tierra?",
+          opciones: [
+            { texto: "Forzó la parcelación individual de las tierras comunitarias, lo que las expuso a que terratenientes y deslindadoras las absorbieran legalmente.", esCorrecta: true },
+            { texto: "Aumentó los ingresos agrícolas de los ejidos indígenas y los exentó de impuestos federales.", esCorrecta: false },
+            { texto: "Evitó de forma permanente que los yaquis y mayos fueran despojados por inversionistas norteamericanos.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Exacto! El despojo de tierras de tenencia ejidal y colectiva fue legalizado por las desamortizaciones de corte liberal-individualista de finales del siglo XIX.",
+          feedbackIncorrecto: "Al contrario de esto, las leyes liberales y porfirianas provocaron la privatización y destrucción sistemática de las asambleas ejidales tradicionales."
+        },
+        video: {
+          titulo: "La Santa de Cabora: Guerra del Yaqui (Historia de la resistencia indígena)",
+          canal: "Canal INAH",
+          link: "https://www.youtube.com/watch?v=a0OzlzZgey4"
+        },
+        libreta: "Observa el video de la Guerra del Yaqui del INAH y responde en tu libreta: 1) ¿Qué papel jugaba la Santa de Cabora (Teresa Urrea) en la unificación y rebelión espiritual/militar de los pueblos del norte? 2) Analiza de qué manera el concepto de 'modernización agroexportadora' justificó el etnocidio y despojo yaqui en Sonora.",
+        docente: "Establezca la conexión directa entre la Ley Lerdo (reforma liberal) y su desembocadura trágica en el Porfiriato. Ayude a los estudiantes a comprender cómo las leyes de corte agrario pensadas para crear 'pequeños propietarios' terminaron favoreciendo el latifundismo oligárquico."
+      },
+      7: {
+        num: "VII",
+        titulo: "El Porfiriato: Inequidades sociales, crecimiento económico y violencia de Estado",
+        tema: "Contradicciones del Porfiriato",
+        lectura: {
+          titulo: "México Bárbaro: Valle Nacional y la explotación del porfiriato",
+          fuente: "John Kenneth Turner / Archivos Históricos",
+          resumen: "El porfiriato insertó a México plenamente en el orden financiero mundial a través de ferrocarriles, minas y haciendas agroexportadoras de henequén, tabaco y caucho. No obstante, esta modernización a costa de la explotación laboral extrema (esclavitud moderna documentada por Turner) y la ausencia de libertades políticas democráticas generaron el caldo de cultivo para el estallido revolucionario."
+        },
+        interactiva: {
+          pregunta: "¿Qué contradicción estructural caracterizó el modelo de crecimiento económico del porfiriato?",
+          opciones: [
+            { texto: "Un alto crecimiento industrial y ferroviario financiado por capital extranjero a costa del despojo campesino e infrahumanas condiciones laborales.", esCorrecta: true },
+            { texto: "La prohibición absoluta de exportar materias primas hacia Europa y Estados Unidos.", esCorrecta: false },
+            { texto: "La dotación masiva de ejidos colectivos a toda la población obrera mexicana.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Correcto! El porfiriato basó su competitividad global en mano de obra semiesclava y barata y la entrega total de recursos naturales a consorcios petroleros y mineros.",
+          feedbackIncorrecto: "Falso. El porfiriato promovió de manera activa las exportaciones primarias y combatió la propiedad social colectiva agraria de los ejidos."
+        },
+        video: {
+          titulo: "Historia del pueblo mexicano - El mundo del trabajo y los orígenes del movimiento obrero",
+          canal: "Canal Once",
+          link: "https://www.youtube.com/watch?v=IN5ZX1WgdnE"
+        },
+        libreta: "Observa el video oficial de 'Historia del pueblo mexicano' y responde en tu libreta: 1) ¿Qué eran las Tiendas de Raya y de qué manera amarraban de forma hereditaria a las familias trabajadoras a perpetuidad? 2) Elabora una tabla comparativa T entre 'Modernización Técnica' y 'Exclusión Social' del Porfiriato.",
+        docente: "Evite visiones simplistas que solo satanizan o glorifican el Porfiriato. Exponga los datos del PIB, la instalación de miles de kilómetros de vías de tren, pero confronte inmediatamente este crecimiento contra las huelgas de Cananea y Río Blanco."
+      },
+      8: {
+        num: "VIII",
+        titulo: "Causas y factores de la Revolución Mexicana y el legado de sus facciones",
+        tema: "La Revolución Mexicana",
+        lectura: {
+          titulo: "El Plan de Ayala (1911) y la reforma social de la Revolución",
+          fuente: "INEHRM / Repositorio Nacional",
+          resumen: "La huelgas obreras de Cananea y Río Blanco, sumadas al fraude de la sucesión presidencial de 1910, hicieron detonar el movimiento revolucionario. Las distintas facciones encarnaban proyectos de nación divergentes: Francisco I. Madero buscaba democracia liberal y electoral, Emiliano Zapata exigía la restitución inmediata de las tierras ejidales robadas, y Venustiano Carranza pretendía el restablecimiento del orden constitucional."
+        },
+        interactiva: {
+          pregunta: "¿Qué diferencia sustancial existía entre el proyecto revolucionario de Francisco I. Madero y el de Emiliano Zapata?",
+          opciones: [
+            { texto: "Madero priorizaba la reforma política democrática y electoral, mientras que Zapata ponía al centro la restitución de la propiedad social de las tierras comunales.", esCorrecta: true },
+            { texto: "Madero buscaba imponer un imperio europeo católico en el centro del país y Zapata la descentralización del ferrocarril.", esCorrecta: false },
+            { texto: "Ambos querían suspender indefinidamente la Constitución de 1857 y disolver el Congreso.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Excelente! Esa divergencia ideológica causó la ruptura entre ambas facciones y dio pie al inicio del zapatismo bajo el Plan de Ayala.",
+          feedbackIncorrecto: "Analiza el origen agrario de la lucha sureña de Morelos frente al origen terrateniente norteño de la familia de Francisco I. Madero."
+        },
+        video: {
+          titulo: "Conmemoraciones - Plan de Guadalupe: El triunfo de la Revolución",
+          canal: "Canal Once",
+          link: "https://www.youtube.com/watch?v=0tHeDf5JE5Q"
+        },
+        libreta: "Observa el video del Plan de Guadalupe y responde: 1) ¿Por qué la lucha constitucionalista de Carranza chocó con las demandas sociales de Villa y Zapata? 2) Explica por qué el Congreso Constituyente de 1917 tuvo que integrar demandas campesinas y obreras para que el país lograra la paz institucional.",
+        docente: "Promueva que los alumnos ubiquen la complejidad de la Revolución Mexicana. No existió una sola revolución unificada, sino múltiples proyectos regionales (maderistas, villistas, zapatistas y constitucionalistas) que chocaron militar e ideológicamente."
+      },
+      9: {
+        num: "IX",
+        titulo: "El Contexto Global de la Revolución: Revolución Rusa y Primera Guerra Mundial",
+        tema: "Coyuntura Internacional",
+        lectura: {
+          titulo: "México en la mira de las potencias mundiales en 1917",
+          fuente: "INEHRM / Artículos de Relaciones Exteriores",
+          resumen: "El estallido revolucionario mexicano coincidió con la quiebra geopolítica internacional de la Gran Guerra (1914-1918) y la revolución bolchevique de 1917. En este contexto, el espionaje alemán mediante el Telegrama Zimmermann buscó arrastrar a México a un enfrentamiento directo con Estados Unidos. Esta coyuntura brindó al presidente Venustiano Carranza el margen para promulgar una Constitución con corte de vanguardia social sin intromisión imperial."
+        },
+        interactiva: {
+          pregunta: "¿Qué pretendía la diplomacia de Alemania con el envío del Telegrama Zimmermann al gobierno de Venustiano Carranza en 1917?",
+          opciones: [
+            { texto: "Ofrecer financiamiento y ayuda militar para recuperar el territorio perdido de 1847 a cambio de abrir un frente contra EE. UU. en América.", esCorrecta: true },
+            { texto: "Obligar a México a entregar todos sus campos de petróleo de forma gratuita a la corona británica.", esCorrecta: false },
+            { texto: "Exigir que se nacionalizara de inmediato la banca nacional bajo el modelo bolchevique.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Exacto! El Telegrama Zimmermann fue interceptado por la inteligencia británica, acelerando la entrada de EE. UU. a la guerra mundial y la política neutral de Carranza.",
+          feedbackIncorrecto: "Falso. El telegrama buscaba una alianza militar militarizada con Alemania y la neutralización táctica del poder bélico estadounidense."
+        },
+        video: {
+          titulo: "MÉXICO en la PRIMERA GUERRA MUNDIAL | El Telegrama Zimmermann",
+          canal: "Crónicas de Historia Documental",
+          link: "https://www.youtube.com/watch?v=u5-b-B8h-YA"
+        },
+        libreta: "Observa el video sobre el Telegrama Zimmermann y escribe en tu libreta: 1) ¿Cuáles eran los territorios que Alemania prometía 'ayudar' a recuperar a México y por qué Carranza rechazó racionalmente la oferta? 2) Analiza de qué manera la neutralidad geopolítica de México protegió la soberanía de la naciente Constitución de 1917.",
+        docente: "Vincula la historia nacional con la historia global. Ayude a los jóvenes a entender que la Constitución de 1917 fue redactada bajo la sombra de la Primera Guerra Mundial, lo que explica la firmeza de las leyes sobre los bienes de la nación frente a inversionistas."
+      },
+      10: {
+        num: "X",
+        titulo: "La Posrevolución y el Cardenismo: Distribución agraria y soberanía nacional",
+        tema: "El Cardenismo",
+        lectura: {
+          titulo: "El cardenismo revisado: la administración pública y la expropiación",
+          fuente: "Revista Mexicana de Sociología / UNAM",
+          resumen: "El gobierno de Lázaro Cárdenas (1934-1940) representó la materialización definitiva de las demandas sociales revolucionarias del artículo 27 y 123. A través de la reforma agraria masiva (creación del ejido colectivo como motor de desarrollo agrario), la fundación de Normales Rurales para erradicar el analfabetismo y la expropiación petrolera de 1938, el Estado mexicano asumió el control del excedente capitalista para redistribuirlo socialmente."
+        },
+        interactiva: {
+          pregunta: "Qué papel estratégico jugó la expropiación petrolera de 1938 para el modelo económico nacional de posguerra?",
+          opciones: [
+            { texto: "Permitió que los recursos derivados del hidrocarburo financiaran la industrialización, escuelas públicas e infraestructura del Estado mexicano.", esCorrecta: true },
+            { texto: "Entregó el control del gas natural a empresas transatlánticas con sede en el Océano Índico.", esCorrecta: false },
+            { texto: "Suspendió permanentemente la educación laica en el medio rural para restaurar fueros monárquicos.", esCorrecta: false }
+          ],
+          feedbackCorrecto: "¡Totalmente correcto! Al nacionalizar el petróleo, Lázaro Cárdenas creó el pilar soberano sobre el cual se edificó el crecimiento del país a mediados del siglo XX.",
+          feedbackIncorrecto: "Incorrecto. El cardenismo consolidó la educación laica de corte socialista en el agro y consolidó el control y soberanía energética estatal."
+        },
+        video: {
+          titulo: "Lázaro Cárdenas: ¿Revolucionario o Radical?",
+          canal: "Canal Once / Masiosare Historia",
+          link: "https://www.youtube.com/watch?v=925FWeITj0c"
+        },
+        libreta: "Visualiza el video sobre Lázaro Cárdenas y escribe en tu libreta los vestigios del Cardenismo en tu propia entidad federativa, municipio o localidad (busca ejidos con nombres cardenistas, escuelas técnicas, presas o normales agrarias rurales fundadas en ese período) y describe su impacto actual.",
+        docente: "Promueva la indagación local de historia oral y documental del entorno. Con el cardenismo se materializa la NEM: vincular el conocimiento abstracto con la transformación real agraria, obrera e institucional del municipio de residencia del estudiante."
+      }
+    };
+
+    // ESTADO GENERAL DE LA PLATAFORMA
+    const state = {
+      activeProgression: 1,
+      reflections: {
+        1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "", 10: ""
+      },
+      interactiveAnswers: {
+        1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null
+      }
+    };
+
+    // ALERTA PERSONALIZADA
+    function notify(text) {
+      const alertBox = document.getElementById('custom-alert');
+      const alertText = document.getElementById('alert-text');
+      alertText.innerText = text;
+      alertBox.classList.remove('hidden');
+      setTimeout(() => {
+        alertBox.classList.add('hidden');
+      }, 4000);
+    }
+
+    // INTERRUPTOR DE MODO: DOCENTE / ESTUDIANTE
+    function switchMode(mode) {
+      const btnEst = document.getElementById('btn-estudiante');
+      const btnDoc = document.getElementById('btn-docente');
+      const secEst = document.getElementById('seccion-estudiante');
+      const secDoc = document.getElementById('seccion-docente');
+
+      if (mode === 'docente') {
+        btnDoc.classList.add('bg-burgundy-600', 'text-white', 'shadow-md');
+        btnDoc.classList.remove('text-burgundy-300');
+        btnEst.classList.remove('bg-burgundy-600', 'text-white', 'shadow-md');
+        btnEst.classList.add('text-burgundy-300');
+        secDoc.classList.remove('hidden');
+        secEst.classList.add('hidden');
+        notify("Has ingresado a la Guía Metodológica para Docentes.");
+        renderGuiaDocente();
+      } else {
+        btnEst.classList.add('bg-burgundy-600', 'text-white', 'shadow-md');
+        btnEst.classList.remove('text-burgundy-300');
+        btnDoc.classList.remove('bg-burgundy-600', 'text-white', 'shadow-md');
+        btnDoc.classList.add('text-burgundy-300');
+        secEst.classList.remove('hidden');
+        secDoc.classList.add('hidden');
+        notify("Has regresado al portal de trabajo del estudiante.");
+      }
+    }
+
+    // SELECCIONAR UNA PROGRESIÓN (1 AL 10)
+    function selectProgression(id) {
+      state.activeProgression = id;
+
+      // Actualizar clases de los botones de navegación lateral
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.className = "nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left text-slate-600 hover:bg-slate-50";
+        const iconSpan = btn.querySelector('span');
+        iconSpan.className = "flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-2xs font-bold mt-0.5";
+      });
+
+      const activeBtn = document.getElementById(`nav-prog-${id}`);
+      activeBtn.className = "nav-item w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left bg-burgundy-50 text-burgundy-900 font-semibold border-l-4 border-burgundy-600";
+      const activeIcon = activeBtn.querySelector('span');
+      activeIcon.className = "flex items-center justify-center w-5 h-5 rounded-full bg-burgundy-600 text-white text-2xs font-bold mt-0.5";
+
+      // Renderizar los datos de la progresión activa
+      renderActiveProgression();
+      
+      // Si estamos en modo docente, actualizar la guía docente también
+      if (!document.getElementById('seccion-docente').classList.contains('hidden')) {
+        renderGuiaDocente();
+      }
+
+      notify(`Cargando Progresión Académica ${id}`);
+    }
+
+    // RENDERIZAR DATOS EN LA PANTALLA
+    function renderActiveProgression() {
+      const prog = progresionesData[state.activeProgression];
+
+      // Cabecera
+      document.getElementById('label-num-progresion').innerText = `Progresión ${prog.num}`;
+      document.getElementById('titulo-progresion').innerText = prog.titulo;
+      document.getElementById('badge-tema').innerText = prog.tema;
+
+      // Lectura
+      document.getElementById('lectura-titulo').innerText = prog.lectura.titulo;
+      document.getElementById('lectura-fuente').innerText = `Fuente académica: ${prog.lectura.fuente}`;
+      document.getElementById('lectura-resumen').innerText = prog.lectura.resumen;
+
+      // Pregunta Interactiva
+      document.getElementById('interactiva-pregunta').innerText = prog.interactiva.pregunta;
+      
+      const opcionesBox = document.getElementById('interactiva-opciones');
+      opcionesBox.innerHTML = '';
+      prog.interactiva.opciones.forEach((opc, idx) => {
+        opcionesBox.innerHTML += `
+          <button onclick="checkAnswer(${idx})" class="w-full text-left bg-white border border-slate-200 hover:border-burgundy-500 hover:bg-slate-50 transition-all p-3 text-xs rounded-xl font-medium text-slate-700">
+            📌 ${opc.texto}
+          </button>
+        `;
+      });
+
+      // Ocultar feedback si no se ha contestado
+      const feedbackBox = document.getElementById('interactiva-feedback');
+      feedbackBox.classList.add('hidden');
+
+      // Video y Canal Específicos
+      document.getElementById('video-titulo').innerText = prog.video.titulo;
+      document.getElementById('video-canal').innerText = prog.video.canal;
+      document.getElementById('video-link').href = prog.video.link;
+
+      // Libreta
+      document.getElementById('libreta-instruccion').innerText = prog.libreta;
+
+      // Cargar reflexión escrita previamente por el alumno
+      document.getElementById('estudiante-input-reflexion').value = state.reflections[state.activeProgression] || "";
+    }
+
+    // VALIDACIÓN INTERACTIVA DE PREGUNTAS
+    function checkAnswer(idx) {
+      const prog = progresionesData[state.activeProgression];
+      const selectedOption = prog.interactiva.opciones[idx];
+      const feedbackBox = document.getElementById('interactiva-feedback');
+
+      state.interactiveAnswers[state.activeProgression] = selectedOption.texto;
+
+      feedbackBox.classList.remove('hidden');
+      if (selectedOption.esCorrecta) {
+        feedbackBox.className = "mt-3 p-3 bg-green-50 text-xs rounded-xl border border-green-200 text-green-900";
+        feedbackBox.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${prog.interactiva.feedbackCorrecto}`;
+      } else {
+        feedbackBox.className = "mt-3 p-3 bg-red-50 text-xs rounded-xl border border-red-200 text-red-900";
+        feedbackBox.innerHTML = `<strong>❌ Necesita reflexión técnica:</strong><br>${prog.interactiva.feedbackIncorrecto}`;
+      }
+    }
+
+    // GUARDAR REFLEXIÓN
+    function saveProgressionReflection() {
+      const text = document.getElementById('estudiante-input-reflexion').value.trim();
+      if (!text) {
+        notify("Escribe una reflexión antes de guardarla en tu bitácora.");
+        return;
+      }
+      state.reflections[state.activeProgression] = text;
+      notify("✅ Tu reflexión ha sido guardada en la base de datos temporal con éxito.");
+    }
+
+    // RENDERIZAR LA GUÍA DOCENTE SEGÚN LA PROGRESIÓN ACTIVA
+    function renderGuiaDocente() {
+      const prog = progresionesData[state.activeProgression];
+      const guiaBox = document.getElementById('docente-guia-progresiones');
+      guiaBox.innerHTML = `
+        <div class="p-5 bg-burgundy-50 border-l-4 border-burgundy-700 rounded-r-xl">
+          <h4 class="font-bold text-slate-900 mb-2">Progresión ${prog.num}: ${prog.titulo}</h4>
+          <p class="text-slate-700 leading-relaxed italic mb-3">"${prog.docente}"</p>
+          <div class="mt-2 text-2xs text-slate-500 font-bold uppercase tracking-wider">
+            Recomendación metodológica de la Nueva Escuela Mexicana para el aula híbrida.
+          </div>
+        </div>
+      `;
+    }
+
+    // EXPORTACIÓN DE LA BITÁCORA DEL ALUMNO (EVALUACIÓN FORMATIVA)
+    function exportReport() {
+      let docContent = "=========================================================\n";
+      docContent += "   DOSSIER INTEGRADOR DE CONCIENCIA HISTÓRICA II\n";
+      docContent += "=========================================================\n";
+      docContent += "Semestre: Quinto Semestre de Bachillerato\n";
+      docContent += "Materia: Conciencia Histórica II • México durante el expansionismo capitalista\n";
+      docContent += "Fecha de generación de la Bitácora: " + new Date().toLocaleDateString() + "\n\n";
+
+      docContent += "Sujeto bajo los postulados formativos de la Nueva Escuela Mexicana (NEM).\n";
+      docContent += "Conserva este reporte impreso para tu portafolio de evidencias.\n\n";
+
+      for (let i = 1; i <= 10; i++) {
+        const prog = progresionesData[i];
+        docContent += `---------------------------------------------------------\n`;
+        docContent += `PROGRESIÓN ${prog.num}: ${prog.titulo}\n`;
+        docContent += `---------------------------------------------------------\n`;
+        docContent += `Tema: ${prog.tema}\n`;
+        docContent += `Lectura analizada: ${prog.lectura.titulo}\n`;
+        
+        const answer = state.interactiveAnswers[i];
+        docContent += `Tu respuesta al reto interactivo:\n   "${answer || 'No contestado en plataforma'}"\n\n`;
+        
+        const reflection = state.reflections[i];
+        docContent += `Tu análisis crítico (Conexión con tu Presente):\n   "${reflection || 'No se ingresó redacción en esta progresión.'}"\n\n`;
+        docContent += `Actividad física de Libreta a revisar por el docente:\n   [${prog.libreta}]\n\n\n`;
+      }
+
+      docContent += "=========================================================\n";
+      docContent += "FIN DE LA BITÁCORA INTERACTIVA DIGITAL\n";
+      docContent += "Aprender de la historia para transformar el presente.\n";
+      docContent += "=========================================================\n";
+
+      // Utilizando simulación de descarga compatible
+      const blob = new Blob([docContent], { type: 'text/plain;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = "Reporte_Conciencia_Historica_II_Bachillerato.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      notify("📥 Tu reporte académico se ha generado y descargado correctamente.");
+    }
+
+    // Inicializar el portal al cargar
+    window.onload = function() {
+      renderActiveProgression();
+    };
+
+  </script>
+</body>
+</html>
